@@ -1,0 +1,74 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Sale {
+  id          Int       @default(autoincrement()) @id
+  title       String
+  saleEnds    DateTime  @map(name: "sale_ends")
+  isPublished Boolean   @default(false) @map(name: "is_published")
+  isDeleted   Boolean   @default(false) @map(name: "is_deleted")
+  createdAt   DateTime  @default(now()) @map(name: "created_at")
+  updatedAt   DateTime  @updatedAt @map(name: "updated_at")
+  ebooks      EbookOnSale[]
+}
+
+model Ebook {
+  id             Int        @default(autoincrement()) @id
+  title          String
+  imageUrl       String?    @map(name: "image_url")
+  authors        String?
+  publisher      String?
+  comment        String?
+  format         Format     @relation(fields: [formatId], references: [id])
+  formatId       Int
+  category       Category   @relation(fields: [categoryId], references: [id])
+  categoryId     Int
+  amazonId       String     @unique @map(name: "amazon_id")
+  rentaId        String?    @map(name: "renta_id")
+  cmoaId         String?    @map(name: "cmoa_id")
+  dmmId          String?    @map(name: "dmm_id")
+  isRecommended  Boolean    @default(false) @map(name: "is_recommended")
+  isDeleted      Boolean    @default(false) @map(name: "is_deleted")
+  price          Int?
+  points         Int?
+  createdAt      DateTime   @default(now()) @map(name: "created_at")
+  updatedAt      DateTime   @updatedAt @map(name: "updated_at")
+  sales          EbookOnSale[]
+}
+
+model EbookOnSale {
+  sale       Sale      @relation(fields: [saleId], references: [id])
+  saleId     Int // relation scalar field (used in the `@relation` attribute above)
+  ebook      Ebook     @relation(fields: [ebookId], references: [id])
+  ebookId    Int // relation scalar field (used in the `@relation` attribute above)
+  createdAt  DateTime  @default(now()) @map(name: "created_at")
+
+  @@id([saleId, ebookId])
+}
+
+model Format {
+  id         Int       @default(autoincrement()) @id
+  name       String
+  slug       String    @unique
+  createdAt  DateTime  @default(now()) @map(name: "created_at")
+  updatedAt  DateTime  @updatedAt @map(name: "updated_at")
+  ebooks     Ebook[]
+}
+
+model Category {
+  id         Int       @default(autoincrement()) @id
+  name       String
+  slug       String    @unique
+  createdAt  DateTime  @default(now()) @map(name: "created_at")
+  updatedAt  DateTime  @updatedAt @map(name: "updated_at")
+  ebooks     Ebook[]
+}
