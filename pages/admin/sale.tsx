@@ -12,7 +12,7 @@ import ListSale from "../../components/sale/ListSale";
 import { Ebook, Sale } from "../../interfaces";
 
 // util
-import basicAuthCheck from "../../util/basicAuthCheck";
+import basicAuthCheck from "../../utils/basicAuthCheck";
 
 const AdminSalePage = ({
   allEbooks,

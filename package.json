@@ -19,6 +19,7 @@
     "axios": "^0.21.1",
     "date-fns": "^2.11.1",
     "dmm.js": "^0.1.0",
+    "ga-4-react": "^0.1.281",
     "gray-matter": "^4.0.2",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.33",
