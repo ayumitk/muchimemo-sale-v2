@@ -1,11 +1,12 @@
 {
-  "name": "my-app",
+  "name": "muchimemo-sale-v2",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "start": "next start",
     "build": "next build",
-    "start": "next start"
+    "postbuild": "next-sitemap"
   },
   "dependencies": {
     "@babel/core": "^7.0.0-0",
@@ -37,6 +38,7 @@
   "devDependencies": {
     "@types/node": "^16.7.1",
     "@types/react": "^17.0.19",
+    "next-sitemap": "^1.6.164",
     "prisma": "^2.29.1",
     "typescript": "^4.3.5"
   }
