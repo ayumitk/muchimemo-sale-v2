@@ -4,7 +4,7 @@ import moment from "moment";
 import "moment-timezone";
 
 // types
-import { Ebook, Sale } from "../../interfaces";
+import { Ebook } from "../../interfaces";
 
 const ConfirmSale = (props: {
   open: boolean;

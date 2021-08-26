@@ -11,8 +11,8 @@ import EditSale from "./EditSale";
 import DeleteSale from "./DeleteSale";
 // import UpdateEbook from "./UpdateEbook";
 
-const ListSale = (props: { sales: Sale[] }) => {
-  const { sales } = props;
+const ListSale = (props: { sales: Sale[]; ebooks: Ebook[] }) => {
+  const { sales, ebooks } = props;
 
   return (
     <>
@@ -97,7 +97,7 @@ const ListSale = (props: { sales: Sale[] }) => {
                   {`${sale.isPublished ? "公開" : "下書き"}`}
                 </td>
                 <td className="px-6 py-4 text-sm">
-                  <EditSale sale={sale} />
+                  <EditSale sale={sale} ebooks={ebooks} />
                 </td>
                 <td className="px-6 py-4 text-sm">
                   <DeleteSale sale={sale} />

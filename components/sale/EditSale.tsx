@@ -6,8 +6,8 @@ import { ExclamationCircleIcon } from "@heroicons/react/solid";
 // types
 import { Ebook, Sale } from "../../interfaces";
 
-const EditSale = (props: { sale: Sale }) => {
-  const { sale } = props;
+const EditSale = (props: { sale: Sale; ebooks: Ebook[] }) => {
+  const { sale, ebooks } = props;
 
   const [open, setOpen] = useState(false);
   const cancelButtonRef = useRef(null);
@@ -18,65 +18,67 @@ const EditSale = (props: { sale: Sale }) => {
     setOpen(true);
   };
 
-  // const [additionalSaleEbooks, setAdditionalSaleEbooks] = useState("");
-  // const handleChangeTextarea = (e) => {
-  //   if (e.target.value === "") {
-  //     setAdditionalSaleEbooks([]);
-  //   } else {
-  //     setAdditionalSaleEbooks(e.target.value.split("\n"));
-  //   }
-  // };
+  const [additionalSaleEbooks, setAdditionalSaleEbooks] = useState<string[]>(
+    []
+  );
+  const handleChangeTextarea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    if (e.target.value === "") {
+      setAdditionalSaleEbooks([]);
+    } else {
+      setAdditionalSaleEbooks(e.target.value.split("\n"));
+    }
+  };
 
-  // const [uncreatedAsin, setUncreatedAsin] = useState([]);
+  const [uncreatedAsin, setUncreatedAsin] = useState<string[]>([]);
 
-  // const addSaleEbooks = async (e) => {
-  //   e.preventDefault();
-  //   let uncreatedResult = [];
-  //   if (additionalSaleEbooks.length > 0) {
-  //     setUncreatedAsin([]);
-  //     uncreatedResult = [];
-  //     additionalSaleEbooks.forEach((asin) => {
-  //       if (!ebooks.some((ebook) => ebook.amazon_id === asin)) {
-  //         uncreatedResult.push(asin);
-  //         setUncreatedAsin(uncreatedResult);
-  //         // setUncreatedAsin((prevState) => [...prevState, asin]);
-  //       }
-  //     });
+  const addSaleEbooks = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    let uncreatedResult: string[] = [];
+    if (additionalSaleEbooks.length > 0) {
+      setUncreatedAsin([]);
+      uncreatedResult = [];
+      additionalSaleEbooks.forEach((asin) => {
+        if (!ebooks.some((ebook) => ebook.amazonId === asin)) {
+          uncreatedResult.push(asin);
+          setUncreatedAsin(uncreatedResult);
+          // setUncreatedAsin((prevState) => [...prevState, asin]);
+        }
+      });
 
-  //     // create ebook - sale relation row
-  //     try {
-  //       // sale ebooks array -> asin array
-  //       let saleEbooksAsin = [];
-  //       saleEbooks.forEach((ebook) => {
-  //         saleEbooksAsin.push(ebook.amazon_id);
-  //       });
+      // create ebook - sale relation row
+      try {
+        // sale ebooks array -> asin array
+        let saleEbooksAsin: string[] = [];
+        saleDetails.ebooks.forEach((item) => {
+          saleEbooksAsin.push(item.ebook.amazonId);
+        });
 
-  //       // remove duplicated asin
-  //       const uniqueAdditionalAsin = additionalSaleEbooks.filter(
-  //         (asin) => !saleEbooksAsin.includes(asin)
-  //       );
+        // remove duplicated asin
+        const uniqueAdditionalAsin = additionalSaleEbooks.filter(
+          (asin) => !saleEbooksAsin.includes(asin)
+        );
 
-  //       // asin array -> ebook_id array
-  //       const ebookIdArr = ebooks.filter((ebook) =>
-  //         uniqueAdditionalAsin.includes(ebook.amazon_id)
-  //       );
+        // asin array -> ebook_id array
+        const ebookIdArr = ebooks.filter((ebook) =>
+          uniqueAdditionalAsin.includes(ebook.amazonId)
+        );
 
-  //       // create ebook-sale relation row
-  //       await ebookIdArr.forEach((ebook) => {
-  //         const ebookBody = { ebook_id: ebook.id, sale_id: saleDetails.id };
-  //         fetch("/ebookSale", {
-  //           method: "POST",
-  //           headers: { "Content-Type": "application/json" },
-  //           body: JSON.stringify(ebookBody),
-  //         });
-  //       });
-  //     } catch (err) {
-  //       console.error(err.message);
-  //     } finally {
-  //       getSaleEbooks(saleDetails.id);
-  //     }
-  //   }
-  // };
+        // create ebook-sale relation row
+        await ebookIdArr.forEach((ebook) => {
+          const body = { ebookId: ebook.id, saleId: saleDetails.id };
+          fetch("/api/ebookOnSale/create", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+          });
+        });
+      } catch (err: any) {
+        console.error(err.message);
+      } finally {
+        // getSaleEbooks(saleDetails.id);
+      }
+    }
+  };
 
   const deleteSaleEbook = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -250,7 +252,7 @@ const EditSale = (props: { sale: Sale }) => {
                           </div>
                         </div>
 
-                        {/* <div className="mb-5">
+                        <div className="mb-5">
                           <label
                             htmlFor="additionalSaleEbooks"
                             className="block text-sm font-medium text-gray-700"
@@ -282,7 +284,7 @@ const EditSale = (props: { sale: Sale }) => {
                               対象作品を追加
                             </button>
                           </div>
-                        </div> */}
+                        </div>
 
                         <fieldset className="mb-5">
                           <legend className="text-sm font-medium text-gray-700">

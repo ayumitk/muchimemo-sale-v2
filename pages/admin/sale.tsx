@@ -28,7 +28,7 @@ const AdminSalePage = ({
       </Head>
       <article>
         <CreateSale ebooks={allEbooks} />
-        <ListSale sales={allSales} />
+        <ListSale sales={allSales} ebooks={allEbooks} />
       </article>
     </Layout>
   );

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { ExclamationCircleIcon } from "@heroicons/react/solid";
 
 // types
-import { Ebook, Sale } from "../../interfaces";
+import { Ebook } from "../../interfaces";
 
 // components
 import ConfirmSale from "./ConfirmSale";
