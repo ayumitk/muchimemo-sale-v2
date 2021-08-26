@@ -91,12 +91,14 @@ export default function Home({ allSales }: { allSales: Array<Sale> }) {
       </Head>
       <article className="max-w-3xl mx-auto">
         <BreadcrumbNav pageTitle="セール中の全ての作品" />
-        <h1 className="font-bold text-2xl sm:text-4xl mb-4">
-          セール中の全ての作品
-        </h1>
+        <div className="px-4 md:px-6 lg:px-0">
+          <h1 className="font-bold text-2xl sm:text-4xl mb-4">
+            セール中の全ての作品
+          </h1>
+        </div>
         <div className="max-w-3xl mx-auto">
           <section>
-            <p className="py-3 text-sm text-gray-700 border-t-4 border-gray-900 mt-5">
+            <p className="py-3 text-sm text-gray-700 border-t-4 border-gray-900 mt-5 px-4 md:px-6 lg:px-0">
               {ebookOnSale && ebookOnSale.length}作品表示中
             </p>
             <ul className="border-b border-gray-900">

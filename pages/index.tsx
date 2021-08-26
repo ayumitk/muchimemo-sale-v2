@@ -72,7 +72,7 @@ export default function Home({ allSales }: { allSales: Array<Sale> }) {
         />
         <meta name="twitter:image:alt" content={config.siteTitle} />
       </Head>
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-3xl mx-auto px-4 md:px-6 lg:px-0">
         <section>
           <h1 className="mb-2 mt-10">
             BLジャンルを中心に、今セール中のマンガ・小説をおすすめコメント付きで紹介します！

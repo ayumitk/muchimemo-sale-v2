@@ -84,20 +84,23 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
       </Head>
       <article className="max-w-3xl mx-auto">
         <BreadcrumbNav pageTitle={saleDetail.title} />
-        <h1 className="font-bold text-2xl sm:text-4xl mb-4">
-          {saleDetail.title}
-        </h1>
-        <p className="text-gray-700 text-sm sm:text-base">
-          {saleDetail.ebooks.map((item) =>
-            item.ebook.isRecommended ? `『${item.ebook.title}』` : ""
-          )}
-          など
-          <span className="text-red-600 font-bold">
-            {saleDetail.ebooks.length}作品
-          </span>
-          が対象です！
-        </p>
-        <p className="py-3 text-sm text-gray-700 border-t-4 border-gray-900 mt-5">
+        <div className="px-4 md:px-6 lg:px-0">
+          <h1 className="font-bold text-2xl sm:text-4xl mb-4">
+            {saleDetail.title}
+          </h1>
+          <p className="text-gray-700 text-sm sm:text-base">
+            {saleDetail.ebooks.map((item) =>
+              item.ebook.isRecommended ? `『${item.ebook.title}』` : ""
+            )}
+            など
+            <span className="text-red-600 font-bold">
+              {saleDetail.ebooks.length}作品
+            </span>
+            が対象です！
+          </p>
+        </div>
+
+        <p className="py-3 text-sm text-gray-700 border-t-4 border-gray-900 mt-5 px-4 md:px-6 lg:px-0">
           {saleDetail.ebooks.length}作品表示中
         </p>
         <ul className="border-b border-gray-900">
