@@ -71,7 +71,7 @@ const SaleItem = (props: { sale: Sale }) => {
                         <img
                           src={ebook.imageUrl}
                           alt={`${ebook.imageUrl}の表紙`}
-                          className="w-16 sm:w-24 mr-1 border border-gray-200"
+                          className="h-28 sm:h-36 mr-1 border border-gray-200"
                           key={ebook.id}
                           loading="lazy"
                         />
