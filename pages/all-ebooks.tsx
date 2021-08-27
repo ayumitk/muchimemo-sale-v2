@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import { GetStaticProps } from "next";
-import prisma from "../lib/prisma";
 import config from "../config";
 import moment from "moment";
 import "moment-timezone";
+
+// db
+import prisma from "../lib/prisma";
 
 // components
 import Layout from "../components/layout";

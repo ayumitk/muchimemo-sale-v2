@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import { GetStaticProps } from "next";
-import prisma from "../lib/prisma";
 import config from "../config";
 import Image from "next/image";
 import moment from "moment";
 import "moment-timezone";
 import Link from "next/link";
 import { ArrowCircleRightIcon } from "@heroicons/react/solid";
+
+// db
+import prisma from "../lib/prisma";
 
 // components
 import Layout from "../components/layout";

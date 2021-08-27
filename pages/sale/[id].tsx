@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import { GetStaticPaths, GetStaticProps } from "next";
-import prisma from "../../lib/prisma";
 import config from "../../config";
+
+// db
+import prisma from "../../lib/prisma";
 
 // components
 import Layout from "../../components/layout";
@@ -146,6 +148,5 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     },
   });
   const saleDetail = JSON.parse(JSON.stringify(res));
-
   return { props: { saleDetail } };
 };
