@@ -101,7 +101,8 @@ const EbookItem = (props: { ebook: Ebook }) => {
                 <span className="text-xs">ポイント獲得</span>)
               </span>{" "}
               <span className="text-xs whitespace-nowrap font-normal">
-                ※{moment(ebook.updatedAt).format("YYYY/MM/DD hh:mm:ss")}時点
+                ※Amazon {moment(ebook.updatedAt).format("YYYY/MM/DD hh:mm:ss")}
+                時点
               </span>
             </p>
           )}
