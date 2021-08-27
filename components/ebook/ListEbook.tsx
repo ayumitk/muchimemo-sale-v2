@@ -314,7 +314,7 @@ const ListEbook = (props: {
         </button> */}
       </div>
 
-      <p className="mt-5 text-sm text-gray-700">{ebooks.length}件</p>
+      <p className="mt-5 text-sm text-gray-700">{filteredEbooks.length}件</p>
 
       <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg mt-2">
         <table className="min-w-full divide-y divide-gray-200">
