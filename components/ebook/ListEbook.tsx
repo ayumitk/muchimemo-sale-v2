@@ -15,8 +15,11 @@ const ListEbook = (props: {
   formats: Format[];
   categories: Category[];
   sales: Sale[];
+  refreshData: any;
+  isRefreshing: boolean;
 }) => {
-  const { ebooks, formats, categories, sales } = props;
+  const { ebooks, formats, categories, sales, refreshData, isRefreshing } =
+    props;
 
   // filter feature
   const [filteredEbooks, setFilteredEbooks] = useState<Ebook[]>([]);
@@ -305,16 +308,18 @@ const ListEbook = (props: {
             </div>
           </div>
         </div>
-        {/* <button
+        <button
           type="button"
-          onClick={forceUpdate}
+          onClick={refreshData}
           className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-teal-700 bg-teal-100 hover:bg-teal-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
         >
           リストを更新
-        </button> */}
+        </button>
       </div>
 
-      <p className="mt-5 text-sm text-gray-700">{filteredEbooks.length}件</p>
+      <p className="mt-5 text-sm text-gray-700">
+        {filteredEbooks.length}件 {isRefreshing && <span>Refreshing...</span>}
+      </p>
 
       <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg mt-2">
         <table className="min-w-full divide-y divide-gray-200">
@@ -509,10 +514,11 @@ const ListEbook = (props: {
                     ebook={ebook}
                     formats={formats}
                     categories={categories}
+                    refreshData={refreshData}
                   />
                 </td>
                 <td className="px-2 py-2 text-sm">
-                  <DeleteEbook ebook={ebook} />
+                  <DeleteEbook ebook={ebook} refreshData={refreshData} />
                 </td>
                 <td className="px-2 py-2 text-sm text-red-500">
                   {ebook.price && `¥${ebook.price}`}
@@ -521,7 +527,7 @@ const ListEbook = (props: {
                   {ebook.points && `${ebook.points}pt`}
                 </td>
                 <td className="pl-2 pr-4 py-2 text-sm">
-                  <UpdateEbook ebook={ebook} />
+                  <UpdateEbook ebook={ebook} refreshData={refreshData} />
                 </td>
               </tr>
             ))}

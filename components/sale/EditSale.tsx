@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState } from "react";
+import { Fragment, useRef, useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import moment from "moment";
 import { ExclamationCircleIcon } from "@heroicons/react/solid";
@@ -6,13 +6,17 @@ import { ExclamationCircleIcon } from "@heroicons/react/solid";
 // types
 import { Ebook, Sale } from "../../interfaces";
 
-const EditSale = (props: { sale: Sale; ebooks: Ebook[] }) => {
-  const { sale, ebooks } = props;
+const EditSale = (props: { sale: Sale; ebooks: Ebook[]; refreshData: any }) => {
+  const { sale, ebooks, refreshData } = props;
 
   const [open, setOpen] = useState(false);
   const cancelButtonRef = useRef(null);
 
   const [saleDetails, setSaleDetails] = useState(sale);
+
+  useEffect(() => {
+    setSaleDetails(sale);
+  }, [sale]);
 
   const editModalOpen = () => {
     setOpen(true);
@@ -75,11 +79,12 @@ const EditSale = (props: { sale: Sale; ebooks: Ebook[] }) => {
       } catch (err: any) {
         console.error(err.message);
       } finally {
-        // getSaleEbooks(saleDetails.id);
+        refreshData();
       }
     }
   };
 
+  // todo : deleting feature doesn't work yet
   const deleteSaleEbook = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     ebookId: number,
@@ -95,6 +100,8 @@ const EditSale = (props: { sale: Sale; ebooks: Ebook[] }) => {
         });
       } catch (err: any) {
         console.error(err.message);
+      } finally {
+        // isRefreshing();
       }
     } else {
       alert("これ以上削除できません");
@@ -117,8 +124,7 @@ const EditSale = (props: { sale: Sale; ebooks: Ebook[] }) => {
       console.error(err.message);
     } finally {
       setOpen(false);
-      // getSaleEbooks(saleDetails.id);
-      // setUncreatedAsin([]);
+      refreshData();
     }
   };
 

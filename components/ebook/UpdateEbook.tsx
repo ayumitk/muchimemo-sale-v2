@@ -7,8 +7,8 @@ import { CheckIcon } from "@heroicons/react/solid";
 // types
 import { Ebook } from "../../interfaces";
 
-const UpdateEbook = (props: { ebook: Ebook }) => {
-  const { ebook } = props;
+const UpdateEbook = (props: { ebook: Ebook; refreshData: any }) => {
+  const { ebook, refreshData } = props;
 
   const [updateDone, setUpdateDone] = useState<boolean>(false);
 
@@ -49,6 +49,7 @@ const UpdateEbook = (props: { ebook: Ebook }) => {
         console.error(err.message);
       } finally {
         setUpdateDone(true);
+        refreshData();
       }
     });
   };

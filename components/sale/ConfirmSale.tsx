@@ -16,8 +16,10 @@ const ConfirmSale = (props: {
   newSaleAsin: string[];
   newSaleEbook: Ebook[];
   onChangeNewSaleEbook: (arg0: Ebook[], arg1: string[]) => void;
+  refreshData: any;
 }) => {
-  const { open, setOpen, newSale, newSaleAsin, newSaleEbook } = props;
+  const { open, setOpen, newSale, newSaleAsin, newSaleEbook, refreshData } =
+    props;
   const cancelButtonRef = useRef(null);
 
   const createSale = async (e: React.SyntheticEvent) => {
@@ -47,6 +49,7 @@ const ConfirmSale = (props: {
       console.error(err.message);
     } finally {
       setOpen(false);
+      refreshData();
     }
   };
 

@@ -5,8 +5,8 @@ import { ExclamationIcon } from "@heroicons/react/outline";
 // types
 import { Sale } from "../../interfaces";
 
-const DeleteSale = (props: { sale: Sale }) => {
-  const { sale } = props;
+const DeleteSale = (props: { sale: Sale; refreshData: any }) => {
+  const { sale, refreshData } = props;
 
   const [open, setOpen] = useState(false);
   const cancelButtonRef = useRef(null);
@@ -27,6 +27,7 @@ const DeleteSale = (props: { sale: Sale }) => {
       console.error(err.message);
     } finally {
       setOpen(false);
+      refreshData();
     }
   };
 

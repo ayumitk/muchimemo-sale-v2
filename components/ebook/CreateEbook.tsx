@@ -7,8 +7,8 @@ import retryx from "retryx";
 // types
 import { Ebook } from "../../interfaces";
 
-const CreateEbook = (props: { ebooks: Ebook[] }) => {
-  const { ebooks } = props;
+const CreateEbook = (props: { ebooks: Ebook[]; refreshData: any }) => {
+  const { ebooks, refreshData } = props;
 
   // get all created ebook asins array
   const [ebookAsins, setEbookAsins] = useState<string[]>([]);
@@ -124,6 +124,8 @@ const CreateEbook = (props: { ebooks: Ebook[] }) => {
           });
         } catch (error) {
           console.error(error);
+        } finally {
+          refreshData();
         }
       });
     });

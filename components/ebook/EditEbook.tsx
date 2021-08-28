@@ -8,8 +8,9 @@ const EditEbook = (props: {
   ebook: Ebook;
   formats: Format[];
   categories: Category[];
+  refreshData: any;
 }) => {
-  const { ebook, formats, categories } = props;
+  const { ebook, formats, categories, refreshData } = props;
 
   const [ebookDetails, setEbookDetails] = useState<Ebook>();
   useEffect(() => {
@@ -36,6 +37,7 @@ const EditEbook = (props: {
         console.error(err.message);
       } finally {
         setOpen(false);
+        refreshData();
       }
     }
   };

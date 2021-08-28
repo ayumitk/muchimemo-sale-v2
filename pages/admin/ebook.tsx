@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
 
 // db
 import prisma from "../../lib/prisma";
@@ -30,11 +31,22 @@ const AdminEbookPage = ({
   // get all created ebooks
   const [ebooks, setEbooks] = useState<Ebook[]>([]);
   useEffect(() => {
-    const getAllCreatedEbooks = () => {
-      setEbooks(allEbooks);
-    };
-    getAllCreatedEbooks();
-  }, []);
+    setEbooks(allEbooks);
+  }, [allEbooks]);
+
+  // refreshing
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const router = useRouter();
+  const refreshData = () => {
+    router.replace(router.asPath, undefined, {
+      scroll: false,
+    });
+    setIsRefreshing(true);
+  };
+
+  useEffect(() => {
+    setIsRefreshing(false);
+  }, [allEbooks]);
 
   return (
     <Layout>
@@ -42,12 +54,14 @@ const AdminEbookPage = ({
         <title>Admin Ebooks</title>
       </Head>
       <article>
-        <CreateEbook ebooks={ebooks} />
+        <CreateEbook ebooks={ebooks} refreshData={refreshData} />
         <ListEbook
           ebooks={ebooks}
           formats={allFormats}
           categories={allCategories}
           sales={allSales}
+          refreshData={refreshData}
+          isRefreshing={isRefreshing}
         />
       </article>
     </Layout>

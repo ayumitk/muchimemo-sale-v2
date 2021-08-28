@@ -5,8 +5,8 @@ import { ExclamationIcon } from "@heroicons/react/outline";
 // types
 import { Ebook } from "../../interfaces";
 
-const DeleteEbook = (props: { ebook: Ebook }) => {
-  const { ebook } = props;
+const DeleteEbook = (props: { ebook: Ebook; refreshData: any }) => {
+  const { ebook, refreshData } = props;
 
   const [open, setOpen] = useState(false);
   const cancelButtonRef = useRef(null);
@@ -27,6 +27,7 @@ const DeleteEbook = (props: { ebook: Ebook }) => {
       console.error(err.message);
     } finally {
       setOpen(false);
+      refreshData();
     }
   };
 

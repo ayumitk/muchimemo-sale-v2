@@ -9,8 +9,8 @@ import { Ebook } from "../../interfaces";
 // components
 import ConfirmSale from "./ConfirmSale";
 
-const CreateSale = (props: { ebooks: Ebook[] }) => {
-  const { ebooks } = props;
+const CreateSale = (props: { ebooks: Ebook[]; refreshData: any }) => {
+  const { ebooks, refreshData } = props;
 
   const [open, setOpen] = useState<boolean>(false);
 
@@ -160,6 +160,7 @@ const CreateSale = (props: { ebooks: Ebook[] }) => {
         newSaleAsin={newSaleAsin}
         newSaleEbook={newSaleEbook}
         onChangeNewSaleEbook={deleteSaleEbook}
+        refreshData={refreshData}
       />
     </>
   );

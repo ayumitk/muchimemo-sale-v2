@@ -11,8 +11,13 @@ import EditSale from "./EditSale";
 import DeleteSale from "./DeleteSale";
 // import UpdateEbook from "./UpdateEbook";
 
-const ListSale = (props: { sales: Sale[]; ebooks: Ebook[] }) => {
-  const { sales, ebooks } = props;
+const ListSale = (props: {
+  sales: Sale[];
+  ebooks: Ebook[];
+  refreshData: any;
+  isRefreshing: boolean;
+}) => {
+  const { sales, ebooks, refreshData, isRefreshing } = props;
 
   return (
     <>
@@ -20,9 +25,18 @@ const ListSale = (props: { sales: Sale[]; ebooks: Ebook[] }) => {
         <div>
           <h2 className="text-xl font-bold">登録済みのセール一覧</h2>
         </div>
+        <button
+          type="button"
+          onClick={refreshData}
+          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-teal-700 bg-teal-100 hover:bg-teal-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+        >
+          リストを更新
+        </button>
       </div>
 
-      <p className="mt-5 text-sm text-gray-700">{sales.length}件</p>
+      <p className="mt-5 text-sm text-gray-700">
+        {sales.length}件 {isRefreshing && <span>Refreshing...</span>}
+      </p>
 
       <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg mt-5">
         <table className="min-w-full divide-y divide-gray-200">
@@ -97,10 +111,14 @@ const ListSale = (props: { sales: Sale[]; ebooks: Ebook[] }) => {
                   {`${sale.isPublished ? "公開" : "下書き"}`}
                 </td>
                 <td className="px-6 py-4 text-sm">
-                  <EditSale sale={sale} ebooks={ebooks} />
+                  <EditSale
+                    sale={sale}
+                    ebooks={ebooks}
+                    refreshData={refreshData}
+                  />
                 </td>
                 <td className="px-6 py-4 text-sm">
-                  <DeleteSale sale={sale} />
+                  <DeleteSale sale={sale} refreshData={refreshData} />
                 </td>
               </tr>
             ))}

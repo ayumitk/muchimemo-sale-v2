@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
 
 // db
 import prisma from "../../lib/prisma";
@@ -22,14 +24,34 @@ const AdminSalePage = ({
   allEbooks: Ebook[];
   allSales: Sale[];
 }) => {
+  // refreshing
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const router = useRouter();
+  const refreshData = () => {
+    router.replace(router.asPath, undefined, {
+      scroll: false,
+    });
+    setIsRefreshing(true);
+  };
+
+  useEffect(() => {
+    setIsRefreshing(false);
+  }, [allSales]);
+
   return (
     <Layout>
       <Head>
         <title>Admin Sales</title>
       </Head>
       <article>
-        <CreateSale ebooks={allEbooks} />
-        <ListSale sales={allSales} ebooks={allEbooks} />
+        <CreateSale ebooks={allEbooks} refreshData={refreshData} />
+        <ListSale
+          sales={allSales}
+          ebooks={allEbooks}
+          refreshData={refreshData}
+          isRefreshing={isRefreshing}
+        />
       </article>
     </Layout>
   );
