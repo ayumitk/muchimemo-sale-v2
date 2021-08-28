@@ -44,14 +44,19 @@ const EbookItem = (props: { ebook: Ebook }) => {
       }`}
     >
       <div className="flex">
-        <div>
+        <a
+          href={`https://www.amazon.co.jp/dp/${ebook.amazonId}?tag=ayutak04-22&linkCode=ogi&th=1&psc=1`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block hover:opacity-80"
+        >
           <img
             src={ebook.imageUrl}
             alt={`${ebook.title}の表紙`}
             className="w-24 sm:w-28"
             loading="lazy"
           />
-        </div>
+        </a>
         <div className="ml-3 sm:ml-5 flex-1">
           <p className="text-gray-700 text-sm sm:text-base mb-2">
             <span
