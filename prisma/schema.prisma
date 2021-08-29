@@ -38,8 +38,8 @@ model Ebook {
   dmmId          String?    @map(name: "dmm_id")
   isRecommended  Boolean    @default(false) @map(name: "is_recommended")
   isDeleted      Boolean    @default(false) @map(name: "is_deleted")
-  price          Int?
-  points         Int?
+  price          Int        @default(0)
+  points         Int        @default(0)
   reviewCount    Int        @default(0)
   reviewAverage  String     @default("0")
   createdAt      DateTime   @default(now()) @map(name: "created_at")

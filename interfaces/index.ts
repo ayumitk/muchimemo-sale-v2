@@ -9,8 +9,8 @@ export interface Ebook {
   imageUrl?: string;
   isDeleted: boolean;
   isRecommended: boolean;
-  points?: number;
-  price?: number;
+  points: number;
+  price: number;
   publisher?: string;
   rentaId?: string;
   title: string;
