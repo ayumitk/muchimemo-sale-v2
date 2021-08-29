@@ -41,7 +41,7 @@ model Ebook {
   price          Int?
   points         Int?
   reviewCount    Int        @default(0)
-  reviewAverage  String     @default("")
+  reviewAverage  String     @default("0")
   createdAt      DateTime   @default(now()) @map(name: "created_at")
   updatedAt      DateTime   @updatedAt @map(name: "updated_at")
   sales          EbookOnSale[]

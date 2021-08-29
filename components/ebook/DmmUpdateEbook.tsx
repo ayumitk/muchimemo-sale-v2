@@ -20,7 +20,9 @@ const DmmUpdateEbook = (props: { ebook: Ebook; refreshData: any }) => {
       const body = {
         ...ebook,
         reviewCount: jsonData.item.review ? jsonData.item.review.count : 0,
-        reviewAverage: jsonData.item.review ? jsonData.item.review.average : "",
+        reviewAverage: jsonData.item.review
+          ? jsonData.item.review.average
+          : "0",
       };
       await fetch(`/api/ebook/update/${id}`, {
         method: "PUT",
