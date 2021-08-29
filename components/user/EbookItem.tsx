@@ -76,19 +76,31 @@ const EbookItem = (props: { ebook: Ebook }) => {
             )}
           </div>
 
-          {ebook.price && ebook.points && (
-            <p className="text-red-600 leading-none mt-0.5 font-bold">
-              <span className="">¥{ebook.price}</span>{" "}
-              <span className="text-sm">
-                ({ebook.points}
-                <span className="text-xs">ポイント獲得</span>)
-              </span>{" "}
-              <span className="text-xs whitespace-nowrap font-normal">
-                ※Amazon {moment(ebook.updatedAt).format("YYYY/MM/DD hh:mm:ss")}
-                時点
-              </span>
-            </p>
-          )}
+          <p className="text-red-600 leading-none mt-0.5 font-bold">
+            {ebook.price > 0 ? (
+              <>
+                <span className="">¥{ebook.price}</span>{" "}
+              </>
+            ) : (
+              <>
+                <span className="">無料</span>{" "}
+              </>
+            )}
+            {ebook.price > 0 ? (
+              <>
+                <span className="text-sm">
+                  ({ebook.points}
+                  <span className="text-xs">ポイント獲得</span>)
+                </span>{" "}
+              </>
+            ) : (
+              ""
+            )}
+            <span className="text-xs whitespace-nowrap font-normal">
+              ※Amazon {moment(ebook.updatedAt).format("YYYY/MM/DD hh:mm:ss")}
+              時点
+            </span>
+          </p>
 
           <div className="mt-2 flex flex-wrap">
             <a

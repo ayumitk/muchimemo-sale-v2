@@ -109,10 +109,10 @@ const CreateEbook = (props: { ebooks: Ebook[]; refreshData: any }) => {
           authors: JSON.stringify(res.ItemInfo.ByLineInfo.Contributors),
           publisher: res.ItemInfo.ByLineInfo.Manufacturer.DisplayValue,
           amazonId: res.ASIN,
-          price: res.Offers.Listings[0].Price.Amount
+          price: res.Offers.Listings[0].Price
             ? res.Offers.Listings[0].Price.Amount
             : 0,
-          points: res.Offers.Listings[0].LoyaltyPoints.Points
+          points: res.Offers.Listings[0].LoyaltyPoints
             ? res.Offers.Listings[0].LoyaltyPoints.Points
             : 0,
           formatId: formatId,

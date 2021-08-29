@@ -323,24 +323,6 @@ export default function Home({ allSales }: { allSales: Array<Sale> }) {
   );
 }
 
-// export const getStaticProps: GetStaticProps = async () => {
-//   const data = await prisma.ebook.findMany({
-//     where: {
-//       sales: {
-//         some: {},
-//       },
-//     },
-//     include: {
-//       sales: { include: { sale: true } },
-//       format: true,
-//       category: true,
-//     },
-//     orderBy: { isRecommended: "desc" },
-//   });
-//   const allEbooks = JSON.parse(JSON.stringify(data));
-//   return { props: { allEbooks } };
-// };
-
 export const getStaticProps: GetStaticProps = async () => {
   const data = await prisma.sale.findMany({
     where: { isPublished: true },
