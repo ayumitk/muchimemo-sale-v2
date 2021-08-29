@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { BadgeCheckIcon, StarIcon } from "@heroicons/react/solid";
+import { StarIcon } from "@heroicons/react/solid";
 import Link from "next/link";
 import moment from "moment";
 import "moment-timezone";

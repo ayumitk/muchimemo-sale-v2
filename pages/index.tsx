@@ -20,6 +20,7 @@ import { Sale } from "../interfaces";
 
 export default function Home({ allSales }: { allSales: Array<Sale> }) {
   const [orderedSales, setOrderedSales] = useState<Sale[]>([]);
+
   useEffect(() => {
     const onSale = allSales.filter((sale) => {
       const now = moment().tz("Asia/Tokyo").format("YYYY,MM,DD");
