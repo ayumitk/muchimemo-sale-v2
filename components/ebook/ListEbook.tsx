@@ -9,6 +9,7 @@ import { Ebook, Format, Category, Sale } from "../../interfaces";
 import EditEbook from "./EditEbook";
 import DeleteEbook from "./DeleteEbook";
 import UpdateEbook from "./UpdateEbook";
+import DmmUpdateEbook from "./DmmUpdateEbook";
 
 const ListEbook = (props: {
   ebooks: Ebook[];
@@ -399,9 +400,15 @@ const ListEbook = (props: {
               </th>
               <th
                 scope="col"
-                className="pl-2 pr-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 update
+              </th>
+              <th
+                scope="col"
+                className="pl-2 pr-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                review
               </th>
             </tr>
           </thead>
@@ -526,8 +533,17 @@ const ListEbook = (props: {
                 <td className="px-2 py-2 text-sm text-red-500">
                   {ebook.points && `${ebook.points}pt`}
                 </td>
-                <td className="pl-2 pr-4 py-2 text-sm">
+                <td className="px-2 py-2 text-sm">
                   <UpdateEbook ebook={ebook} refreshData={refreshData} />
+                </td>
+                <td className="pl-2 pr-4 py-2 text-sm">
+                  {ebook.dmmId && (
+                    <>
+                      {ebook.reviewAverage && ebook.reviewAverage}(
+                      {ebook.reviewCount && ebook.reviewCount})<br />
+                      <DmmUpdateEbook ebook={ebook} refreshData={refreshData} />
+                    </>
+                  )}
                 </td>
               </tr>
             ))}

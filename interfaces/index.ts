@@ -19,6 +19,8 @@ export interface Ebook {
   formatId: number;
   category: Category;
   categoryId: number;
+  reviewCount?: number;
+  reviewAverage?: string;
   sales: Array<EbookOnSale>;
 }
 

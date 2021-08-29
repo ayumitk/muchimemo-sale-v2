@@ -11,32 +11,6 @@ import { Author, Ebook } from "../../interfaces";
 const EbookItem = (props: { ebook: Ebook }) => {
   const { ebook } = props;
 
-  interface Review {
-    average: string;
-    count: number;
-  }
-
-  const [review, setReview] = useState<Review>();
-  useEffect(() => {
-    const getReview = async (dmmId: string) => {
-      try {
-        const response = await fetch(`/api/getDmmItem/${dmmId}`);
-        const jsonData = await response.json();
-        setReview(jsonData.item.review);
-      } catch (err: any) {
-        console.error(err.message);
-      }
-    };
-
-    if (
-      ebook.dmmId !== null &&
-      ebook.dmmId !== "" &&
-      ebook.dmmId !== undefined
-    ) {
-      getReview(ebook.dmmId);
-    }
-  }, [ebook]);
-
   return (
     <li
       className={`border-t border-gray-900 px-3 sm:px-6 py-5 ${
@@ -87,12 +61,14 @@ const EbookItem = (props: { ebook: Ebook }) => {
 
             <span className="mr-1">{ebook.publisher}</span>
 
-            {review !== undefined && review && (
+            {ebook.reviewCount && ebook.reviewAverage && (
               <span className="whitespace-nowrap">
                 <StarIcon className="w-5 h-5 text-yellow-400 inline-block -mt-1" />
-                <span className="text-red-600 font-bold">{review.average}</span>
+                <span className="font-bold text-teal-600">
+                  {ebook.reviewAverage}
+                </span>
                 <span className="text-xs text-gray-700 ml-0.5">
-                  ({review.count})
+                  ({ebook.reviewCount})
                 </span>
               </span>
             )}

@@ -40,6 +40,8 @@ model Ebook {
   isDeleted      Boolean    @default(false) @map(name: "is_deleted")
   price          Int?
   points         Int?
+  reviewCount    Int?
+  reviewAverage  String?
   createdAt      DateTime   @default(now()) @map(name: "created_at")
   updatedAt      DateTime   @updatedAt @map(name: "updated_at")
   sales          EbookOnSale[]
