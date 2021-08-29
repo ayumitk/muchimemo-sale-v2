@@ -14,8 +14,8 @@ export default async function handle(
       price?: number;
       points?: number;
       isRecommended: boolean;
-      reviewCount?: number;
-      reviewAverage?: string;
+      reviewCount: number;
+      reviewAverage: string;
     };
     query: {
       id: number;
