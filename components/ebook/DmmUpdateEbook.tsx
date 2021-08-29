@@ -17,18 +17,16 @@ const DmmUpdateEbook = (props: { ebook: Ebook; refreshData: any }) => {
       const response = await fetch(`/api/getDmmItem/${dmmId}`);
       const jsonData = await response.json();
 
-      if (jsonData.item.review) {
-        const body = {
-          ...ebook,
-          reviewCount: jsonData.item.review.count,
-          reviewAverage: jsonData.item.review.average,
-        };
-        await fetch(`/api/ebook/update/${id}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body),
-        });
-      }
+      const body = {
+        ...ebook,
+        reviewCount: jsonData.item.review ? jsonData.item.review.count : 0,
+        reviewAverage: jsonData.item.review ? jsonData.item.review.average : "",
+      };
+      await fetch(`/api/ebook/update/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
     } catch (err: any) {
       console.error(err.message);
     } finally {

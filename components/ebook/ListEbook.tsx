@@ -537,13 +537,9 @@ const ListEbook = (props: {
                   <UpdateEbook ebook={ebook} refreshData={refreshData} />
                 </td>
                 <td className="pl-2 pr-4 py-2 text-sm">
-                  {ebook.dmmId && (
-                    <>
-                      {ebook.reviewAverage && ebook.reviewAverage}(
-                      {ebook.reviewCount && ebook.reviewCount})<br />
-                      <DmmUpdateEbook ebook={ebook} refreshData={refreshData} />
-                    </>
-                  )}
+                  {ebook.reviewAverage && ebook.reviewAverage}(
+                  {ebook.reviewCount && ebook.reviewCount})<br />
+                  <DmmUpdateEbook ebook={ebook} refreshData={refreshData} />
                 </td>
               </tr>
             ))}

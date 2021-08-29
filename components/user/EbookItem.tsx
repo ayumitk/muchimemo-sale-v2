@@ -61,7 +61,7 @@ const EbookItem = (props: { ebook: Ebook }) => {
 
             <span className="mr-1">{ebook.publisher}</span>
 
-            {ebook.reviewCount && ebook.reviewAverage && (
+            {ebook.reviewCount && ebook.reviewCount > 0 ? (
               <span className="whitespace-nowrap">
                 <StarIcon className="w-5 h-5 text-yellow-400 inline-block -mt-1" />
                 <span className="font-bold text-teal-600">
@@ -71,6 +71,8 @@ const EbookItem = (props: { ebook: Ebook }) => {
                   ({ebook.reviewCount})
                 </span>
               </span>
+            ) : (
+              ""
             )}
           </div>
 
