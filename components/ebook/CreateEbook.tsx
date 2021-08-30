@@ -67,7 +67,9 @@ const CreateEbook = (props: { ebooks: Ebook[]; refreshData: any }) => {
           (browseNode: { Id: string }) =>
             browseNode.Id === "2293143051" ||
             browseNode.Id === "2293147051" ||
-            browseNode.Id === "2430869051"
+            browseNode.Id === "2430869051" ||
+            browseNode.Id === "2430737051" ||
+            browseNode.Id === "2430765051"
         );
         const novel = res.BrowseNodeInfo.BrowseNodes.some(
           (browseNode: { Id: string }) =>
@@ -95,12 +97,22 @@ const CreateEbook = (props: { ebooks: Ebook[]; refreshData: any }) => {
         const men = res.BrowseNodeInfo.BrowseNodes.some(
           (browseNode: { Id: string }) => browseNode.Id === "2430869051"
         );
+        const women = res.BrowseNodeInfo.BrowseNodes.some(
+          (browseNode: { Id: string }) => browseNode.Id === "2430737051"
+        );
+        const girls = res.BrowseNodeInfo.BrowseNodes.some(
+          (browseNode: { Id: string }) => browseNode.Id === "2430765051"
+        );
 
         let categoryId = 1; // その他
         if (bl) {
           categoryId = 2; // BL
         } else if (men) {
           categoryId = 5; // 青年
+        } else if (women) {
+          categoryId = 4; // 女性
+        } else if (girls) {
+          categoryId = 3; // 少女
         }
 
         const body = {
@@ -109,9 +121,7 @@ const CreateEbook = (props: { ebooks: Ebook[]; refreshData: any }) => {
           authors: JSON.stringify(res.ItemInfo.ByLineInfo.Contributors),
           publisher: res.ItemInfo.ByLineInfo.Manufacturer.DisplayValue,
           amazonId: res.ASIN,
-          price: res.Offers.Listings[0].Price
-            ? res.Offers.Listings[0].Price.Amount
-            : 0,
+          price: res.Offers.Listings[0].Price.Amount,
           points: res.Offers.Listings[0].LoyaltyPoints
             ? res.Offers.Listings[0].LoyaltyPoints.Points
             : 0,

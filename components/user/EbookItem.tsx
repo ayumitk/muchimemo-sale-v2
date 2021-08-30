@@ -176,16 +176,9 @@ const EbookItem = (props: { ebook: Ebook }) => {
           {ebook.sales && (
             <ul className="mt-1.5 text-xs sm:text-sm">
               {ebook.sales.map((item) => {
-                const now = moment().tz("Asia/Tokyo").format("YYYY,MM,DD");
-                const nowArr = now.split(",");
-
-                const end = moment(item.sale.saleEnds)
-                  .add(9, "h")
-                  .format("YYYY,MM,DD");
-                const endArr = end.split(",");
-
-                const diff = moment(endArr).diff(moment(nowArr), "days");
-
+                const now = moment().tz("Asia/Tokyo").format();
+                const end = moment(item.sale.saleEnds).add(9, "h").format();
+                const diff = moment(end).diff(now);
                 if (diff >= 0) {
                   return (
                     <li key={item.sale.id}>

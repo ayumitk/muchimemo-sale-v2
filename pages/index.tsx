@@ -23,26 +23,16 @@ export default function Home({ allSales }: { allSales: Array<Sale> }) {
 
   useEffect(() => {
     const onSale = allSales.filter((sale) => {
-      const now = moment().tz("Asia/Tokyo").format("YYYY,MM,DD");
-      const nowArr = now.split(",");
-
-      const end = moment(sale.saleEnds).add(9, "h").format("YYYY,MM,DD");
-      const endArr = end.split(",");
-
-      const diff = moment(endArr).diff(moment(nowArr), "days");
-
+      const now = moment().tz("Asia/Tokyo").format();
+      const end = moment(sale.saleEnds).add(9, "h").format();
+      const diff = moment(end).diff(now);
       return diff >= 0;
     });
 
     const expiredSale = allSales.filter((sale) => {
-      const now = moment().tz("Asia/Tokyo").format("YYYY,MM,DD");
-      const nowArr = now.split(",");
-
-      const end = moment(sale.saleEnds).add(9, "h").format("YYYY,MM,DD");
-      const endArr = end.split(",");
-
-      const diff = moment(endArr).diff(moment(nowArr), "days");
-
+      const now = moment().tz("Asia/Tokyo").format();
+      const end = moment(sale.saleEnds).add(9, "h").format();
+      const diff = moment(end).diff(now);
       return diff < 0;
     });
 
@@ -192,7 +182,18 @@ export default function Home({ allSales }: { allSales: Array<Sale> }) {
 export const getStaticProps: GetStaticProps = async () => {
   const data = await prisma.sale.findMany({
     where: { isPublished: true },
-    include: { ebooks: { include: { ebook: true } } },
+    include: {
+      ebooks: {
+        include: {
+          ebook: true,
+        },
+        where: {
+          ebook: {
+            isDeleted: false,
+          },
+        },
+      },
+    },
     orderBy: { saleEnds: "asc" },
   });
   const allSales = JSON.parse(JSON.stringify(data));

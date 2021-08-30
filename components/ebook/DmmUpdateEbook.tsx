@@ -1,7 +1,4 @@
 import { useState } from "react";
-import axios from "axios";
-import retryx from "retryx";
-import moment from "moment";
 import { CheckIcon } from "@heroicons/react/solid";
 
 // types
@@ -37,25 +34,29 @@ const DmmUpdateEbook = (props: { ebook: Ebook; refreshData: any }) => {
     }
   };
 
-  return (
-    <>
-      <button
-        className="font-medium text-blue-600"
-        onClick={() => {
-          if (
-            ebook.dmmId !== null &&
-            ebook.dmmId !== "" &&
-            ebook.dmmId !== undefined
-          ) {
-            updateReview(ebook.id, ebook.dmmId);
-          }
-        }}
-      >
-        更新
-      </button>
-      {updateDone && <CheckIcon className="w-4 text-teal-500 inline-block" />}
-    </>
-  );
+  if (ebook.dmmId !== null && ebook.dmmId !== "" && ebook.dmmId !== undefined) {
+    return (
+      <>
+        <button
+          className="font-medium text-blue-600"
+          onClick={() => {
+            if (
+              ebook.dmmId !== null &&
+              ebook.dmmId !== "" &&
+              ebook.dmmId !== undefined
+            ) {
+              updateReview(ebook.id, ebook.dmmId);
+            }
+          }}
+        >
+          更新
+        </button>
+        {updateDone && <CheckIcon className="w-4 text-teal-500 inline-block" />}
+      </>
+    );
+  }
+
+  return "";
 };
 
 export default DmmUpdateEbook;

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Head from "next/head";
 import { GetStaticPaths, GetStaticProps } from "next";
 import config from "../../config";
+import moment from "moment";
 
 // db
 import prisma from "../../lib/prisma";
@@ -10,6 +11,7 @@ import prisma from "../../lib/prisma";
 import Layout from "../../components/layout";
 import EbookItem from "../../components/user/EbookItem";
 import BreadcrumbNav from "../../components/user/BreadcrumbNav";
+import ShowSaleEnds from "../../components/user/ShowSaleEnds";
 
 // types
 import { Sale, Ebook } from "../../interfaces";
@@ -20,6 +22,14 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
     .map((item) => (item.ebook.isRecommended ? `『${item.ebook.title}』` : ""))
     .join("")}など${saleDetail.ebooks.length}作品が対象です！
   `;
+
+  const now = moment().tz("Asia/Tokyo").format();
+  const end = moment(saleDetail.saleEnds).add(9, "h").format();
+  const diff = moment(end).diff(now);
+  let remainingDays = -1;
+  if (diff >= 0) {
+    remainingDays = moment.duration(diff).days();
+  }
 
   const [ebookOnSale, setEbookOnSale] = useState<Ebook[]>();
   useEffect(() => {
@@ -87,6 +97,7 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
       <article className="max-w-3xl mx-auto">
         <BreadcrumbNav pageTitle={saleDetail.title} />
         <div className="px-4 md:px-6 lg:px-0">
+          <ShowSaleEnds remainingDays={remainingDays + 1} className="mb-1" />
           <h1 className="font-bold text-2xl sm:text-4xl mb-4">
             {saleDetail.title}
           </h1>
@@ -142,6 +153,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
               format: true,
               category: true,
             },
+          },
+        },
+        where: {
+          ebook: {
+            isDeleted: false,
           },
         },
       },
