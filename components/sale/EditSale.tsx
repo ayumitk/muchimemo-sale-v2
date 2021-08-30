@@ -337,7 +337,7 @@ const EditSale = (props: { sale: Sale; ebooks: Ebook[]; refreshData: any }) => {
                                         {item.ebook.title}
                                       </td>
                                       <td className="pl-2 pr-4 py-2 text-sm text-center">
-                                        {/* <button
+                                        <button
                                           className="text-red-500 font-medium"
                                           onClick={(e) => {
                                             deleteSaleEbook(
@@ -348,7 +348,7 @@ const EditSale = (props: { sale: Sale; ebooks: Ebook[]; refreshData: any }) => {
                                           }}
                                         >
                                           削除
-                                        </button> */}
+                                        </button>
                                       </td>
                                     </tr>
                                   ))}
