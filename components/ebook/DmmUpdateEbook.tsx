@@ -56,7 +56,7 @@ const DmmUpdateEbook = (props: { ebook: Ebook; refreshData: any }) => {
     );
   }
 
-  return "";
+  return <></>;
 };
 
 export default DmmUpdateEbook;
