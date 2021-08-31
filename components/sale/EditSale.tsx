@@ -93,15 +93,15 @@ const EditSale = (props: { sale: Sale; ebooks: Ebook[]; refreshData: any }) => {
     e.preventDefault();
     if (saleDetails.ebooks.length > 1) {
       try {
-        const body = { ebookId, saleId };
-        await fetch(`/api/ebookOnSale/delete/`, {
-          method: "DELETE",
+        const body = ebookId;
+        await fetch(`/api/ebookOnSale/delete/${saleId}`, {
+          method: "PUT",
           body: JSON.stringify(body),
         });
       } catch (err: any) {
         console.error(err.message);
       } finally {
-        // isRefreshing();
+        refreshData();
       }
     } else {
       alert("これ以上削除できません");
