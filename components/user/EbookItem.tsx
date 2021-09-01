@@ -21,13 +21,16 @@ const EbookItem = (props: { ebook: Ebook }) => {
           href={`https://www.amazon.co.jp/dp/${ebook.amazonId}?tag=ayutak04-22&linkCode=ogi&th=1&psc=1`}
           target="_blank"
           rel="noopener noreferrer"
-          className="block hover:opacity-80"
+          className="block hover:opacity-80 w-24 sm:w-28"
+          style={{ lineHeight: 0 }}
         >
-          <img
-            src={ebook.imageUrl}
+          <Image
+            src={ebook.imageUrl ? ebook.imageUrl : "/images/placeholder.svg"}
             alt={`${ebook.title}の表紙`}
-            className="w-24 sm:w-28"
-            loading="lazy"
+            width={ebook.imageWidth ? ebook.imageWidth : 343}
+            height={ebook.imageHeight ? ebook.imageHeight : 500}
+            placeholder="blur"
+            blurDataURL="/images/placeholder.svg"
           />
         </a>
         <div className="ml-3 sm:ml-5 flex-1">

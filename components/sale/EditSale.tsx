@@ -2,6 +2,7 @@ import { Fragment, useRef, useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import moment from "moment";
 import { ExclamationCircleIcon } from "@heroicons/react/solid";
+import Image from "next/image";
 
 // types
 import { Ebook, Sale } from "../../interfaces";
@@ -333,12 +334,31 @@ const EditSale = (props: { sale: Sale; ebooks: Ebook[]; refreshData: any }) => {
                                       }
                                     >
                                       <td className="pl-4 pr-2 py-1 text-sm font-medium text-gray-900">
-                                        <img
-                                          src={item.ebook.imageUrl}
-                                          alt={`${item.ebook.title}の表紙`}
+                                        <div
                                           className="w-10"
-                                          loading="lazy"
-                                        />
+                                          style={{ lineHeight: 0 }}
+                                        >
+                                          <Image
+                                            src={
+                                              item.ebook.imageUrl
+                                                ? item.ebook.imageUrl
+                                                : "/images/placeholder.svg"
+                                            }
+                                            alt={`${item.ebook.title}の表紙`}
+                                            width={
+                                              item.ebook.imageWidth
+                                                ? item.ebook.imageWidth
+                                                : 343
+                                            }
+                                            height={
+                                              item.ebook.imageHeight
+                                                ? item.ebook.imageHeight
+                                                : 500
+                                            }
+                                            placeholder="blur"
+                                            blurDataURL="/images/placeholder.svg"
+                                          />
+                                        </div>
                                       </td>
                                       <td className="px-2 py-2 text-sm font-medium text-gray-900">
                                         {item.ebook.title}

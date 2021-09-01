@@ -424,15 +424,27 @@ const ListEbook = (props: {
               >
                 <td className="pl-4 pr-2 py-2 text-sm">{ebook.id}</td>
                 <td className="px-2 py-2 text-sm">{ebook.amazonId}</td>
-                <td className="px-2 py-1 text-sm">
-                  {ebook.imageUrl && (
-                    <img
-                      src={ebook.imageUrl}
+                <td className="px-2 py-1 text-xs text-gray-500">
+                  <div
+                    className={`w-10 ${ebook.isDeleted && "opacity-50"}`}
+                    style={{ lineHeight: 0 }}
+                  >
+                    <Image
+                      src={
+                        ebook.imageUrl
+                          ? ebook.imageUrl
+                          : "/images/placeholder.svg"
+                      }
                       alt={`${ebook.title}の表紙`}
-                      className={`w-10 ${ebook.isDeleted && "opacity-50"}`}
-                      loading="lazy"
+                      width={ebook.imageWidth ? ebook.imageWidth : 343}
+                      height={ebook.imageHeight ? ebook.imageHeight : 500}
+                      placeholder="blur"
+                      blurDataURL="/images/placeholder.svg"
                     />
-                  )}
+                  </div>
+                  {ebook.imageWidth &&
+                    ebook.imageHeight &&
+                    `${ebook.imageWidth}x${ebook.imageHeight}`}
                 </td>
                 <td className="px-2 py-2 text-sm font-medium">{ebook.title}</td>
                 <td className="px-2 py-2 text-sm font-medium">

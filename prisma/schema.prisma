@@ -25,6 +25,8 @@ model Ebook {
   id             Int        @default(autoincrement()) @id
   title          String
   imageUrl       String?    @map(name: "image_url")
+  imageWidth     Int?       @map(name: "image_width")
+  imageHeight    Int?       @map(name: "image_height")
   authors        String?
   publisher      String?
   comment        String?

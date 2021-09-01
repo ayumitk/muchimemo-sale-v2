@@ -13,6 +13,8 @@ export default async function handle(
       points?: number;
       formatId: number;
       categoryId: number;
+      imageWidth?: number;
+      imageHeight?: number;
     };
   },
   res: any
@@ -27,6 +29,8 @@ export default async function handle(
     points,
     formatId,
     categoryId,
+    imageWidth,
+    imageHeight,
   } = req.body;
 
   const newEbook = await prisma.ebook.create({
@@ -40,6 +44,8 @@ export default async function handle(
       points,
       formatId,
       categoryId,
+      imageWidth,
+      imageHeight,
     },
   });
   res.json(newEbook);

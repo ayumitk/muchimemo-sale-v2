@@ -7,6 +7,8 @@ export interface Ebook {
   dmmId?: string;
   id: number;
   imageUrl?: string;
+  imageWidth?: number;
+  imageHeight?: number;
   isDeleted: boolean;
   isRecommended: boolean;
   points: number;

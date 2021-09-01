@@ -35,10 +35,14 @@ const UpdateEbook = (props: { ebook: Ebook; refreshData: any }) => {
           ...ebook,
           title: res.ItemInfo.Title.DisplayValue,
           imageUrl: res.Images.Primary.Large.URL,
+          imageWidth: res.Images.Primary.Large.Width,
+          imageHeight: res.Images.Primary.Large.Height,
           authors: JSON.stringify(res.ItemInfo.ByLineInfo.Contributors),
           publisher: res.ItemInfo.ByLineInfo.Manufacturer.DisplayValue,
           price: res.Offers.Listings[0].Price.Amount,
-          points: res.Offers.Listings[0].LoyaltyPoints.Points,
+          points: res.Offers.Listings[0].LoyaltyPoints
+            ? res.Offers.Listings[0].LoyaltyPoints.Points
+            : 0,
         };
         await fetch(`/api/ebook/update/${id}`, {
           method: "PUT",

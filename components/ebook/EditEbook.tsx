@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import Image from "next/image";
 
 // types
 import { Ebook, Format, Category } from "../../interfaces";
@@ -142,12 +143,29 @@ const EditEbook = (props: {
                             </div>
                           </div>
                           {ebookDetails && (
-                            <div className="ml-3">
-                              <img
-                                src={ebookDetails.imageUrl}
+                            <div
+                              className="ml-3 w-24"
+                              style={{ lineHeight: 0 }}
+                            >
+                              <Image
+                                src={
+                                  ebookDetails.imageUrl
+                                    ? ebookDetails.imageUrl
+                                    : "/images/placeholder.svg"
+                                }
                                 alt={`${ebookDetails.title}の表紙`}
-                                className="w-24"
-                                loading="lazy"
+                                width={
+                                  ebookDetails.imageWidth
+                                    ? ebookDetails.imageWidth
+                                    : 343
+                                }
+                                height={
+                                  ebookDetails.imageHeight
+                                    ? ebookDetails.imageHeight
+                                    : 500
+                                }
+                                placeholder="blur"
+                                blurDataURL="/images/placeholder.svg"
                               />
                             </div>
                           )}

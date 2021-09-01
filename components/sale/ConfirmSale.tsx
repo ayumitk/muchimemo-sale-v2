@@ -2,6 +2,7 @@ import React, { Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import moment from "moment";
 import "moment-timezone";
+import Image from "next/image";
 
 // types
 import { Ebook } from "../../interfaces";
@@ -147,12 +148,33 @@ const ConfirmSale = (props: {
                               {newSaleEbook.map((ebook) => (
                                 <tr key={ebook.id}>
                                   <td className="pl-4 pr-2 py-1 text-sm font-medium text-gray-900">
-                                    <img
-                                      src={ebook.imageUrl}
-                                      alt={`${ebook.title}の表紙`}
-                                      className="w-10"
-                                      loading="lazy"
-                                    />
+                                    <div
+                                      className={`w-10 ${
+                                        ebook.isDeleted && "opacity-50"
+                                      }`}
+                                      style={{ lineHeight: 0 }}
+                                    >
+                                      <Image
+                                        src={
+                                          ebook.imageUrl
+                                            ? ebook.imageUrl
+                                            : "/images/placeholder.svg"
+                                        }
+                                        alt={`${ebook.title}の表紙`}
+                                        width={
+                                          ebook.imageWidth
+                                            ? ebook.imageWidth
+                                            : 343
+                                        }
+                                        height={
+                                          ebook.imageHeight
+                                            ? ebook.imageHeight
+                                            : 500
+                                        }
+                                        placeholder="blur"
+                                        blurDataURL="/images/placeholder.svg"
+                                      />
+                                    </div>
                                   </td>
                                   <td className="px-2 py-2 text-sm font-medium text-gray-900">
                                     {ebook.title}

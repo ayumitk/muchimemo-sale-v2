@@ -16,6 +16,8 @@ export default async function handle(
       isRecommended: boolean;
       reviewCount: number;
       reviewAverage: string;
+      imageWidth?: number;
+      imageHeight?: number;
     };
     query: {
       id: number;
@@ -37,6 +39,8 @@ export default async function handle(
     isRecommended,
     reviewCount,
     reviewAverage,
+    imageWidth,
+    imageHeight,
   } = req.body;
 
   const updateEbook = await prisma.ebook.update({
@@ -54,6 +58,8 @@ export default async function handle(
       isRecommended,
       reviewCount,
       reviewAverage,
+      imageWidth,
+      imageHeight,
     },
   });
   res.json(updateEbook);

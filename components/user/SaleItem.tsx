@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import moment from "moment";
+import Image from "next/image";
 
 // components
 import ShowSaleEnds from "./ShowSaleEnds";
@@ -65,13 +66,24 @@ const SaleItem = (props: { sale: Sale }) => {
                   ebookOnSale.map(
                     (ebook, index) =>
                       index < 7 && (
-                        <img
-                          src={ebook.imageUrl}
-                          alt={`${ebook.imageUrl}の表紙`}
-                          className="h-28 sm:h-36 mr-1 border border-gray-200"
+                        <div
+                          className="w-20 sm:w-24 mr-1 flex-shrink-0"
+                          style={{ lineHeight: 0 }}
                           key={ebook.id}
-                          loading="lazy"
-                        />
+                        >
+                          <Image
+                            src={
+                              ebook.imageUrl
+                                ? ebook.imageUrl
+                                : "/images/placeholder.svg"
+                            }
+                            alt={`${ebook.title}の表紙`}
+                            width={ebook.imageWidth ? ebook.imageWidth : 343}
+                            height={ebook.imageHeight ? ebook.imageHeight : 500}
+                            placeholder="blur"
+                            blurDataURL="/images/placeholder.svg"
+                          />
+                        </div>
                       )
                   )}
               </div>
