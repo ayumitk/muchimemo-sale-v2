@@ -84,7 +84,6 @@ const EditSale = (props: { sale: Sale; ebooks: Ebook[]; refreshData: any }) => {
     }
   };
 
-  // todo : deleting feature doesn't work yet
   const deleteSaleEbook = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     ebookId: number,
