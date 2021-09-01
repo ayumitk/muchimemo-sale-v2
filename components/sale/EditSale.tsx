@@ -45,7 +45,6 @@ const EditSale = (props: { sale: Sale; ebooks: Ebook[]; refreshData: any }) => {
         if (!ebooks.some((ebook) => ebook.amazonId === asin)) {
           uncreatedResult.push(asin);
           setUncreatedAsin(uncreatedResult);
-          // setUncreatedAsin((prevState) => [...prevState, asin]);
         }
       });
 
@@ -63,9 +62,11 @@ const EditSale = (props: { sale: Sale; ebooks: Ebook[]; refreshData: any }) => {
         );
 
         // asin array -> ebook_id array
-        const ebookIdArr = ebooks.filter((ebook) =>
-          uniqueAdditionalAsin.includes(ebook.amazonId)
-        );
+        const ebookIdArr = ebooks.filter((ebook) => {
+          if (!ebook.isDeleted) {
+            return uniqueAdditionalAsin.includes(ebook.amazonId);
+          }
+        });
 
         // create ebook-sale relation row
         await ebookIdArr.forEach((ebook) => {
@@ -323,7 +324,14 @@ const EditSale = (props: { sale: Sale; ebooks: Ebook[]; refreshData: any }) => {
                                 {saleDetails.ebooks &&
                                   saleDetails.ebooks.length > 0 &&
                                   saleDetails.ebooks.map((item) => (
-                                    <tr key={item.ebook.id}>
+                                    <tr
+                                      key={item.ebook.id}
+                                      className={
+                                        item.ebook.isDeleted
+                                          ? "bg-gray-200"
+                                          : ""
+                                      }
+                                    >
                                       <td className="pl-4 pr-2 py-1 text-sm font-medium text-gray-900">
                                         <img
                                           src={item.ebook.imageUrl}
