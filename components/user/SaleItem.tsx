@@ -38,15 +38,31 @@ const SaleItem = (props: { sale: Sale }) => {
     <li className="shadow mb-8">
       <Link href={`/sale/${sale.id}/`}>
         <a>
-          <div className="px-4 py-5 sm:p-6 hover:bg-yellow-50 border-4 border-gray-900 relative">
+          <div
+            className={`px-4 py-5 sm:p-6 border-4 relative ${
+              remainingDays < 0
+                ? "border-gray-300 bg-gray-100"
+                : "border-gray-900 hover:bg-yellow-50"
+            }`}
+          >
             <ShowSaleEnds
               remainingDays={remainingDays + 1}
               className="-left-3 top-2 sm:top-2.5 absolute"
             />
-            <h3 className="text-xl sm:text-2xl font-bold pt-6 border-dotted border-b-4 border-gray-700 pb-3 mb-4">
+            <h3
+              className={`text-xl sm:text-2xl font-bold pt-6 border-dotted border-b-4 pb-3 mb-4 ${
+                remainingDays < 0
+                  ? "border-gray-500 text-gray-600"
+                  : "border-gray-700"
+              }`}
+            >
               {sale.title}
             </h3>
-            <p className="text-gray-700 mb-4 text-sm sm:text-base">
+            <p
+              className={`mb-4 text-sm sm:text-base ${
+                remainingDays < 0 ? "text-gray-500" : "text-gray-700"
+              }`}
+            >
               {sale.ebooks &&
                 sale.ebooks.map(
                   (item) =>
@@ -60,7 +76,11 @@ const SaleItem = (props: { sale: Sale }) => {
               </span>
               が対象です
             </p>
-            <div className="overflow-hidden">
+            <div
+              className={`overflow-hidden ${
+                remainingDays < 0 ? "opacity-70" : ""
+              }`}
+            >
               <div className="flex">
                 {ebookOnSale &&
                   ebookOnSale.map(
