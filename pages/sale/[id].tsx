@@ -28,7 +28,7 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
   const diff = moment(end).diff(now);
   let remainingDays = -1;
   if (diff >= 0) {
-    remainingDays = moment.duration(diff).days();
+    remainingDays = Math.trunc(moment.duration(diff).asDays());
   }
 
   const [ebookOnSale, setEbookOnSale] = useState<Ebook[]>();
