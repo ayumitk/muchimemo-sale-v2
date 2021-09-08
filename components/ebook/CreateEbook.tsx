@@ -69,7 +69,8 @@ const CreateEbook = (props: { ebooks: Ebook[]; refreshData: any }) => {
             browseNode.Id === "2293147051" ||
             browseNode.Id === "2430869051" ||
             browseNode.Id === "2430737051" ||
-            browseNode.Id === "2430765051"
+            browseNode.Id === "2430765051" ||
+            browseNode.Id === "2430812051"
         );
         const novel = res.BrowseNodeInfo.BrowseNodes.some(
           (browseNode: { Id: string }) =>
@@ -103,16 +104,21 @@ const CreateEbook = (props: { ebooks: Ebook[]; refreshData: any }) => {
         const girls = res.BrowseNodeInfo.BrowseNodes.some(
           (browseNode: { Id: string }) => browseNode.Id === "2430765051"
         );
+        const boys = res.BrowseNodeInfo.BrowseNodes.some(
+          (browseNode: { Id: string }) => browseNode.Id === "2430812051"
+        );
 
         let categoryId = 1; // その他
         if (bl) {
           categoryId = 2; // BL
-        } else if (men) {
-          categoryId = 5; // 青年
-        } else if (women) {
-          categoryId = 4; // 女性
         } else if (girls) {
           categoryId = 3; // 少女
+        } else if (women) {
+          categoryId = 4; // 女性
+        } else if (boys) {
+          categoryId = 5; // 少年
+        } else if (men) {
+          categoryId = 6; // 青年
         }
 
         const body = {

@@ -22,15 +22,15 @@ const SaleItem = (props: { sale: Sale }) => {
 
   const [ebookOnSale, setEbookOnSale] = useState<Ebook[]>();
   useEffect(() => {
-    const result = sale.ebooks
+    const recommendedEbooks = sale.ebooks
       .map((item) => item.ebook)
-      .sort((x: Ebook) => {
-        if (x.isRecommended) {
-          return -1;
-        } else {
-          return 1;
-        }
-      });
+      .filter((ebook) => ebook.isRecommended)
+      .sort((a: Ebook, b: Ebook) => a.title.localeCompare(b.title));
+    const restOfEbooks = sale.ebooks
+      .map((item) => item.ebook)
+      .filter((ebook) => !ebook.isRecommended)
+      .sort((a: Ebook, b: Ebook) => a.title.localeCompare(b.title));
+    const result = recommendedEbooks.concat(restOfEbooks);
     setEbookOnSale(result);
   }, [sale]);
 
