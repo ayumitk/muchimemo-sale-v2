@@ -32,6 +32,9 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
   }
 
   const [ebookOnSale, setEbookOnSale] = useState<Ebook[]>();
+  const [mangaCount, setMangaCount] = useState(0);
+  const [novelCount, setNovelCount] = useState(0);
+
   useEffect(() => {
     const recommendedEbooks = saleDetail.ebooks
       .map((item) => item.ebook)
@@ -43,7 +46,45 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
       .sort((a: Ebook, b: Ebook) => a.title.localeCompare(b.title));
     const result = recommendedEbooks.concat(restOfEbooks);
     setEbookOnSale(result);
+
+    const manga = saleDetail.ebooks
+      .map((item) => item.ebook)
+      .filter((ebook) => ebook.formatId === 2);
+    setMangaCount(manga.length);
+
+    const novel = saleDetail.ebooks
+      .map((item) => item.ebook)
+      .filter((ebook) => ebook.formatId === 3);
+    setNovelCount(novel.length);
   }, [saleDetail]);
+
+  const [filterManga, setFilterManga] = useState(true);
+  const [filterNovel, setFilterNovel] = useState(true);
+  useEffect(() => {
+    let filteredEbooks = saleDetail.ebooks.map((item) => item.ebook);
+
+    if (!filterManga) {
+      filteredEbooks =
+        filteredEbooks &&
+        filteredEbooks.filter((ebook) => ebook.formatId !== 2);
+    }
+
+    if (!filterNovel) {
+      filteredEbooks =
+        filteredEbooks &&
+        filteredEbooks.filter((ebook) => ebook.formatId !== 3);
+    }
+
+    const recommendedEbooks = filteredEbooks
+      .filter((ebook) => ebook.isRecommended)
+      .sort((a: Ebook, b: Ebook) => a.title.localeCompare(b.title));
+    const restOfEbooks = filteredEbooks
+      .filter((ebook) => !ebook.isRecommended)
+      .sort((a: Ebook, b: Ebook) => a.title.localeCompare(b.title));
+    const result = recommendedEbooks.concat(restOfEbooks);
+
+    filteredEbooks && setEbookOnSale(result);
+  }, [filterManga, filterNovel]);
 
   return (
     <Layout>
@@ -111,10 +152,38 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
             </span>
             が対象です！
           </p>
+
+          <div className="mt-8">
+            <span className="text-sm">絞り込み：</span>
+            <button
+              type="button"
+              className={`inline-flex items-center px-3 py-2 text-sm leading-4 font-medium rounded-md shadow-sm focus:outline-none ring-0 ${
+                filterManga
+                  ? "text-white bg-gray-900 hover:bg-gray-700"
+                  : "text-gray-400 bg-gray-200 hover:bg-gray-300 hover:text-gray-500"
+              }`}
+              onClick={() => setFilterManga(!filterManga)}
+            >
+              マンガ
+              <span className="text-xs ml-1 font-normal">({mangaCount})</span>
+            </button>
+            <button
+              type="button"
+              className={`inline-flex items-center px-3 py-2 text-sm leading-4 font-medium rounded-md shadow-sm focus:outline-none ring-0 ${
+                filterNovel
+                  ? "text-white bg-gray-900 hover:bg-gray-700"
+                  : "text-gray-400 bg-gray-200 hover:bg-gray-300 hover:text-gray-500"
+              } ml-1`}
+              onClick={() => setFilterNovel(!filterNovel)}
+            >
+              小説
+              <span className="text-xs ml-1 font-normal">({novelCount})</span>
+            </button>
+          </div>
         </div>
 
-        <p className="py-3 text-sm text-gray-700 border-t-4 border-gray-900 mt-5 px-4 md:px-6 lg:px-0">
-          {saleDetail.ebooks.length}作品表示中
+        <p className="py-3 text-sm text-gray-700 border-t-4 border-gray-900 mt-3 px-4 md:px-6 lg:px-0">
+          {ebookOnSale && ebookOnSale.length}作品表示中
         </p>
         <ul className="border-b border-gray-900">
           {ebookOnSale &&
