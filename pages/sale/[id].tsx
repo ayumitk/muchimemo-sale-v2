@@ -161,6 +161,77 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
           </h1>
           <p className="text-gray-700 text-sm sm:text-base">{description}</p>
 
+          {saleDetail.id === 24 && (
+            <div className="mt-7 sm:flex">
+              <div className="sm:mr-4">
+                <div className="font-bold mb-1 text-sm sm:text-base">
+                  ▼コミックシーモアの特設ページ
+                </div>
+                <a
+                  href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3549505&pid=886731152&vc_url=https%3A%2F%2Fwww.cmoa.jp%2Fspecial%2F%3Fpage_id%3D210910_hanaotonohi"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block"
+                >
+                  <img
+                    src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3549505&pid=886731152"
+                    height={1}
+                    width={0}
+                  />
+                  <img
+                    src="https://www.cmoa.jp/auto/images/210910_hanaotonohi/upper_20210910.jpg"
+                    className="sm:w-80 w-52"
+                  />
+                </a>
+              </div>
+              <div>
+                <div className="font-bold mb-1 text-sm sm:text-base">
+                  ▼Renta!の特設ページ
+                </div>
+                <a
+                  href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3549505&pid=886731192&vc_url=https%3A%2F%2Frenta.papy.co.jp%2Frenta%2Fsc%2Ffrm%2Fpage%2Ftopics%2Fbc_35593_20210910.htm%3Fref%3Dvc"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block"
+                >
+                  <img
+                    src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3549505&pid=886731192"
+                    height={1}
+                    width={0}
+                  />
+                  <img
+                    src="https://img.papy.co.jp/lc/renta/img/label/tp_35593_l_02.png?09100000"
+                    className="sm:w-52 w-36"
+                  />
+                </a>
+              </div>
+            </div>
+          )}
+
+          {saleDetail.id === 23 && (
+            <div className="mt-7">
+              <div className="font-bold mb-1">
+                ▼コミックシーモアの特設ページ
+              </div>
+              <a
+                href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3549505&pid=886731152&vc_url=https%3A%2F%2Fwww.cmoa.jp%2Fspecial%2F%3Fpage_id%3D210910_gentosyacomics_coupon%26page_no%3D2"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block"
+              >
+                <img
+                  src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3549505&pid=886731152"
+                  height={1}
+                  width={0}
+                />
+                <img
+                  src="https://www.cmoa.jp/auto/images/210910_gentosyacomics_coupon/upper_20210910_2.jpg"
+                  className="w-60 sm:w-80"
+                />
+              </a>
+            </div>
+          )}
+
           <div className="mt-8 sm:flex items-center">
             <span className="text-sm">絞り込み：</span>
             <button
