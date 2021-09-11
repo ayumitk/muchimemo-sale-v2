@@ -5,6 +5,7 @@ export default async function handle(
   req: {
     body: {
       title: string;
+      description: string;
       saleEnds: string;
       isDeleted: boolean;
       isPublished: boolean;
@@ -16,12 +17,13 @@ export default async function handle(
   res: any
 ) {
   const saleId = req.query.id;
-  const { title, saleEnds, isDeleted, isPublished } = req.body;
+  const { title, description, saleEnds, isDeleted, isPublished } = req.body;
 
   const updateSale = await prisma.sale.update({
     where: { id: Number(saleId) },
     data: {
       title,
+      description,
       saleEnds,
       isDeleted,
       isPublished,

@@ -4,6 +4,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import config from "../../config";
 import moment from "moment";
 import { SearchIcon } from "@heroicons/react/solid";
+// import Autosuggest from "react-autosuggest";
 
 // db
 import prisma from "../../lib/prisma";
@@ -18,7 +19,9 @@ import ShowSaleEnds from "../../components/user/ShowSaleEnds";
 import { Sale, Ebook } from "../../interfaces";
 
 export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
-  const description = `
+  const description = saleDetail.description
+    ? saleDetail.description
+    : `
   ${saleDetail.ebooks
     .map((item) => (item.ebook.isRecommended ? `『${item.ebook.title}』` : ""))
     .join("")}など${saleDetail.ebooks.length}作品が対象です！
@@ -156,16 +159,7 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
           <h1 className="font-bold text-2xl sm:text-4xl mb-4">
             {saleDetail.title}
           </h1>
-          <p className="text-gray-700 text-sm sm:text-base">
-            {saleDetail.ebooks.map((item) =>
-              item.ebook.isRecommended ? `『${item.ebook.title}』` : ""
-            )}
-            など
-            <span className="text-red-600 font-bold">
-              {saleDetail.ebooks.length}作品
-            </span>
-            が対象です！
-          </p>
+          <p className="text-gray-700 text-sm sm:text-base">{description}</p>
 
           <div className="mt-8 sm:flex items-center">
             <span className="text-sm">絞り込み：</span>

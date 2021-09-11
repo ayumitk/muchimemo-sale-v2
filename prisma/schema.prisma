@@ -13,6 +13,7 @@ generator client {
 model Sale {
   id          Int       @default(autoincrement()) @id
   title       String
+  description String?
   saleEnds    DateTime  @map(name: "sale_ends")
   isPublished Boolean   @default(false) @map(name: "is_published")
   isDeleted   Boolean   @default(false) @map(name: "is_deleted")

@@ -43,6 +43,7 @@ export interface EbookOnSale {
 export interface Sale {
   id: number;
   title: string;
+  description: string;
   saleEnds: string;
   isDeleted:boolean;
   isPublished:boolean;

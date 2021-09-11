@@ -63,18 +63,26 @@ const SaleItem = (props: { sale: Sale }) => {
                 remainingDays < 0 ? "text-gray-500" : "text-gray-700"
               }`}
             >
-              {sale.ebooks &&
-                sale.ebooks.map(
-                  (item) =>
-                    item.ebook.isRecommended && (
-                      <span key={item.ebook.id}>『{item.ebook.title}』</span>
-                    )
-                )}
-              など
-              <span className="font-bold text-red-600">
-                {sale.ebooks && sale.ebooks.length}作品
-              </span>
-              が対象です
+              {sale.description ? (
+                sale.description
+              ) : (
+                <>
+                  {sale.ebooks &&
+                    sale.ebooks.map(
+                      (item) =>
+                        item.ebook.isRecommended && (
+                          <span key={item.ebook.id}>
+                            『{item.ebook.title}』
+                          </span>
+                        )
+                    )}
+                  など
+                  <span className="font-bold text-red-600">
+                    {sale.ebooks && sale.ebooks.length}作品
+                  </span>
+                  が対象です
+                </>
+              )}
             </p>
             <div
               className={`overflow-hidden ${
