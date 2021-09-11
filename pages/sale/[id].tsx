@@ -3,6 +3,7 @@ import Head from "next/head";
 import { GetStaticPaths, GetStaticProps } from "next";
 import config from "../../config";
 import moment from "moment";
+import { SearchIcon } from "@heroicons/react/solid";
 
 // db
 import prisma from "../../lib/prisma";
@@ -56,12 +57,25 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
       .map((item) => item.ebook)
       .filter((ebook) => ebook.formatId === 3);
     setNovelCount(novel.length);
-  }, [saleDetail]);
+  }, []);
 
   const [filterManga, setFilterManga] = useState(true);
   const [filterNovel, setFilterNovel] = useState(true);
+  const [filterKeyword, setFilterKeyword] = useState("");
   useEffect(() => {
     let filteredEbooks = saleDetail.ebooks.map((item) => item.ebook);
+
+    if (filterKeyword !== "") {
+      filteredEbooks =
+        filteredEbooks &&
+        filteredEbooks.filter((ebook: Ebook) => {
+          const parsedAuthors = ebook.authors && JSON.parse(ebook.authors);
+          return (
+            ebook.title.includes(filterKeyword) ||
+            (parsedAuthors && parsedAuthors[0].Name.includes(filterKeyword))
+          );
+        });
+    }
 
     if (!filterManga) {
       filteredEbooks =
@@ -84,13 +98,13 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
     const result = recommendedEbooks.concat(restOfEbooks);
 
     filteredEbooks && setEbookOnSale(result);
-  }, [filterManga, filterNovel]);
+  }, [filterManga, filterNovel, filterKeyword]);
 
   return (
     <Layout>
       <Head>
         <title>
-          {saleDetail.title} - {config.siteTitle}
+          {saleDetail.title} - {config.siteTitleAlt}
         </title>
         <meta name="description" content={description} />
         <meta
@@ -105,7 +119,7 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
         <meta property="og:type" content="article" />
         <meta
           property="og:title"
-          content={`${saleDetail.title} - ${config.siteTitle}`}
+          content={`${saleDetail.title} - ${config.siteTitleAlt}`}
         />
         <meta property="og:description" content={description} />
         <meta
@@ -114,7 +128,7 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
         />
         <meta
           property="og:image:alt"
-          content={`${saleDetail.title} - ${config.siteTitle}`}
+          content={`${saleDetail.title} - ${config.siteTitleAlt}`}
         />
 
         <meta
@@ -123,7 +137,7 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
         />
         <meta
           name="twitter:title"
-          content={`${saleDetail.title} - ${config.siteTitle}`}
+          content={`${saleDetail.title} - ${config.siteTitleAlt}`}
         />
         <meta name="twitter:description" content={description} />
         <meta
@@ -132,7 +146,7 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
         />
         <meta
           name="twitter:image:alt"
-          content={`${saleDetail.title} - ${config.siteTitle}`}
+          content={`${saleDetail.title} - ${config.siteTitleAlt}`}
         />
       </Head>
       <article className="max-w-3xl mx-auto">
@@ -153,7 +167,7 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
             が対象です！
           </p>
 
-          <div className="mt-8">
+          <div className="mt-8 sm:flex items-center">
             <span className="text-sm">絞り込み：</span>
             <button
               type="button"
@@ -173,12 +187,22 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
                 filterNovel
                   ? "text-white bg-gray-900 hover:bg-gray-700"
                   : "text-gray-400 bg-gray-200 hover:bg-gray-300 hover:text-gray-500"
-              } ml-1`}
+              } ml-1 mr-2`}
               onClick={() => setFilterNovel(!filterNovel)}
             >
               小説
               <span className="text-xs ml-1 font-normal">({novelCount})</span>
             </button>
+            <div className="flex-1 relative mt-2 sm:mt-0">
+              <input
+                type="text"
+                className="pl-7 focus:ring-gray-700 focus:border-gray-700 block border-gray-500 rounded-sm w-full"
+                placeholder="タイトル、作家名…"
+                value={filterKeyword}
+                onChange={(e) => setFilterKeyword(e.target.value)}
+              />
+              <SearchIcon className="absolute w-5 h-5 left-2 top-3 z-10" />
+            </div>
           </div>
         </div>
 

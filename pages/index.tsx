@@ -42,28 +42,28 @@ export default function Home({ allSales }: { allSales: Array<Sale> }) {
   return (
     <Layout>
       <Head>
-        <title>{config.siteTitle}</title>
+        <title>{config.siteTitleAlt}</title>
         <meta name="description" content={config.siteDescription} />
         <meta name="image" content={`${config.siteUrl}${config.siteBanner}`} />
 
         <meta property="og:url" content={config.siteUrl} />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content={config.siteTitle} />
+        <meta property="og:title" content={config.siteTitleAlt} />
         <meta property="og:description" content={config.siteDescription} />
         <meta
           property="og:image"
           content={`${config.siteUrl}${config.siteBanner}`}
         />
-        <meta property="og:image:alt" content={config.siteTitle} />
+        <meta property="og:image:alt" content={config.siteTitleAlt} />
 
         <meta name="twitter:url" content={config.siteUrl} />
-        <meta name="twitter:title" content={config.siteTitle} />
+        <meta name="twitter:title" content={config.siteTitleAlt} />
         <meta name="twitter:description" content={config.siteDescription} />
         <meta
           name="twitter:image"
           content={`${config.siteUrl}${config.siteBanner}`}
         />
-        <meta name="twitter:image:alt" content={config.siteTitle} />
+        <meta name="twitter:image:alt" content={config.siteTitleAlt} />
       </Head>
       <div className="max-w-3xl mx-auto px-4 md:px-6 lg:px-0">
         <section>

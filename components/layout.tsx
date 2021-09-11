@@ -14,7 +14,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:creator" content="@muchimemo" />
         <meta name="twitter:site" content="@muchimemo" />
-        <meta property="og:site_name" content={config.siteTitle} />
+        <meta property="og:site_name" content={config.siteTitleAlt} />
       </Head>
 
       <header className="mb-4 border-b-4 border-gray-900">

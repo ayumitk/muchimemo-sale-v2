@@ -110,11 +110,14 @@ const ListEbook = (props: {
 
       try {
         // keyword
-        result = await result.filter(
-          (x) =>
+        result = await result.filter((x) => {
+          const parsedAuthors = x.authors && JSON.parse(x.authors);
+          return (
             x.title.includes(filterChecked.keyword) ||
-            (x.authors && x.authors[0].includes(filterChecked.keyword))
-        );
+            (parsedAuthors &&
+              parsedAuthors[0].Name.includes(filterChecked.keyword))
+          );
+        });
       } catch (err: any) {
         console.error(err.message);
       }

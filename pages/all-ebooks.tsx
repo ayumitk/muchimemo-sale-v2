@@ -182,7 +182,7 @@ export default function Home({ allSales }: { allSales: Array<Sale> }) {
   return (
     <Layout>
       <Head>
-        <title>セール中の全ての作品 - {config.siteTitle}</title>
+        <title>セール中の全ての作品 - {config.siteTitleAlt}</title>
         <meta name="description" content={config.siteDescription} />
         <meta name="image" content={`${config.siteUrl}${config.siteBanner}`} />
 
@@ -190,7 +190,7 @@ export default function Home({ allSales }: { allSales: Array<Sale> }) {
         <meta property="og:type" content="article" />
         <meta
           property="og:title"
-          content={`セール中の全ての作品 - ${config.siteTitle}`}
+          content={`セール中の全ての作品 - ${config.siteTitleAlt}`}
         />
         <meta property="og:description" content={config.siteDescription} />
         <meta
@@ -199,13 +199,13 @@ export default function Home({ allSales }: { allSales: Array<Sale> }) {
         />
         <meta
           property="og:image:alt"
-          content={`セール中の全ての作品 - ${config.siteTitle}`}
+          content={`セール中の全ての作品 - ${config.siteTitleAlt}`}
         />
 
         <meta name="twitter:url" content={config.siteUrl} />
         <meta
           name="twitter:title"
-          content={`セール中の全ての作品 - ${config.siteTitle}`}
+          content={`セール中の全ての作品 - ${config.siteTitleAlt}`}
         />
         <meta name="twitter:description" content={config.siteDescription} />
         <meta
@@ -214,7 +214,7 @@ export default function Home({ allSales }: { allSales: Array<Sale> }) {
         />
         <meta
           name="twitter:image:alt"
-          content={`セール中の全ての作品 - ${config.siteTitle}`}
+          content={`セール中の全ての作品 - ${config.siteTitleAlt}`}
         />
       </Head>
       <article className="max-w-3xl mx-auto">
