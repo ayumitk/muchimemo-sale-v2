@@ -17,8 +17,8 @@ const DeleteEbook = (props: { ebook: Ebook; refreshData: any }) => {
 
   const deleteEbook = async () => {
     try {
-      const body = { ...ebook, isDeleted: !ebook.isDeleted };
-      await fetch(`/api/ebook/update/${ebook.id}`, {
+      const body = { isDeleted: !ebook.isDeleted };
+      await fetch(`/api/ebook/delete/${ebook.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
