@@ -5,6 +5,7 @@ module.exports = {
       "www.cmoa.jp",
       "img.papy.co.jp",
       "ebook-assets.dmm.com",
+      "cmoa.akamaized.net"
     ],
   },
 };

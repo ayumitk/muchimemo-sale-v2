@@ -4,7 +4,6 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import config from "../../config";
 import moment from "moment";
 import { SearchIcon } from "@heroicons/react/solid";
-import Image from "next/image";
 
 // db
 import prisma from "../../lib/prisma";
@@ -14,6 +13,7 @@ import Layout from "../../components/layout";
 import EbookItem from "../../components/user/EbookItem";
 import BreadcrumbNav from "../../components/user/BreadcrumbNav";
 import ShowSaleEnds from "../../components/user/ShowSaleEnds";
+import AffiliateBanners from "../../components/user/AffiliateBanners";
 
 // types
 import { Sale, Ebook } from "../../interfaces";
@@ -161,108 +161,7 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
           </h1>
           <p className="text-gray-700 text-sm sm:text-base">{description}</p>
 
-          {saleDetail.id === 24 && (
-            <div className="mt-7 sm:flex">
-              <div className="sm:mr-4">
-                <div className="font-bold mb-1 text-sm sm:text-base">
-                  ▼コミックシーモアの特設ページ
-                </div>
-                <a
-                  href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3549505&pid=886731152&vc_url=https%3A%2F%2Fwww.cmoa.jp%2Fspecial%2F%3Fpage_id%3D210910_hanaotonohi"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block sm:w-64 w-52"
-                >
-                  <img
-                    src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3549505&pid=886731152"
-                    height={1}
-                    width={0}
-                  />
-                  <Image
-                    src="https://www.cmoa.jp/auto/images/210910_hanaotonohi/upper_20210910.jpg"
-                    alt="コミックシーモアの特設ページ"
-                    placeholder="blur"
-                    blurDataURL="/images/placeholder.svg"
-                    width={770}
-                    height={320}
-                  />
-                </a>
-              </div>
-              <div className="sm:mr-4">
-                <div className="font-bold mb-1 text-sm sm:text-base">
-                  ▼Renta!の特設ページ
-                </div>
-                <a
-                  href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3549505&pid=886731192&vc_url=https%3A%2F%2Frenta.papy.co.jp%2Frenta%2Fsc%2Ffrm%2Fpage%2Ftopics%2Fbc_35593_20210910.htm%3Fref%3Dvc"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block sm:w-44 w-36"
-                >
-                  <img
-                    src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3549505&pid=886731192"
-                    height={1}
-                    width={0}
-                  />
-                  <Image
-                    src="https://img.papy.co.jp/lc/renta/img/label/tp_35593_l_02.png?09100000"
-                    alt="Renta!の特設ページ"
-                    placeholder="blur"
-                    blurDataURL="/images/placeholder.svg"
-                    width={360}
-                    height={225}
-                  />
-                </a>
-              </div>
-              <div>
-                <div className="font-bold mb-1 text-sm sm:text-base">
-                  ▼DMMブックスの特設ページ
-                </div>
-                <a
-                  href="https://al.dmm.com/?lurl=https%3A%2F%2Fbook.dmm.com%2Flist%2Fcampaign%2FhuG80eyHiK2LhrCW1aHD1OHo05mO0dWYht*rg6HkAgCK3bV2IHCCsa2Gs5%2CQtMQ_%2F%3Ffloor%3DGbl&af_id=muchimemo-001&ch=toolbar&ch_id=link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block sm:w-60 w-48"
-                >
-                  <Image
-                    src="https://ebook-assets.dmm.com/p/bnr/dc/rotation/book_210825173207hanaoto_g.jpg"
-                    alt="DMMブックスの特設ページ"
-                    placeholder="blur"
-                    blurDataURL="/images/placeholder.svg"
-                    width={500}
-                    height={220}
-                  />
-                </a>
-              </div>
-            </div>
-          )}
-
-          {saleDetail.id === 23 && (
-            <div className="mt-7">
-              <div className="font-bold mb-1">
-                ▼コミックシーモアの特設ページ
-              </div>
-              <a
-                href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3549505&pid=886731152&vc_url=https%3A%2F%2Fwww.cmoa.jp%2Fspecial%2F%3Fpage_id%3D210910_gentosyacomics_coupon%26page_no%3D2"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block sm:w-64 w-52"
-              >
-                <img
-                  src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3549505&pid=886731152"
-                  height={1}
-                  width={0}
-                />
-                <Image
-                  src="https://www.cmoa.jp/auto/images/210910_gentosyacomics_coupon/upper_20210910_2.jpg"
-                  alt="コミックシーモアの特設ページ"
-                  placeholder="blur"
-                  blurDataURL="/images/placeholder.svg"
-                  width={770}
-                  height={320}
-                />
-              </a>
-            </div>
-          )}
+          <AffiliateBanners saleId={saleDetail.id} />
 
           <div className="mt-8 sm:flex items-center">
             <span className="text-sm">絞り込み：</span>

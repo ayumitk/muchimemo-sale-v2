@@ -1,6 +1,3 @@
-import { useEffect, useState } from "react";
-import { ChatAltIcon } from "@heroicons/react/solid";
-import Image from "next/image";
 import moment from "moment";
 
 // types
@@ -9,7 +6,7 @@ import { Ebook, Format, Category, Sale } from "../../interfaces";
 // components
 import EditSale from "./EditSale";
 import DeleteSale from "./DeleteSale";
-// import UpdateEbook from "./UpdateEbook";
+import EditEbooksOnSale from "./EditEbooksOnSale";
 
 const ListSale = (props: {
   sales: Sale[];
@@ -95,9 +92,22 @@ const ListSale = (props: {
                 }
               >
                 <td className="px-6 py-4 text-sm">{sale.id}</td>
-                <td className="px-6 py-4 text-sm font-medium">{sale.title}</td>
+                <td className="px-6 py-4 text-sm font-medium">
+                  <a
+                    href={`/sale/${sale.id}/`}
+                    className="hover:text-teal-600 hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {sale.title}
+                  </a>
+                </td>
                 <td className="px-6 py-4 text-sm">
-                  {sale.ebooks && sale.ebooks.length}
+                  <EditEbooksOnSale
+                    sale={sale}
+                    ebooks={ebooks}
+                    refreshData={refreshData}
+                  />
                 </td>
                 <td className="px-6 py-4 text-sm">
                   {moment(sale.saleEnds).format("YYYY-MM-DD")}
@@ -111,11 +121,7 @@ const ListSale = (props: {
                   {`${sale.isPublished ? "公開" : "下書き"}`}
                 </td>
                 <td className="px-6 py-4 text-sm">
-                  <EditSale
-                    sale={sale}
-                    ebooks={ebooks}
-                    refreshData={refreshData}
-                  />
+                  <EditSale sale={sale} refreshData={refreshData} />
                 </td>
                 <td className="px-6 py-4 text-sm">
                   <DeleteSale sale={sale} refreshData={refreshData} />

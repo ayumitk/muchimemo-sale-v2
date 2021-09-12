@@ -78,6 +78,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       sales: { include: { sale: true } },
     },
     orderBy: [{ isDeleted: "asc" }, { id: "desc" }],
+    take: 100,
   });
   const allEbooks = JSON.parse(JSON.stringify(ebookData));
 

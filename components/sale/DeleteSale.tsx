@@ -34,12 +34,15 @@ const DeleteSale = (props: { sale: Sale; refreshData: any }) => {
   return (
     <>
       {sale.isDeleted ? (
-        <button className="font-medium" onClick={() => modalOpen()}>
+        <button
+          className="font-medium hover:text-gray-600 hover:underline"
+          onClick={() => modalOpen()}
+        >
           復元
         </button>
       ) : (
         <button
-          className="text-red-500 font-medium"
+          className="text-red-500 font-medium hover:text-red-600 hover:underline"
           onClick={() => modalOpen()}
         >
           削除

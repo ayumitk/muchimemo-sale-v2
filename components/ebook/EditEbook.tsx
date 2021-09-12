@@ -45,7 +45,10 @@ const EditEbook = (props: {
 
   return (
     <>
-      <button onClick={() => modalOpen()} className="text-teal-500 font-medium">
+      <button
+        onClick={() => modalOpen()}
+        className="text-teal-500 font-medium hover:text-teal-600 hover:underline"
+      >
         編集
       </button>
       <Transition.Root show={open} as={Fragment}>
