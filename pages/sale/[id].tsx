@@ -180,11 +180,11 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
                   />
                   <img
                     src="https://www.cmoa.jp/auto/images/210910_hanaotonohi/upper_20210910.jpg"
-                    className="sm:w-80 w-52"
+                    className="sm:w-64 w-52"
                   />
                 </a>
               </div>
-              <div>
+              <div className="sm:mr-4">
                 <div className="font-bold mb-1 text-sm sm:text-base">
                   ▼Renta!の特設ページ
                 </div>
@@ -201,7 +201,23 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
                   />
                   <img
                     src="https://img.papy.co.jp/lc/renta/img/label/tp_35593_l_02.png?09100000"
-                    className="sm:w-52 w-36"
+                    className="sm:w-44 w-36"
+                  />
+                </a>
+              </div>
+              <div>
+                <div className="font-bold mb-1 text-sm sm:text-base">
+                  ▼DMMブックスの特設ページ
+                </div>
+                <a
+                  href="https://al.dmm.com/?lurl=https%3A%2F%2Fbook.dmm.com%2Flist%2Fcampaign%2FhuG80eyHiK2LhrCW1aHD1OHo05mO0dWYht*rg6HkAgCK3bV2IHCCsa2Gs5%2CQtMQ_%2F%3Ffloor%3DGbl&af_id=muchimemo-001&ch=toolbar&ch_id=link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block"
+                >
+                  <img
+                    src="https://ebook-assets.dmm.com/p/bnr/dc/rotation/book_210825173207hanaoto_g.jpg"
+                    className="sm:w-60 w-48"
                   />
                 </a>
               </div>
@@ -226,7 +242,7 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
                 />
                 <img
                   src="https://www.cmoa.jp/auto/images/210910_gentosyacomics_coupon/upper_20210910_2.jpg"
-                  className="w-60 sm:w-80"
+                  className="sm:w-64 w-52"
                 />
               </a>
             </div>
