@@ -1,5 +1,10 @@
 module.exports = {
   images: {
-    domains: ['m.media-amazon.com'],
+    domains: [
+      "m.media-amazon.com",
+      "www.cmoa.jp",
+      "img.papy.co.jp",
+      "ebook-assets.dmm.com",
+    ],
   },
-}
+};

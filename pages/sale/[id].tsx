@@ -4,7 +4,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import config from "../../config";
 import moment from "moment";
 import { SearchIcon } from "@heroicons/react/solid";
-// import Autosuggest from "react-autosuggest";
+import Image from "next/image";
 
 // db
 import prisma from "../../lib/prisma";
@@ -171,16 +171,20 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
                   href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3549505&pid=886731152&vc_url=https%3A%2F%2Fwww.cmoa.jp%2Fspecial%2F%3Fpage_id%3D210910_hanaotonohi"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block"
+                  className="inline-block sm:w-64 w-52"
                 >
                   <img
                     src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3549505&pid=886731152"
                     height={1}
                     width={0}
                   />
-                  <img
+                  <Image
                     src="https://www.cmoa.jp/auto/images/210910_hanaotonohi/upper_20210910.jpg"
-                    className="sm:w-64 w-52"
+                    alt="コミックシーモアの特設ページ"
+                    placeholder="blur"
+                    blurDataURL="/images/placeholder.svg"
+                    width={770}
+                    height={320}
                   />
                 </a>
               </div>
@@ -192,16 +196,20 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
                   href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3549505&pid=886731192&vc_url=https%3A%2F%2Frenta.papy.co.jp%2Frenta%2Fsc%2Ffrm%2Fpage%2Ftopics%2Fbc_35593_20210910.htm%3Fref%3Dvc"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block"
+                  className="inline-block sm:w-44 w-36"
                 >
                   <img
                     src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3549505&pid=886731192"
                     height={1}
                     width={0}
                   />
-                  <img
+                  <Image
                     src="https://img.papy.co.jp/lc/renta/img/label/tp_35593_l_02.png?09100000"
-                    className="sm:w-44 w-36"
+                    alt="Renta!の特設ページ"
+                    placeholder="blur"
+                    blurDataURL="/images/placeholder.svg"
+                    width={360}
+                    height={225}
                   />
                 </a>
               </div>
@@ -213,11 +221,15 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
                   href="https://al.dmm.com/?lurl=https%3A%2F%2Fbook.dmm.com%2Flist%2Fcampaign%2FhuG80eyHiK2LhrCW1aHD1OHo05mO0dWYht*rg6HkAgCK3bV2IHCCsa2Gs5%2CQtMQ_%2F%3Ffloor%3DGbl&af_id=muchimemo-001&ch=toolbar&ch_id=link"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block"
+                  className="inline-block sm:w-60 w-48"
                 >
-                  <img
+                  <Image
                     src="https://ebook-assets.dmm.com/p/bnr/dc/rotation/book_210825173207hanaoto_g.jpg"
-                    className="sm:w-60 w-48"
+                    alt="DMMブックスの特設ページ"
+                    placeholder="blur"
+                    blurDataURL="/images/placeholder.svg"
+                    width={500}
+                    height={220}
                   />
                 </a>
               </div>
@@ -233,16 +245,20 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
                 href="//ck.jp.ap.valuecommerce.com/servlet/referral?sid=3549505&pid=886731152&vc_url=https%3A%2F%2Fwww.cmoa.jp%2Fspecial%2F%3Fpage_id%3D210910_gentosyacomics_coupon%26page_no%3D2"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block"
+                className="inline-block sm:w-64 w-52"
               >
                 <img
                   src="//ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3549505&pid=886731152"
                   height={1}
                   width={0}
                 />
-                <img
+                <Image
                   src="https://www.cmoa.jp/auto/images/210910_gentosyacomics_coupon/upper_20210910_2.jpg"
-                  className="sm:w-64 w-52"
+                  alt="コミックシーモアの特設ページ"
+                  placeholder="blur"
+                  blurDataURL="/images/placeholder.svg"
+                  width={770}
+                  height={320}
                 />
               </a>
             </div>
