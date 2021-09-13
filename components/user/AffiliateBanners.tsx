@@ -4,31 +4,6 @@ const AffiliateBanners = (props: { saleId: number }) => {
   const { saleId } = props;
   return (
     <>
-      {saleId === 12 && (
-        <div className="mt-7 sm:flex">
-          <div className="sm:mr-4">
-            <div className="font-bold mb-1 text-sm sm:text-base">
-              ▼Renta!の特設ページ
-            </div>
-            <a
-              href="https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3549505&pid=886731192&vc_url=https%3A%2F%2Frenta.papy.co.jp%2Frenta%2Fsc%2Ffrm%2Fpage%2Ftopics%2Fbc_35827_20210901.htm%3Fref%3Dvc"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block sm:w-44 w-36"
-            >
-              <Image
-                src="https://img.papy.co.jp/lc/renta/img/label/tp_35827_l_02.png"
-                alt="Renta!の特設ページ"
-                placeholder="blur"
-                blurDataURL="/images/placeholder.svg"
-                width={360}
-                height={225}
-              />
-            </a>
-          </div>
-        </div>
-      )}
-
       {saleId === 25 && (
         <div className="mt-7 sm:flex">
           <div className="sm:mr-4">
@@ -83,31 +58,6 @@ const AffiliateBanners = (props: { saleId: number }) => {
             >
               <Image
                 src="https://ebook-assets.dmm.com/p/bnr/dc/rotation/book_210825153730haishinkinen_g.jpg"
-                alt="DMMブックスの特設ページ"
-                placeholder="blur"
-                blurDataURL="/images/placeholder.svg"
-                width={500}
-                height={220}
-              />
-            </a>
-          </div>
-        </div>
-      )}
-
-      {saleId === 16 && (
-        <div className="mt-7 sm:flex">
-          <div>
-            <div className="font-bold mb-1 text-sm sm:text-base">
-              ▼DMMブックスの特設ページ
-            </div>
-            <a
-              href="https://al.dmm.com/?lurl=https%3A%2F%2Fbook.dmm.com%2Flist%2Fcampaign%2Fgsai2ueRhLq*hrCz0LTtdS1X0ous3Pe4i*e6go3EF9nWxNaM0dXjutvkt92epomL542DktaL19zVxNLUioK*iYz6tg__%2F&af_id=muchimemo-001&ch=toolbar&ch_id=link"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block sm:w-60 w-48"
-            >
-              <Image
-                src="https://ebook-assets.dmm.com/p/bnr/dc/rotation/book_210823152855ByoudeWakaru_g.jpg"
                 alt="DMMブックスの特設ページ"
                 placeholder="blur"
                 blurDataURL="/images/placeholder.svg"
