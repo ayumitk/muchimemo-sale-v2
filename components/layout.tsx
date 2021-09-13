@@ -52,6 +52,26 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <p className="mb-5 bg-gray-100 p-5">
             sale.muchimemo.comは、Amazon.co.jpを宣伝しリンクすることによってサイトが紹介料を獲得できる手段を提供することを目的に設定されたアフィリエイトプログラムである、Amazonアソシエイト・プログラムの参加者です。
           </p>
+          <p className="text-sm text-gray-700 mb-5 text-center">
+            Powered by{" "}
+            <a
+              href="https://webservices.amazon.com/paapi5/documentation/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-700 hover:underline"
+            >
+              Amazon Product Advertising API
+            </a>
+            ,{" "}
+            <a
+              href="https://affiliate.dmm.com/api/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-700 hover:underline"
+            >
+              DMM.com Webサービス
+            </a>
+          </p>
           <p className="text-center">
             © 2021 ムチでメモ Made with{" "}
             <HeartIcon className="text-red-600 w-4 h-4 inline" /> in Canada.

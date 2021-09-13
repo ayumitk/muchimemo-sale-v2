@@ -30,8 +30,8 @@
     "react": "17.0.2",
     "react-autosuggest": "^10.1.0",
     "react-dom": "17.0.2",
-    "remark": "^12.0.0",
-    "remark-html": "^12.0.0",
+    "remark": "^13.0.0",
+    "remark-html": "^13.0.2",
     "retryx": "0.0.9",
     "swr": "^0.5.6",
     "tailwindcss": "^2.2.7"

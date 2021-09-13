@@ -23,11 +23,11 @@ export function getSortedPostsData() {
     // Combine the data with the id
     return {
       id,
-      ...(matterResult.data as { date: string; title: string })
+      ...matterResult.data
     }
   })
   // Sort posts by date
-  return allPostsData.sort((a, b) => {
+  return allPostsData.sort((a:any, b:any) => {
     if (a.date < b.date) {
       return 1
     } else {
@@ -47,7 +47,7 @@ export function getAllPostIds() {
   })
 }
 
-export async function getPostData(id: string) {
+export async function getPostData(id:number) {
   const fullPath = path.join(postsDirectory, `${id}.md`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
 
@@ -64,6 +64,6 @@ export async function getPostData(id: string) {
   return {
     id,
     contentHtml,
-    ...(matterResult.data as { date: string; title: string })
+    ...matterResult.data
   }
 }

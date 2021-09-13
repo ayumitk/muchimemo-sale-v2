@@ -14,6 +14,7 @@ import prisma from "../lib/prisma";
 // components
 import Layout from "../components/layout";
 import SaleItem from "../components/user/SaleItem";
+import BreadcrumbNav from "../components/user/BreadcrumbNav";
 
 // types
 import { Sale } from "../interfaces";
@@ -28,7 +29,15 @@ export default function Home({ allSales }: { allSales: Array<Sale> }) {
       const diff = moment(end).diff(now);
       return diff >= 0;
     });
-    setOrderedSales(onSale);
+
+    const expiredSale = allSales.filter((sale) => {
+      const now = moment().tz("Asia/Tokyo").format();
+      const end = moment(sale.saleEnds).add(9, "h").format();
+      const diff = moment(end).diff(now);
+      return diff < 0;
+    });
+
+    setOrderedSales(onSale.concat(expiredSale));
   }, [allSales]);
 
   return (
@@ -58,11 +67,15 @@ export default function Home({ allSales }: { allSales: Array<Sale> }) {
         <meta name="twitter:image:alt" content={config.siteTitleAlt} />
       </Head>
       <div className="max-w-3xl mx-auto px-4 md:px-6 lg:px-0">
-        <section className="mb-10">
-          <h1 className="mb-1 mt-10">
-            BLジャンルを中心に、今セール中のマンガ・小説をおすすめコメント付きで紹介します！
+        <section>
+          <BreadcrumbNav pageTitle="開催中のセール一覧" />
+          <h1 className="font-bold text-2xl sm:text-4xl mb-4">
+            開催中のセール一覧
           </h1>
-          <div className="flex flex-wrap items-center mb-2">
+          <p className="mb-1 mt-10">
+            BLジャンルを中心に、今セール中のマンガ・小説をおすすめコメント付きで紹介します！
+          </p>
+          <div className="flex flex-wrap items-center mb-10">
             <div className="w-16 mr-2 mt-1" style={{ lineHeight: 0 }}>
               <Image
                 src="/images/amazon-logo.png"
@@ -99,32 +112,8 @@ export default function Home({ allSales }: { allSales: Array<Sale> }) {
           </div>
         </section>
 
-        <section className="mb-16">
-          <h2
-            className="font-bold text-xl sm:text-2xl bg-gray-900 text-white inline-block relative pl-4 pr-8"
-            style={{ height: `50px`, lineHeight: `50px` }}
-          >
-            セール中の作品から探す
-            <span
-              className="absolute top-0 right-0"
-              style={{
-                borderWidth: `25px 15px 25px 0px`,
-                borderColor: `transparent #fff transparent transparent`,
-                borderStyle: `solid`,
-              }}
-            ></span>
-          </h2>
-
-          <Link href="/all-ebooks">
-            <a className="mt-4 flex items-center border-4 border-gray-900 hover:bg-yellow-50 px-4 py-4 sm:py-5 sm:p-6 font-bold text-lg">
-              <ArrowCircleRightIcon className="w-6 h-6 mr-1" />{" "}
-              セール中の全ての作品を見る
-            </a>
-          </Link>
-        </section>
-
         <section>
-          <div className="mb-4">
+          {/* <div className="mb-4">
             <h2
               className="font-bold text-xl sm:text-2xl bg-gray-900 text-white inline-block relative pl-4 pr-8"
               style={{ height: `50px`, lineHeight: `50px` }}
@@ -139,7 +128,7 @@ export default function Home({ allSales }: { allSales: Array<Sale> }) {
                 }}
               ></span>
             </h2>
-          </div>
+          </div> */}
           <ul>
             {orderedSales.map((sale) => (
               <SaleItem sale={sale} key={sale.id} />
