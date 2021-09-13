@@ -39,6 +39,7 @@ model Ebook {
   rentaId        String?    @map(name: "renta_id")
   cmoaId         String?    @map(name: "cmoa_id")
   dmmId          String?    @map(name: "dmm_id")
+  isPickup       Boolean    @default(false) @map(name: "is_pickup")
   isRecommended  Boolean    @default(false) @map(name: "is_recommended")
   isDeleted      Boolean    @default(false) @map(name: "is_deleted")
   price          Int        @default(0)

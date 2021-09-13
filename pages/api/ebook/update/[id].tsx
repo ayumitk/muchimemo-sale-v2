@@ -13,6 +13,7 @@ export default async function handle(
       isDeleted: boolean;
       price?: number;
       points?: number;
+      isPickup: boolean;
       isRecommended: boolean;
       reviewCount: number;
       reviewAverage: string;
@@ -36,6 +37,7 @@ export default async function handle(
     isDeleted,
     price,
     points,
+    isPickup,
     isRecommended,
     reviewCount,
     reviewAverage,
@@ -55,6 +57,7 @@ export default async function handle(
       isDeleted,
       price,
       points,
+      isPickup,
       isRecommended,
       reviewCount,
       reviewAverage,

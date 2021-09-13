@@ -16,9 +16,15 @@ import Layout from "../components/layout";
 import SaleItem from "../components/user/SaleItem";
 
 // types
-import { Sale } from "../interfaces";
+import { Sale, Ebook } from "../interfaces";
 
-export default function Home({ allSales }: { allSales: Array<Sale> }) {
+export default function Home({
+  allSales,
+  pickupEbooks,
+}: {
+  allSales: Array<Sale>;
+  pickupEbooks: Array<Ebook>;
+}) {
   const [orderedSales, setOrderedSales] = useState<Sale[]>([]);
 
   useEffect(() => {
@@ -101,10 +107,10 @@ export default function Home({ allSales }: { allSales: Array<Sale> }) {
 
         <section className="mb-16">
           <h2
-            className="font-bold text-xl sm:text-2xl bg-gray-900 text-white inline-block relative pl-4 pr-8"
+            className="font-bold text-xl sm:text-2xl bg-gray-900 text-white inline-block relative pl-4 pr-8 mb-4"
             style={{ height: `50px`, lineHeight: `50px` }}
           >
-            セール中の作品から探す
+            セール中の注目作品
             <span
               className="absolute top-0 right-0"
               style={{
@@ -114,13 +120,40 @@ export default function Home({ allSales }: { allSales: Array<Sale> }) {
               }}
             ></span>
           </h2>
-
-          <Link href="/all-ebooks">
-            <a className="mt-4 flex items-center border-4 border-gray-900 hover:bg-yellow-50 px-4 py-4 sm:py-5 sm:p-6 font-bold text-lg">
-              <ArrowCircleRightIcon className="w-6 h-6 mr-1" />{" "}
-              セール中の全ての作品を見る
-            </a>
-          </Link>
+          <ul className="grid grid-flow-col grid-cols-3 sm:grid-cols-6 grid-rows-2 sm:grid-rows-1 gap-4">
+            {pickupEbooks.length > 0 &&
+              pickupEbooks.map((ebook) => (
+                <li key={ebook.id}>
+                  <a
+                    href={`https://www.amazon.co.jp/dp/${ebook.amazonId}?tag=ayutak04-22&linkCode=ogi&th=1&psc=1`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block"
+                  >
+                    <span
+                      className="block hover:opacity-80"
+                      style={{ lineHeight: 0 }}
+                    >
+                      <Image
+                        src={
+                          ebook.imageUrl
+                            ? ebook.imageUrl
+                            : "/images/placeholder.svg"
+                        }
+                        alt={`${ebook.title}の表紙`}
+                        width={ebook.imageWidth ? ebook.imageWidth : 343}
+                        height={ebook.imageHeight ? ebook.imageHeight : 500}
+                        placeholder="blur"
+                        blurDataURL="/images/placeholder.svg"
+                      />
+                    </span>
+                    <span className="block mt-2 text-sm line-clamp-3">
+                      {ebook.title}
+                    </span>
+                  </a>
+                </li>
+              ))}
+          </ul>
         </section>
 
         <section>
@@ -169,5 +202,11 @@ export const getStaticProps: GetStaticProps = async () => {
     orderBy: { saleEnds: "asc" },
   });
   const allSales = JSON.parse(JSON.stringify(data));
-  return { props: { allSales } };
+
+  const pickup = await prisma.ebook.findMany({
+    where: { isPickup: true },
+  });
+  const pickupEbooks = JSON.parse(JSON.stringify(pickup));
+
+  return { props: { allSales, pickupEbooks } };
 };

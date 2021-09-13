@@ -208,7 +208,11 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
         <ul className="border-b border-gray-900">
           {ebookOnSale &&
             ebookOnSale.map((ebook) => (
-              <EbookItem ebook={ebook} key={ebook.id} />
+              <EbookItem
+                ebook={ebook}
+                key={ebook.id}
+                remainingDays={remainingDays}
+              />
             ))}
         </ul>
       </article>

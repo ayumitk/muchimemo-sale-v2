@@ -9,6 +9,7 @@ export interface Ebook {
   imageUrl?: string;
   imageWidth?: number;
   imageHeight?: number;
+  isPickup: boolean;
   isDeleted: boolean;
   isRecommended: boolean;
   points: number;
