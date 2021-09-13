@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { ChatAltIcon } from "@heroicons/react/solid";
 import Image from "next/image";
+import moment from "moment";
+import "moment-timezone";
 
 // types
 import { Ebook, Format, Category, Sale } from "../../interfaces";
@@ -194,11 +196,18 @@ const ListEbook = (props: {
                   }
                 >
                   <option value="0">選択しない</option>
-                  {sales.map((sale) => (
-                    <option key={sale.id} value={sale.id}>
-                      {sale.title}
-                    </option>
-                  ))}
+                  {sales.map((sale) => {
+                    const now = moment().tz("Asia/Tokyo").format();
+                    const end = moment(sale.saleEnds).add(9, "h").format();
+                    const diff = moment(end).diff(now);
+                    if (diff >= 0) {
+                      return (
+                        <option key={sale.id} value={sale.id}>
+                          {sale.title}
+                        </option>
+                      );
+                    }
+                  })}
                 </select>
               </div>
             </fieldset>
@@ -399,9 +408,7 @@ const ListEbook = (props: {
               <th
                 scope="col"
                 className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
-                comment
-              </th>
+              ></th>
               <th
                 scope="col"
                 className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"

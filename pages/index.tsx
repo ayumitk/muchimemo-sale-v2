@@ -5,8 +5,6 @@ import config from "../config";
 import Image from "next/image";
 import moment from "moment";
 import "moment-timezone";
-import Link from "next/link";
-import { ArrowCircleRightIcon } from "@heroicons/react/solid";
 
 // db
 import prisma from "../lib/prisma";
@@ -14,6 +12,7 @@ import prisma from "../lib/prisma";
 // components
 import Layout from "../components/layout";
 import SaleItem from "../components/user/SaleItem";
+import PickupItem from "../components/user/PickupItem";
 
 // types
 import { Sale, Ebook } from "../interfaces";
@@ -139,55 +138,11 @@ export default function Home({
                   pickupSale(ebook.sales.map((item) => item.sale)).length > 0
                 ) {
                   return (
-                    <li key={ebook.id}>
-                      <Link
-                        href={`/sale/${
-                          pickupSale(ebook.sales.map((item) => item.sale))
-                            .length > 0 &&
-                          pickupSale(ebook.sales.map((item) => item.sale))[0].id
-                        }`}
-                      >
-                        <a>
-                          <span
-                            className="block hover:opacity-80"
-                            style={{ lineHeight: 0 }}
-                          >
-                            <Image
-                              src={
-                                ebook.imageUrl
-                                  ? ebook.imageUrl
-                                  : "/images/placeholder.svg"
-                              }
-                              alt={`${ebook.title}の表紙`}
-                              width={ebook.imageWidth ? ebook.imageWidth : 343}
-                              height={
-                                ebook.imageHeight ? ebook.imageHeight : 500
-                              }
-                              placeholder="blur"
-                              blurDataURL="/images/placeholder.svg"
-                            />
-                          </span>
-                          <span className="inline-block mt-2 mb-1 text-xs bg-red-600 text-white py-0.5 px-1 rounded-sm whitespace-nowrap">
-                            {pickupSale(ebook.sales.map((item) => item.sale))
-                              .length > 0
-                              ? pickupSale(
-                                  ebook.sales.map((item) => item.sale)
-                                )[0]
-                                  .title.substring(
-                                    0,
-                                    pickupSale(
-                                      ebook.sales.map((item) => item.sale)
-                                    )[0].title.indexOf("】")
-                                  )
-                                  .slice(1)
-                              : "セール終了"}
-                          </span>
-                          <span className="block text-sm line-clamp-2">
-                            {ebook.title}
-                          </span>
-                        </a>
-                      </Link>
-                    </li>
+                    <PickupItem
+                      ebook={ebook}
+                      sale={pickupSale(ebook.sales.map((item) => item.sale))[0]}
+                      key={ebook.id}
+                    />
                   );
                 }
               })}

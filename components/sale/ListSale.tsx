@@ -1,4 +1,6 @@
 import moment from "moment";
+import "moment-timezone";
+import { ChatAltIcon } from "@heroicons/react/solid";
 
 // types
 import { Ebook, Format, Category, Sale } from "../../interfaces";
@@ -15,6 +17,13 @@ const ListSale = (props: {
   isRefreshing: boolean;
 }) => {
   const { sales, ebooks, refreshData, isRefreshing } = props;
+
+  const remainingDays = (saleEnds: string) => {
+    const now = moment().tz("Asia/Tokyo").format();
+    const end = moment(saleEnds).add(9, "h").format();
+    const diff = moment(end).diff(now);
+    return diff >= 0;
+  };
 
   return (
     <>
@@ -54,6 +63,10 @@ const ListSale = (props: {
               <th
                 scope="col"
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              ></th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 ebooks
               </th>
@@ -88,7 +101,9 @@ const ListSale = (props: {
               <tr
                 key={sale.id}
                 className={
-                  sale.isDeleted ? "bg-gray-100 text-gray-400" : "text-gray-900"
+                  sale.isDeleted || !remainingDays(sale.saleEnds)
+                    ? "bg-gray-100 text-gray-400"
+                    : "text-gray-900"
                 }
               >
                 <td className="px-6 py-4 text-sm">{sale.id}</td>
@@ -102,6 +117,13 @@ const ListSale = (props: {
                     {sale.title}
                   </a>
                 </td>
+                <td className="px-6 py-4 text-sm font-medium">
+                  <ChatAltIcon
+                    className={`w-5 h-5 ${
+                      sale.description ? "text-red-500" : "text-gray-300"
+                    }`}
+                  />
+                </td>
                 <td className="px-6 py-4 text-sm">
                   <EditEbooksOnSale
                     sale={sale}
@@ -111,11 +133,7 @@ const ListSale = (props: {
                 </td>
                 <td className="px-6 py-4 text-sm">
                   {moment(sale.saleEnds).format("YYYY-MM-DD")}
-                  <span className="ml-2 whitespace-nowrap">
-                    {/* {sale.remaining_days >= 0
-                      ? `残り${sale.remaining_days}日`
-                      : `終了済み`} */}
-                  </span>
+                  {remainingDays(sale.saleEnds)}
                 </td>
                 <td className="px-6 py-4 text-sm font-medium">
                   {`${sale.isPublished ? "公開" : "下書き"}`}
