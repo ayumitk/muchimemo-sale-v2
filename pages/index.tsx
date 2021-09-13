@@ -27,6 +27,8 @@ export default function Home({
 }) {
   const [orderedSales, setOrderedSales] = useState<Sale[]>([]);
 
+  // console.log(pickupEbooks);
+
   useEffect(() => {
     const onSale = allSales.filter((sale) => {
       const now = moment().tz("Asia/Tokyo").format();
@@ -36,6 +38,16 @@ export default function Home({
     });
     setOrderedSales(onSale);
   }, [allSales]);
+
+  const pickupSale = (sales: Sale[]) => {
+    const onSale = sales.filter((sale) => {
+      const now = moment().tz("Asia/Tokyo").format();
+      const end = moment(sale.saleEnds).add(9, "h").format();
+      const diff = moment(end).diff(now);
+      return diff >= 0;
+    });
+    return onSale;
+  };
 
   return (
     <Layout>
@@ -120,39 +132,65 @@ export default function Home({
               }}
             ></span>
           </h2>
-          <ul className="grid grid-flow-col grid-cols-3 sm:grid-cols-6 grid-rows-2 sm:grid-rows-1 gap-4">
+          <ul className="grid grid-flow-col grid-cols-3 sm:grid-cols-6 grid-rows-2 sm:grid-rows-1 gap-3">
             {pickupEbooks.length > 0 &&
-              pickupEbooks.map((ebook) => (
-                <li key={ebook.id}>
-                  <a
-                    href={`https://www.amazon.co.jp/dp/${ebook.amazonId}?tag=ayutak04-22&linkCode=ogi&th=1&psc=1`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block"
-                  >
-                    <span
-                      className="block hover:opacity-80"
-                      style={{ lineHeight: 0 }}
-                    >
-                      <Image
-                        src={
-                          ebook.imageUrl
-                            ? ebook.imageUrl
-                            : "/images/placeholder.svg"
-                        }
-                        alt={`${ebook.title}の表紙`}
-                        width={ebook.imageWidth ? ebook.imageWidth : 343}
-                        height={ebook.imageHeight ? ebook.imageHeight : 500}
-                        placeholder="blur"
-                        blurDataURL="/images/placeholder.svg"
-                      />
-                    </span>
-                    <span className="block mt-2 text-sm line-clamp-3">
-                      {ebook.title}
-                    </span>
-                  </a>
-                </li>
-              ))}
+              pickupEbooks.map((ebook) => {
+                if (
+                  pickupSale(ebook.sales.map((item) => item.sale)).length > 0
+                ) {
+                  return (
+                    <li key={ebook.id}>
+                      <Link
+                        href={`/sale/${
+                          pickupSale(ebook.sales.map((item) => item.sale))
+                            .length > 0 &&
+                          pickupSale(ebook.sales.map((item) => item.sale))[0].id
+                        }`}
+                      >
+                        <a>
+                          <span
+                            className="block hover:opacity-80"
+                            style={{ lineHeight: 0 }}
+                          >
+                            <Image
+                              src={
+                                ebook.imageUrl
+                                  ? ebook.imageUrl
+                                  : "/images/placeholder.svg"
+                              }
+                              alt={`${ebook.title}の表紙`}
+                              width={ebook.imageWidth ? ebook.imageWidth : 343}
+                              height={
+                                ebook.imageHeight ? ebook.imageHeight : 500
+                              }
+                              placeholder="blur"
+                              blurDataURL="/images/placeholder.svg"
+                            />
+                          </span>
+                          <span className="inline-block mt-2 mb-1 text-xs bg-red-600 text-white py-0.5 px-1 rounded-sm whitespace-nowrap">
+                            {pickupSale(ebook.sales.map((item) => item.sale))
+                              .length > 0
+                              ? pickupSale(
+                                  ebook.sales.map((item) => item.sale)
+                                )[0]
+                                  .title.substring(
+                                    0,
+                                    pickupSale(
+                                      ebook.sales.map((item) => item.sale)
+                                    )[0].title.indexOf("】")
+                                  )
+                                  .slice(1)
+                              : "セール終了"}
+                          </span>
+                          <span className="block text-sm line-clamp-2">
+                            {ebook.title}
+                          </span>
+                        </a>
+                      </Link>
+                    </li>
+                  );
+                }
+              })}
           </ul>
         </section>
 
@@ -205,6 +243,13 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const pickup = await prisma.ebook.findMany({
     where: { isPickup: true },
+    include: {
+      sales: {
+        include: {
+          sale: {},
+        },
+      },
+    },
   });
   const pickupEbooks = JSON.parse(JSON.stringify(pickup));
 

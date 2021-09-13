@@ -40,16 +40,7 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
   const [novelCount, setNovelCount] = useState(0);
 
   useEffect(() => {
-    const recommendedEbooks = saleDetail.ebooks
-      .map((item) => item.ebook)
-      .filter((ebook) => ebook.isRecommended)
-      .sort((a: Ebook, b: Ebook) => a.title.localeCompare(b.title));
-    const restOfEbooks = saleDetail.ebooks
-      .map((item) => item.ebook)
-      .filter((ebook) => !ebook.isRecommended)
-      .sort((a: Ebook, b: Ebook) => a.title.localeCompare(b.title));
-    const result = recommendedEbooks.concat(restOfEbooks);
-    setEbookOnSale(result);
+    setEbookOnSale(saleDetail.ebooks.map((item) => item.ebook));
 
     const manga = saleDetail.ebooks
       .map((item) => item.ebook)
@@ -92,13 +83,16 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
         filteredEbooks.filter((ebook) => ebook.formatId !== 3);
     }
 
+    const pickupEbooks = filteredEbooks
+      .filter((ebook) => ebook.isPickup)
+      .sort((a: Ebook, b: Ebook) => a.title.localeCompare(b.title));
     const recommendedEbooks = filteredEbooks
-      .filter((ebook) => ebook.isRecommended)
+      .filter((ebook) => ebook.isRecommended && !ebook.isPickup)
       .sort((a: Ebook, b: Ebook) => a.title.localeCompare(b.title));
     const restOfEbooks = filteredEbooks
       .filter((ebook) => !ebook.isRecommended)
       .sort((a: Ebook, b: Ebook) => a.title.localeCompare(b.title));
-    const result = recommendedEbooks.concat(restOfEbooks);
+    const result = pickupEbooks.concat(recommendedEbooks, restOfEbooks);
 
     filteredEbooks && setEbookOnSale(result);
   }, [filterManga, filterNovel, filterKeyword]);

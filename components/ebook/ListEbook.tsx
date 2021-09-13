@@ -45,6 +45,7 @@ const ListEbook = (props: {
     keyword: "",
     is_deleted: true,
     is_recommended: true,
+    is_pickup: true,
     sale: 0,
   });
 
@@ -135,6 +136,15 @@ const ListEbook = (props: {
         // is_recommended
         if (filterChecked.is_recommended !== true) {
           result = await result.filter((x) => x.isRecommended === true);
+        }
+      } catch (err: any) {
+        console.error(err.message);
+      }
+
+      try {
+        // is_pickup
+        if (filterChecked.is_pickup !== true) {
+          result = await result.filter((x) => x.isPickup === true);
         }
       } catch (err: any) {
         console.error(err.message);
@@ -306,6 +316,27 @@ const ListEbook = (props: {
                     className="font-medium text-gray-700"
                   >
                     オススメ以外も表示
+                  </label>
+                </div>
+              </fieldset>
+              <fieldset className="relative flex items-start">
+                <div className="flex items-center h-5">
+                  <input
+                    id="pickup"
+                    type="checkbox"
+                    className="focus:ring-teal-500 h-4 w-4 text-teal-600 border-gray-300 rounded"
+                    checked={filterChecked.is_pickup}
+                    onChange={(e) =>
+                      setFilterChecked({
+                        ...filterChecked,
+                        is_pickup: e.target.checked,
+                      })
+                    }
+                  />
+                </div>
+                <div className="ml-2 text-sm">
+                  <label htmlFor="pickup" className="font-medium text-gray-700">
+                    Pickup以外も表示
                   </label>
                 </div>
               </fieldset>
