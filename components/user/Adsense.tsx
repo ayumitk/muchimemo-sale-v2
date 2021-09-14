@@ -1,7 +1,11 @@
 import React, { useEffect } from "react";
 
+declare const window: any;
+
 const Adsense = (props: { square?: boolean; feed?: boolean }) => {
   useEffect(() => {
+    let adsbygoogle = window.adsbygoogle;
+
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     } catch (err) {
