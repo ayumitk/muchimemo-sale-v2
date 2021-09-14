@@ -84,6 +84,8 @@ export default function Home({
               alt="【50％ポイント還元】花音の日 (9/16まで)"
               width={1200}
               height={630}
+              placeholder="blur"
+              blurDataURL="/images/placeholder.svg"
               className="hover:opacity-80"
             />
           </a>
