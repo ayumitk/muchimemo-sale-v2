@@ -112,7 +112,7 @@ const ConfirmSale = (props: {
                   <div className="mt-5">
                     <Dialog.Title
                       as="h3"
-                      className="text-2xl leading-6 font-medium text-gray-900 text-center"
+                      className="text-2xl leading-6 font-medium text-center"
                     >
                       下記の内容で登録しますか？
                     </Dialog.Title>
@@ -147,7 +147,7 @@ const ConfirmSale = (props: {
                             <tbody className="bg-white divide-y divide-gray-200">
                               {newSaleEbook.map((ebook) => (
                                 <tr key={ebook.id}>
-                                  <td className="pl-4 pr-2 py-1 text-sm font-medium text-gray-900">
+                                  <td className="pl-4 pr-2 py-1 text-sm font-medium">
                                     <div
                                       className={`w-10 ${
                                         ebook.isDeleted && "opacity-50"
@@ -176,7 +176,7 @@ const ConfirmSale = (props: {
                                       />
                                     </div>
                                   </td>
-                                  <td className="px-2 py-2 text-sm font-medium text-gray-900">
+                                  <td className="px-2 py-2 text-sm font-medium">
                                     {ebook.title}
                                   </td>
                                   <td className="pl-2 pr-4 py-2 text-sm text-center">

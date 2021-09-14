@@ -20,7 +20,11 @@ module.exports = {
       blue: colors.sky,
       pink: colors.pink,
     },
-    extend: {},
+    extend: {
+      fontFamily: {
+        'noto-sans': ['"Noto Sans JP"', 'sans-serif']
+      }
+    },
   },
   variants: {
     extend: {

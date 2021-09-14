@@ -163,7 +163,7 @@ const EditEbooksOnSale = (props: {
                   <div className="mt-5">
                     <Dialog.Title
                       as="h3"
-                      className="text-2xl leading-6 font-medium text-gray-900 text-center"
+                      className="text-2xl leading-6 font-medium text-center"
                     >
                       セール対象作品を編集
                     </Dialog.Title>
@@ -243,7 +243,7 @@ const EditEbooksOnSale = (props: {
                                           : ""
                                       }
                                     >
-                                      <td className="pl-4 pr-2 py-1 text-sm font-medium text-gray-900">
+                                      <td className="pl-4 pr-2 py-1 text-sm font-medium">
                                         <div
                                           className="w-10"
                                           style={{ lineHeight: 0 }}
@@ -270,7 +270,7 @@ const EditEbooksOnSale = (props: {
                                           />
                                         </div>
                                       </td>
-                                      <td className="px-2 py-2 text-sm font-medium text-gray-900">
+                                      <td className="px-2 py-2 text-sm font-medium">
                                         {item.ebook.title}
                                       </td>
                                       <td className="pl-2 pr-4 py-2 text-sm text-center">

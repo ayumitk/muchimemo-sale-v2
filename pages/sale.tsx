@@ -79,11 +79,13 @@ export default function Home({ allSales }: { allSales: Array<Sale> }) {
           content={`${config.siteUrl}${config.siteBanner}`}
         />
       </Head>
-      <div className="max-w-3xl mx-auto px-4 md:px-6 lg:px-0">
+      <BreadcrumbNav pageTitle={title} />
+      <article className="max-w-3xl mx-auto px-4 md:px-6 lg:px-0">
         <section>
-          <BreadcrumbNav pageTitle={title} />
-          <h1 className="font-bold text-2xl sm:text-4xl mb-4">{title}</h1>
-          <p className="my-10">
+          <h1 className="font-black text-3xl sm:text-4xl sm:mb-6 mb-4 tracking-tight">
+            {title}
+          </h1>
+          <p className="text-sm sm:text-base mb-10">
             BLジャンルを中心に、Kindleセール中のマンガ・小説をおすすめコメント付きで紹介します！
           </p>
         </section>
@@ -95,7 +97,7 @@ export default function Home({ allSales }: { allSales: Array<Sale> }) {
             ))}
           </ul>
         </section>
-      </div>
+      </article>
     </Layout>
   );
 }

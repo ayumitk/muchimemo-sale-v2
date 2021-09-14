@@ -25,7 +25,9 @@ const PickupItem = (props: { ebook: Ebook; sale: Sale }) => {
           <span className="inline-block mt-2 mb-1 text-xs bg-red-600 text-white py-0.5 px-1 rounded-sm whitespace-nowrap">
             {sale.title.substring(0, sale.title.indexOf("】")).slice(1)}
           </span>
-          <span className="block text-sm line-clamp-2">{ebook.title}</span>
+          <span className="block text-sm line-clamp-2 leading-snug">
+            {ebook.title}
+          </span>
         </a>
       </Link>
     </li>

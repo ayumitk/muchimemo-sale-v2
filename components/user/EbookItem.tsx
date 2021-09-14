@@ -49,7 +49,7 @@ const EbookItem = (props: { ebook: Ebook; remainingDays: number }) => {
               {ebook.category.name}
             </span>
           </p>
-          <h2 className="font-bold text-lg sm:text-2xl leading-tight">
+          <h2 className="font-bold text-lg sm:text-2xl leading-tight sm:mb-1">
             {ebook.title}
           </h2>
 

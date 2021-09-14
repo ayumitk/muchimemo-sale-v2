@@ -94,7 +94,7 @@ const EditEbook = (props: {
                   <div className="mt-5">
                     <Dialog.Title
                       as="h3"
-                      className="text-2xl leading-6 font-medium text-gray-900 text-center"
+                      className="text-2xl leading-6 font-medium text-center"
                     >
                       電子書籍の情報を編集
                     </Dialog.Title>

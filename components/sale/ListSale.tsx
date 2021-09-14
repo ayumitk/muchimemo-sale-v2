@@ -103,7 +103,7 @@ const ListSale = (props: {
                 className={
                   sale.isDeleted || !remainingDays(sale.saleEnds)
                     ? "bg-gray-100 text-gray-400"
-                    : "text-gray-900"
+                    : ""
                 }
               >
                 <td className="px-6 py-4 text-sm">{sale.id}</td>

@@ -458,9 +458,7 @@ const ListEbook = (props: {
               <tr
                 key={ebook.id}
                 className={`${
-                  ebook.isDeleted
-                    ? "bg-gray-100 text-gray-400"
-                    : "text-gray-900"
+                  ebook.isDeleted ? "bg-gray-100 text-gray-400" : ""
                 } ${ebook.isRecommended && "bg-yellow-50"}`}
               >
                 <td className="pl-4 pr-2 py-2 text-sm">{ebook.id}</td>

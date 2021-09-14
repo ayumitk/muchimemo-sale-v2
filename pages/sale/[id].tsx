@@ -146,11 +146,11 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
           content={`${saleDetail.title} - ${config.siteTitleAlt}`}
         />
       </Head>
+      <BreadcrumbNav pageTitle={saleDetail.title} saleDetail />
       <article className="max-w-3xl mx-auto">
-        <BreadcrumbNav pageTitle={saleDetail.title} />
         <div className="px-4 md:px-6 lg:px-0">
           <ShowSaleEnds remainingDays={remainingDays + 1} className="mb-1" />
-          <h1 className="font-bold text-2xl sm:text-4xl mb-4">
+          <h1 className="font-black text-2xl sm:text-4xl mb-4 tracking-tight">
             {saleDetail.title}
           </h1>
           <p className="text-gray-700 text-sm sm:text-base">{description}</p>

@@ -99,7 +99,7 @@ export default function Home({
 
         <section className="mb-16">
           <h2
-            className="font-bold text-xl sm:text-2xl bg-gray-900 text-white inline-block relative pl-4 pr-8 mb-4"
+            className="font-black text-xl sm:text-2xl bg-gray-900 text-white inline-block relative pl-4 pr-8 mb-4"
             style={{ height: `50px`, lineHeight: `50px` }}
           >
             セール中の注目作品
@@ -132,7 +132,7 @@ export default function Home({
 
         <section className="mb-16">
           <h2
-            className="font-bold text-xl sm:text-2xl bg-gray-900 text-white inline-block relative pl-4 pr-8 mb-4"
+            className="font-black text-xl sm:text-2xl bg-gray-900 text-white inline-block relative pl-4 pr-8 mb-4"
             style={{ height: `50px`, lineHeight: `50px` }}
           >
             おすすめBL特集
@@ -185,7 +185,7 @@ export default function Home({
           </ul>
           <div className="text-center mt-5">
             <Link href="/blog">
-              <a className="rounded bg-gray-900 text-white py-3 px-5 inline-block hover:bg-gray-700">
+              <a className="rounded bg-gray-900 text-white py-3 px-5 inline-block hover:bg-gray-700 font-medium">
                 <ArrowCircleRightIcon className="w-5 h-5 mr-1 inline-block align-text-bottom" />
                 特集をもっと見る
               </a>
@@ -196,7 +196,7 @@ export default function Home({
         <section>
           <div className="mb-4">
             <h2
-              className="font-bold text-xl sm:text-2xl bg-gray-900 text-white inline-block relative pl-4 pr-8"
+              className="font-black text-xl sm:text-2xl bg-gray-900 text-white inline-block relative pl-4 pr-8"
               style={{ height: `50px`, lineHeight: `50px` }}
             >
               終了間近のセール
@@ -217,7 +217,7 @@ export default function Home({
           </ul>
           <div className="text-center">
             <Link href="/sale">
-              <a className="rounded bg-gray-900 text-white py-3 px-5 inline-block hover:bg-gray-700">
+              <a className="rounded bg-gray-900 text-white py-3 px-5 inline-block hover:bg-gray-700 font-medium">
                 <ArrowCircleRightIcon className="w-5 h-5 mr-1 inline-block align-text-bottom" />
                 セール情報をもっと見る
               </a>

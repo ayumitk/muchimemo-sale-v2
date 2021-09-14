@@ -98,7 +98,7 @@ const DeleteEbook = (props: { ebook: Ebook; refreshData: any }) => {
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                     <Dialog.Title
                       as="h3"
-                      className="text-lg leading-6 font-medium text-gray-900"
+                      className="text-lg leading-6 font-medium"
                     >
                       {ebook.isDeleted
                         ? "本当に復元しますか？"

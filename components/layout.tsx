@@ -6,7 +6,7 @@ import { SiteLogo, SaleIcon, NewIcon, NewspaperIcon, HomeIcon } from "./svg";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div>
+    <div className="font-noto-sans text-gray-900">
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta property="og:locale" content="ja_JP" />
@@ -45,7 +45,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 className="block flex-1 text-center border-r border-gray-500 sm:py-3 py-1 hover:bg-yellow-50"
                 style={{ lineHeight: 1 }}
               >
-                <HomeIcon className="w-5 h-5 sm:mr-1 inline-block align-text-bottom" />
+                <HomeIcon className="w-5 h-5 sm:mr-1 inline-block align-text-bottom font-medium" />
                 <span className="text-xs sm:text-base block sm:inline-block">
                   ホーム
                 </span>
@@ -56,7 +56,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 className="block flex-1 text-center border-r border-gray-500 sm:py-3 py-1 hover:bg-yellow-50"
                 style={{ lineHeight: 1 }}
               >
-                <SaleIcon className="w-5 h-5 sm:mr-1 inline-block align-text-bottom" />
+                <SaleIcon className="w-5 h-5 sm:mr-1 inline-block align-text-bottom font-medium" />
                 <span className="text-xs sm:text-base block sm:inline-block">
                   セール
                 </span>
@@ -68,7 +68,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 style={{ lineHeight: 1 }}
               >
                 <NewspaperIcon className="w-5 h-5 sm:mr-1 inline-block align-text-bottom" />
-                <span className="text-xs sm:text-base block sm:inline-block">
+                <span className="text-xs sm:text-base block sm:inline-block font-medium">
                   特集
                 </span>
               </a>
@@ -78,7 +78,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 className="block flex-1 text-center sm:border-r border-gray-500 sm:py-3 py-1 hover:bg-yellow-50"
                 style={{ lineHeight: 1 }}
               >
-                <NewIcon className="w-5 h-5 sm:mr-1 inline-block align-text-bottom" />
+                <NewIcon className="w-5 h-5 sm:mr-1 inline-block align-text-bottom font-medium" />
                 <span className="text-xs sm:text-base block sm:inline-block">
                   新刊BL
                 </span>

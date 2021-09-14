@@ -92,7 +92,7 @@ const EditSale = (props: { sale: Sale; refreshData: any }) => {
                   <div className="mt-5">
                     <Dialog.Title
                       as="h3"
-                      className="text-2xl leading-6 font-medium text-gray-900 text-center"
+                      className="text-2xl leading-6 font-medium text-center"
                     >
                       セール情報を編集
                     </Dialog.Title>
