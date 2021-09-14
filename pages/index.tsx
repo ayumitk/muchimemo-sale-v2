@@ -16,7 +16,6 @@ import prisma from "../lib/prisma";
 import Layout from "../components/layout";
 import SaleItem from "../components/user/SaleItem";
 import PickupItem from "../components/user/PickupItem";
-import { SquareAd } from "../components/Adsense";
 
 // types
 import { Sale, Ebook } from "../interfaces";
@@ -130,8 +129,6 @@ export default function HomePage({
               })}
           </ul>
         </section>
-
-        <SquareAd />
 
         <section className="mb-16">
           <h2

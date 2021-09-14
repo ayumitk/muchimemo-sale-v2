@@ -12,7 +12,6 @@ import prisma from "../lib/prisma";
 import Layout from "../components/layout";
 import SaleItem from "../components/user/SaleItem";
 import BreadcrumbNav from "../components/user/BreadcrumbNav";
-import { InFeedAd } from "../components/Adsense";
 
 // types
 import { Sale } from "../interfaces";
@@ -93,17 +92,9 @@ export default function SalePage({ allSales }: { allSales: Array<Sale> }) {
 
         <section>
           <ul>
-            {orderedSales.map((sale, index) => {
-              if (index === 2) {
-                return (
-                  <div key={sale.id}>
-                    <SaleItem sale={sale} />
-                    <InFeedAd />
-                  </div>
-                );
-              }
-              return <SaleItem sale={sale} key={sale.id} />;
-            })}
+            {orderedSales.map((sale) => (
+              <SaleItem sale={sale} key={sale.id} />
+            ))}
           </ul>
         </section>
       </article>

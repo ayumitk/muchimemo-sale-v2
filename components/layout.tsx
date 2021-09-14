@@ -4,7 +4,6 @@ import { HeartIcon } from "@heroicons/react/solid";
 import { ExternalLinkIcon } from "@heroicons/react/outline";
 import config from "../config";
 import { SiteLogo, SaleIcon, NewIcon, NewspaperIcon, HomeIcon } from "./svg";
-import { SquareAd } from "../components/Adsense";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -91,8 +90,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       </header>
 
       <main className="container">{children}</main>
-
-      <SquareAd />
 
       <footer className="container max-w-3xl">
         <div className="text-sm py-10 text-gray-700">
