@@ -127,7 +127,9 @@ const CreateEbook = (props: { ebooks: Ebook[]; refreshData: any }) => {
           imageWidth: res.Images.Primary.Large.Width,
           imageHeight: res.Images.Primary.Large.Height,
           authors: JSON.stringify(res.ItemInfo.ByLineInfo.Contributors),
-          publisher: res.ItemInfo.ByLineInfo.Manufacturer.DisplayValue,
+          publisher: res.ItemInfo.ByLineInfo.Manufacturer
+            ? res.ItemInfo.ByLineInfo.Manufacturer.DisplayValue
+            : "",
           amazonId: res.ASIN,
           price: res.Offers.Listings[0].Price.Amount,
           points: res.Offers.Listings[0].LoyaltyPoints
