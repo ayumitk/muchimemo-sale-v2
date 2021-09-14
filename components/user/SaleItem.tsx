@@ -50,7 +50,7 @@ const SaleItem = (props: { sale: Sale }) => {
               className="-left-3 top-2 sm:top-2.5 absolute"
             />
             <h3
-              className={`text-xl sm:text-2xl font-bold pt-6 border-dotted border-b-4 pb-3 mb-4 ${
+              className={`leading-tight text-xl sm:text-2xl font-bold pt-6 border-dotted border-b-4 pb-3 sm:mb-3 mb-2 ${
                 remainingDays < 0
                   ? "border-gray-500 text-gray-600"
                   : "border-gray-700"
@@ -59,7 +59,7 @@ const SaleItem = (props: { sale: Sale }) => {
               {sale.title}
             </h3>
             <p
-              className={`mb-4 text-sm sm:text-base ${
+              className={`sm:mb-4 mb-3 text-sm sm:text-base ${
                 remainingDays < 0 ? "text-gray-500" : "text-gray-700"
               }`}
             >
