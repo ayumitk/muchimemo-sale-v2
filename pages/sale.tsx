@@ -78,6 +78,21 @@ export default function Home({ allSales }: { allSales: Array<Sale> }) {
           name="twitter:image:alt"
           content={`${config.siteUrl}${config.siteBanner}`}
         />
+
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2243735568608949"
+          crossOrigin="anonymous"
+        ></script>
+        <ins
+          className="adsbygoogle"
+          style={{ display: "block" }}
+          data-ad-format="fluid"
+          data-ad-layout-key="-fr+a-2-ip+12y"
+          data-ad-client="ca-pub-2243735568608949"
+          data-ad-slot="3230248784"
+        ></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
       </Head>
       <BreadcrumbNav pageTitle={title} />
       <article className="max-w-3xl mx-auto px-4 md:px-6 lg:px-0">

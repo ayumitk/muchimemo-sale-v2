@@ -51,6 +51,21 @@ export default function BlogPage() {
           name="twitter:image:alt"
           content={`${title} - ${config.siteTitleAlt}`}
         />
+
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2243735568608949"
+          crossOrigin="anonymous"
+        ></script>
+        <ins
+          className="adsbygoogle"
+          style={{ display: "block" }}
+          data-ad-format="fluid"
+          data-ad-layout-key="-fr+a-2-ip+12y"
+          data-ad-client="ca-pub-2243735568608949"
+          data-ad-slot="3230248784"
+        ></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
       </Head>
       <BreadcrumbNav pageTitle={title} />
       <article className="max-w-3xl mx-auto">
