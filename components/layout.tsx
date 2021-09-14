@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import { HeartIcon } from "@heroicons/react/solid";
+import { ExternalLinkIcon } from "@heroicons/react/outline";
 import config from "../config";
 import { SiteLogo, SaleIcon, NewIcon, NewspaperIcon, HomeIcon } from "./svg";
 
@@ -92,10 +93,35 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
       <footer className="container max-w-3xl">
         <div className="text-sm py-10 text-gray-700">
-          <p className="mb-5 bg-gray-100 p-5">
+          <p className="mb-6 bg-gray-100 p-5">
             sale.muchimemo.comは、Amazon.co.jpを宣伝しリンクすることによってサイトが紹介料を獲得できる手段を提供することを目的に設定されたアフィリエイトプログラムである、Amazonアソシエイト・プログラムの参加者です。
           </p>
-          <p className="sm:text-sm text-xs text-gray-700 mb-5 text-center px-4">
+          <nav className="flex justify-center mb-4">
+            <Link href="/about">
+              <a className="text-blue-700 hover:underline inline-block mr-3">
+                このサイトについて
+              </a>
+            </Link>
+            <a
+              href="https://muchimemo.com/support/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-700 hover:underline inline-block mr-3"
+            >
+              サポート
+              <ExternalLinkIcon className="w-4 h-4 inline-block sm:ml-0.5" />
+            </a>
+            <a
+              href="https://muchimemo.com/contact/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-700 hover:underline inline-block"
+            >
+              お問い合わせ
+              <ExternalLinkIcon className="w-4 h-4 inline-block sm:ml-0.5" />
+            </a>
+          </nav>
+          <p className="sm:text-sm text-xs text-gray-700 mb-4 text-center px-4">
             Powered by{" "}
             <a
               href="https://webservices.amazon.com/paapi5/documentation/"

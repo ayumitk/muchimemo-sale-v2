@@ -53,7 +53,7 @@ const AdminEbookPage = ({
       <Head>
         <title>Admin Ebooks</title>
       </Head>
-      <article>
+      <article className="pt-10">
         <CreateEbook ebooks={ebooks} refreshData={refreshData} />
         <ListEbook
           ebooks={ebooks}

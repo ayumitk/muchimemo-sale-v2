@@ -37,7 +37,7 @@ const EbookItem = (props: { ebook: Ebook; remainingDays: number }) => {
         <div className="ml-3 sm:ml-5 flex-1">
           <p className="text-gray-700 text-sm sm:text-base mb-2">
             <span
-              className={`text-xs font-medium py-0.5 px-2 mr-1 rounded-sm border ${
+              className={`text-xs py-0.5 px-2 mr-1 rounded-sm border ${
                 ebook.formatId === 2
                   ? "bg-pink-50 text-pink-600 border-pink-600"
                   : "bg-blue-50 text-blue-600 border-blue-600"
@@ -45,7 +45,7 @@ const EbookItem = (props: { ebook: Ebook; remainingDays: number }) => {
             >
               {ebook.format.name}
             </span>
-            <span className="text-xs font-medium py-0.5 px-2 mr-2 rounded-sm border border-gray-700 bg-gray-50">
+            <span className="text-xs py-0.5 px-2 mr-2 rounded-sm border border-gray-700 bg-gray-50">
               {ebook.category.name}
             </span>
           </p>
@@ -112,7 +112,7 @@ const EbookItem = (props: { ebook: Ebook; remainingDays: number }) => {
               href={`https://www.amazon.co.jp/dp/${ebook.amazonId}?tag=ayutak04-22&linkCode=ogi&th=1&psc=1`}
               target="_blank"
               rel="noopener noreferrer"
-              className="mr-1 mb-1 inline-flex items-center justify-center w-24 sm:w-32 h-11 sm:h-12 border border-gray-400 shadow-sm text-base font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
+              className="mr-1 mb-1 inline-flex items-center justify-center w-24 sm:w-32 h-11 sm:h-12 border border-gray-400 shadow-sm text-base rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
             >
               <span className="sr-only">Amazonで購入する</span>
               <span className="w-14 sm:w-16" style={{ lineHeight: 0 }}>
@@ -129,7 +129,7 @@ const EbookItem = (props: { ebook: Ebook; remainingDays: number }) => {
                 href={`https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3549505&pid=886731192&vc_url=https%3A%2F%2Frenta.papy.co.jp%2Frenta%2Fsc%2Ffrm%2Fitem%2F${ebook.rentaId}%2F`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mr-1 mb-1 inline-flex items-center justify-center w-24 sm:w-32 h-11 sm:h-12 border border-gray-400 shadow-sm text-base font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
+                className="mr-1 mb-1 inline-flex items-center justify-center w-24 sm:w-32 h-11 sm:h-12 border border-gray-400 shadow-sm text-base rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
               >
                 <span className="sr-only">Renta!で購入する</span>
                 <span className="w-14 sm:w-16" style={{ lineHeight: 0 }}>
@@ -147,7 +147,7 @@ const EbookItem = (props: { ebook: Ebook; remainingDays: number }) => {
                 href={`https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3549505&pid=886731152&vc_url=https%3A%2F%2Fwww.cmoa.jp%2Ftitle%2F${ebook.cmoaId}%2F%E3%80%80%E3%81%82`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mr-1 mb-1 inline-flex items-center justify-center w-24 sm:w-32 h-11 sm:h-12 border border-gray-400 shadow-sm text-base font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
+                className="mr-1 mb-1 inline-flex items-center justify-center w-24 sm:w-32 h-11 sm:h-12 border border-gray-400 shadow-sm text-base rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
               >
                 <span className="sr-only">シーモアで購入する</span>
                 <span className="w-12 sm:w-14" style={{ lineHeight: 0 }}>
@@ -165,7 +165,7 @@ const EbookItem = (props: { ebook: Ebook; remainingDays: number }) => {
                 href={`https://al.dmm.com/?lurl=https%3A%2F%2Fbook.dmm.com%2Fdetail%2F${ebook.dmmId}%2F&af_id=muchimemo-001&ch=link_tool&ch_id=link`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mr-1 mb-1 inline-flex items-center justify-center w-24 sm:w-32 h-11 sm:h-12 border border-gray-400 shadow-sm text-base font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
+                className="mr-1 mb-1 inline-flex items-center justify-center w-24 sm:w-32 h-11 sm:h-12 border border-gray-400 shadow-sm text-base rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
               >
                 <span className="sr-only">DMMブックスで購入する</span>
                 <span className="w-20 sm:w-24" style={{ lineHeight: 0 }}>
@@ -212,7 +212,7 @@ const EbookItem = (props: { ebook: Ebook; remainingDays: number }) => {
               height={100}
             />
           </div>
-          <div className="rounded-xl p-4 sm:p-5 flex-1 ml-4 relative bg-yellow-100 text-sm sm:text-base">
+          <div className="rounded-xl p-4 sm:p-5 flex-1 ml-4 relative bg-yellow-100 text-gray-700 text-sm sm:text-base">
             <span
               className="absolute block w-0 h-0"
               style={{

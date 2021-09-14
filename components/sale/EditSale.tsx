@@ -53,7 +53,7 @@ const EditSale = (props: { sale: Sale; refreshData: any }) => {
         <Dialog
           as="div"
           static
-          className="fixed z-10 inset-0 overflow-y-auto"
+          className="fixed z-10 inset-0 overflow-y-auto font-noto-sans"
           initialFocus={cancelButtonRef}
           open={open}
           onClose={setOpen}
@@ -92,7 +92,7 @@ const EditSale = (props: { sale: Sale; refreshData: any }) => {
                   <div className="mt-5">
                     <Dialog.Title
                       as="h3"
-                      className="text-2xl leading-6 font-medium text-center"
+                      className="text-2xl leading-6 font-bold text-center"
                     >
                       セール情報を編集
                     </Dialog.Title>
@@ -140,7 +140,7 @@ const EditSale = (props: { sale: Sale; refreshData: any }) => {
                           <div className="ml-3 text-sm">
                             <label
                               htmlFor="is-recommended"
-                              className="font-medium text-gray-700"
+                              className="text-gray-700"
                             >
                               公開する
                             </label>
@@ -177,7 +177,7 @@ const EditSale = (props: { sale: Sale; refreshData: any }) => {
                         <div className="mb-10">
                           <label
                             htmlFor="saleDescription"
-                            className="block text-sm font-medium text-gray-700"
+                            className="block text-sm font-medium text-gray-700 mb-1"
                           >
                             説明
                           </label>

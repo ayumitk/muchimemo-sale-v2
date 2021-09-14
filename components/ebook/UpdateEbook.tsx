@@ -61,7 +61,7 @@ const UpdateEbook = (props: { ebook: Ebook; refreshData: any }) => {
   return (
     <>
       <button
-        className="font-medium text-blue-600 hover:text-blue-700 hover:underline"
+        className="text-blue-600 hover:text-blue-700 hover:underline"
         onClick={() => updateEbook(ebook.id, ebook.amazonId)}
       >
         更新

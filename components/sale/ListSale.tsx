@@ -107,7 +107,7 @@ const ListSale = (props: {
                 }
               >
                 <td className="px-6 py-4 text-sm">{sale.id}</td>
-                <td className="px-6 py-4 text-sm font-medium">
+                <td className="px-6 py-4 text-sm">
                   <a
                     href={`/sale/${sale.id}/`}
                     className="hover:text-teal-600 hover:underline"
@@ -117,7 +117,7 @@ const ListSale = (props: {
                     {sale.title}
                   </a>
                 </td>
-                <td className="px-6 py-4 text-sm font-medium">
+                <td className="px-6 py-4 text-sm">
                   <ChatAltIcon
                     className={`w-5 h-5 ${
                       sale.description ? "text-red-500" : "text-gray-300"
@@ -135,7 +135,7 @@ const ListSale = (props: {
                   {moment(sale.saleEnds).format("YYYY-MM-DD")}
                   {remainingDays(sale.saleEnds)}
                 </td>
-                <td className="px-6 py-4 text-sm font-medium">
+                <td className="px-6 py-4 text-sm">
                   {`${sale.isPublished ? "公開" : "下書き"}`}
                 </td>
                 <td className="px-6 py-4 text-sm">

@@ -127,10 +127,7 @@ const CreateSale = (props: { ebooks: Ebook[]; refreshData: any }) => {
                 className="shadow-sm block w-full focus:ring-teal-500 focus:border-teal-500 border border-gray-300 rounded-md p-3"
               ></textarea>
               {uncreatedAsin.map((asin) => (
-                <div
-                  key={asin}
-                  className="mt-2 text-red-500 font-medium text-sm"
-                >
+                <div key={asin} className="mt-2 text-red-500 text-sm">
                   <ExclamationCircleIcon className="w-4 inline-block mr-1" />
                   {asin}
                 </div>

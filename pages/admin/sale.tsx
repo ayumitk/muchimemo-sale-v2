@@ -44,7 +44,7 @@ const AdminSalePage = ({
       <Head>
         <title>Admin Sales</title>
       </Head>
-      <article>
+      <article className="pt-10">
         <CreateSale ebooks={allEbooks} refreshData={refreshData} />
         <ListSale
           sales={allSales}

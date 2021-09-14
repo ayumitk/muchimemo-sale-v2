@@ -35,14 +35,14 @@ const DeleteSale = (props: { sale: Sale; refreshData: any }) => {
     <>
       {sale.isDeleted ? (
         <button
-          className="font-medium hover:text-gray-600 hover:underline"
+          className="hover:text-gray-600 hover:underline"
           onClick={() => modalOpen()}
         >
           復元
         </button>
       ) : (
         <button
-          className="text-red-500 font-medium hover:text-red-600 hover:underline"
+          className="text-red-500 hover:text-red-600 hover:underline"
           onClick={() => modalOpen()}
         >
           削除
@@ -53,7 +53,7 @@ const DeleteSale = (props: { sale: Sale; refreshData: any }) => {
         <Dialog
           as="div"
           static
-          className="fixed z-10 inset-0 overflow-y-auto"
+          className="fixed z-10 inset-0 overflow-y-auto font-noto-sans"
           initialFocus={cancelButtonRef}
           open={open}
           onClose={setOpen}
@@ -98,7 +98,7 @@ const DeleteSale = (props: { sale: Sale; refreshData: any }) => {
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                     <Dialog.Title
                       as="h3"
-                      className="text-lg leading-6 font-medium"
+                      className="text-lg leading-6 font-bold"
                     >
                       {sale.isDeleted
                         ? "本当に復元しますか？"

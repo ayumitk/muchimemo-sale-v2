@@ -227,7 +227,7 @@ const ListEbook = (props: {
                   <div className="ml-2 text-sm">
                     <label
                       htmlFor={`format-${format.id}`}
-                      className="font-medium text-gray-700"
+                      className="text-gray-700"
                     >
                       {format.name}
                     </label>
@@ -251,7 +251,7 @@ const ListEbook = (props: {
                   <div className="ml-2 text-sm">
                     <label
                       htmlFor={`category-${category.id}`}
-                      className="font-medium text-gray-700"
+                      className="text-gray-700"
                     >
                       {category.name}
                     </label>
@@ -296,10 +296,7 @@ const ListEbook = (props: {
                   />
                 </div>
                 <div className="ml-2 text-sm">
-                  <label
-                    htmlFor="deleted"
-                    className="font-medium text-gray-700"
-                  >
+                  <label htmlFor="deleted" className="text-gray-700">
                     削除済みも表示
                   </label>
                 </div>
@@ -320,10 +317,7 @@ const ListEbook = (props: {
                   />
                 </div>
                 <div className="ml-2 text-sm">
-                  <label
-                    htmlFor="recommended"
-                    className="font-medium text-gray-700"
-                  >
+                  <label htmlFor="recommended" className="text-gray-700">
                     オススメ以外も表示
                   </label>
                 </div>
@@ -344,7 +338,7 @@ const ListEbook = (props: {
                   />
                 </div>
                 <div className="ml-2 text-sm">
-                  <label htmlFor="pickup" className="font-medium text-gray-700">
+                  <label htmlFor="pickup" className="text-gray-700">
                     Pickup以外も表示
                   </label>
                 </div>
@@ -485,14 +479,14 @@ const ListEbook = (props: {
                     ebook.imageHeight &&
                     `${ebook.imageWidth}x${ebook.imageHeight}`}
                 </td>
-                <td className="px-2 py-2 text-sm font-medium">{ebook.title}</td>
-                <td className="px-2 py-2 text-sm font-medium">
+                <td className="px-2 py-2 text-sm">{ebook.title}</td>
+                <td className="px-2 py-2 text-sm">
                   {ebook.format && ebook.format.name}
                 </td>
-                <td className="px-2 py-2 text-sm font-medium">
+                <td className="px-2 py-2 text-sm">
                   {ebook.category && ebook.category.name}
                 </td>
-                <td className="px-2 py-2 text-sm font-medium">
+                <td className="px-2 py-2 text-sm">
                   <ChatAltIcon
                     className={`w-5 h-5 ${
                       ebook.comment ? "text-red-500" : "text-gray-300"
