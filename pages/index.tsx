@@ -16,11 +16,12 @@ import prisma from "../lib/prisma";
 import Layout from "../components/layout";
 import SaleItem from "../components/user/SaleItem";
 import PickupItem from "../components/user/PickupItem";
+import { SquareAd } from "../components/Adsense";
 
 // types
 import { Sale, Ebook } from "../interfaces";
 
-export default function Home({
+export default function HomePage({
   allSales,
   pickupEbooks,
 }: {
@@ -130,20 +131,7 @@ export default function Home({
           </ul>
         </section>
 
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2243735568608949"
-          crossOrigin="anonymous"
-        ></script>
-        <ins
-          className="adsbygoogle"
-          style={{ display: "block" }}
-          data-ad-client="ca-pub-2243735568608949"
-          data-ad-slot="4781975935"
-          data-ad-format="auto"
-          data-full-width-responsive="true"
-        ></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        <SquareAd />
 
         <section className="mb-16">
           <h2

@@ -14,6 +14,7 @@ import EbookItem from "../../components/user/EbookItem";
 import BreadcrumbNav from "../../components/user/BreadcrumbNav";
 import ShowSaleEnds from "../../components/user/ShowSaleEnds";
 import AffiliateBanners from "../../components/user/AffiliateBanners";
+import { InFeedAd } from "../../components/Adsense";
 
 // types
 import { Sale, Ebook } from "../../interfaces";
@@ -201,27 +202,23 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
         </p>
         <ul className="border-b border-gray-900">
           {ebookOnSale &&
-            ebookOnSale.map((ebook) => (
-              <EbookItem
-                ebook={ebook}
-                key={ebook.id}
-                remainingDays={remainingDays}
-              />
-            ))}
-          <script
-            async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2243735568608949"
-            crossOrigin="anonymous"
-          ></script>
-          <ins
-            className="adsbygoogle"
-            style={{ display: "block" }}
-            data-ad-format="fluid"
-            data-ad-layout-key="-fr+a-2-ip+12y"
-            data-ad-client="ca-pub-2243735568608949"
-            data-ad-slot="3230248784"
-          ></ins>
-          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            ebookOnSale.map((ebook, index) => {
+              if (index === 2) {
+                return (
+                  <div key={ebook.id}>
+                    <EbookItem ebook={ebook} remainingDays={remainingDays} />
+                    <InFeedAd key="adsense" />
+                  </div>
+                );
+              }
+              return (
+                <EbookItem
+                  ebook={ebook}
+                  key={ebook.id}
+                  remainingDays={remainingDays}
+                />
+              );
+            })}
         </ul>
       </article>
     </Layout>

@@ -12,11 +12,12 @@ import prisma from "../lib/prisma";
 import Layout from "../components/layout";
 import SaleItem from "../components/user/SaleItem";
 import BreadcrumbNav from "../components/user/BreadcrumbNav";
+import { InFeedAd } from "../components/Adsense";
 
 // types
 import { Sale } from "../interfaces";
 
-export default function Home({ allSales }: { allSales: Array<Sale> }) {
+export default function SalePage({ allSales }: { allSales: Array<Sale> }) {
   const [orderedSales, setOrderedSales] = useState<Sale[]>([]);
 
   useEffect(() => {
@@ -92,23 +93,17 @@ export default function Home({ allSales }: { allSales: Array<Sale> }) {
 
         <section>
           <ul>
-            {orderedSales.map((sale) => (
-              <SaleItem sale={sale} key={sale.id} />
-            ))}
-            <script
-              async
-              src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2243735568608949"
-              crossOrigin="anonymous"
-            ></script>
-            <ins
-              className="adsbygoogle"
-              style={{ display: "block" }}
-              data-ad-format="fluid"
-              data-ad-layout-key="-fr+a-2-ip+12y"
-              data-ad-client="ca-pub-2243735568608949"
-              data-ad-slot="3230248784"
-            ></ins>
-            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            {orderedSales.map((sale, index) => {
+              if (index === 2) {
+                return (
+                  <div key={sale.id}>
+                    <SaleItem sale={sale} />
+                    <InFeedAd />
+                  </div>
+                );
+              }
+              return <SaleItem sale={sale} key={sale.id} />;
+            })}
           </ul>
         </section>
       </article>

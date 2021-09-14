@@ -6,6 +6,7 @@ import blog from "../config/blog.json";
 import Layout from "../components/layout";
 import BreadcrumbNav from "../components/user/BreadcrumbNav";
 import BlogItem from "../components/user/BlogItem";
+import { InFeedAd } from "../components/Adsense";
 
 export default function BlogPage() {
   const title = "オススメBLマンガ･小説特集";
@@ -62,23 +63,17 @@ export default function BlogPage() {
             {description}
           </p>
           <ul className="border-t-4 border-dotted border-gray-900">
-            {blog.map((item) => (
-              <BlogItem key={item.slug} post={item} />
-            ))}
-            <script
-              async
-              src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2243735568608949"
-              crossOrigin="anonymous"
-            ></script>
-            <ins
-              className="adsbygoogle"
-              style={{ display: "block" }}
-              data-ad-format="fluid"
-              data-ad-layout-key="-fr+a-2-ip+12y"
-              data-ad-client="ca-pub-2243735568608949"
-              data-ad-slot="3230248784"
-            ></ins>
-            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            {blog.map((item, index) => {
+              if (index === 2) {
+                return (
+                  <div key={item.slug}>
+                    <BlogItem post={item} />
+                    <InFeedAd />
+                  </div>
+                );
+              }
+              return <BlogItem key={item.slug} post={item} />;
+            })}
           </ul>
         </div>
       </article>
