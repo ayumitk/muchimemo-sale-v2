@@ -2,7 +2,11 @@ import React, { useEffect } from "react";
 
 declare const window: any;
 
-const Adsense = (props: { square?: boolean; feed?: boolean }) => {
+const Adsense = (props: {
+  square?: boolean;
+  feed?: boolean;
+  className?: string;
+}) => {
   useEffect(() => {
     let adsbygoogle = window.adsbygoogle;
 
@@ -13,29 +17,33 @@ const Adsense = (props: { square?: boolean; feed?: boolean }) => {
     }
   }, []);
 
-  const { square, feed } = props;
+  const { square, feed, className } = props;
 
   if (feed) {
     return (
-      <ins
-        className="adsbygoogle"
-        style={{ display: "block" }}
-        data-ad-format="fluid"
-        data-ad-layout-key="-fr+a-2-ip+12y"
-        data-ad-client="ca-pub-2243735568608949"
-        data-ad-slot="3230248784"
-      />
+      <div className={className}>
+        <ins
+          className="adsbygoogle"
+          style={{ display: "block" }}
+          data-ad-format="fluid"
+          data-ad-layout-key="-fr+a-2-ip+12y"
+          data-ad-client="ca-pub-2243735568608949"
+          data-ad-slot="3230248784"
+        />
+      </div>
     );
   }
   return (
-    <ins
-      className="adsbygoogle"
-      style={{ display: "block" }}
-      data-ad-client="ca-pub-2243735568608949"
-      data-ad-slot="4781975935"
-      data-ad-format="auto"
-      data-full-width-responsive="true"
-    />
+    <div className={className}>
+      <ins
+        className="adsbygoogle"
+        style={{ display: "block" }}
+        data-ad-client="ca-pub-2243735568608949"
+        data-ad-slot="4781975935"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      />
+    </div>
   );
 };
 

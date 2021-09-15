@@ -131,6 +131,8 @@ export default function HomePage({
           </ul>
         </section>
 
+        <Adsense square className="mb-16" />
+
         <section className="mb-16">
           <h2
             className="font-black text-xl sm:text-2xl bg-gray-900 text-white inline-block relative pl-4 pr-8 mb-4"
@@ -226,8 +228,6 @@ export default function HomePage({
           </div>
         </section>
       </div>
-
-      <Adsense square />
     </Layout>
   );
 }

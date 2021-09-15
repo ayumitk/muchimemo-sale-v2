@@ -14,6 +14,7 @@ import EbookItem from "../../components/user/EbookItem";
 import BreadcrumbNav from "../../components/user/BreadcrumbNav";
 import ShowSaleEnds from "../../components/user/ShowSaleEnds";
 import AffiliateBanners from "../../components/user/AffiliateBanners";
+import Adsense from "../../components/user/Adsense";
 
 // types
 import { Sale, Ebook } from "../../interfaces";
@@ -201,13 +202,27 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
         </p>
         <ul className="border-b border-gray-900">
           {ebookOnSale &&
-            ebookOnSale.map((ebook) => (
-              <EbookItem
-                ebook={ebook}
-                key={ebook.id}
-                remainingDays={remainingDays}
-              />
-            ))}
+            ebookOnSale.map((ebook, index) => {
+              if (index === 2) {
+                return (
+                  <div key={ebook.id}>
+                    <EbookItem
+                      ebook={ebook}
+                      key={ebook.id}
+                      remainingDays={remainingDays}
+                    />
+                    <Adsense feed className="border-t border-gray-900 py-5" />
+                  </div>
+                );
+              }
+              return (
+                <EbookItem
+                  ebook={ebook}
+                  key={ebook.id}
+                  remainingDays={remainingDays}
+                />
+              );
+            })}
         </ul>
       </article>
     </Layout>

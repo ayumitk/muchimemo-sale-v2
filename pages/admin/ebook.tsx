@@ -71,7 +71,23 @@ const AdminEbookPage = ({
 export default AdminEbookPage;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { query } = ctx;
+
+  let formatId = [1, 2, 3];
+  if (query.formatId) {
+    formatId = [Number(query.formatId)];
+  }
+
+  let categoryId = [1, 2, 3, 4, 5, 6];
+  if (query.categoryId) {
+    categoryId = [Number(query.categoryId)];
+  }
+
   const ebookData = await prisma.ebook.findMany({
+    where: {
+      formatId: { in: formatId },
+      categoryId: { in: categoryId },
+    },
     include: {
       format: true,
       category: true,
