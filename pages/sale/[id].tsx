@@ -211,7 +211,10 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
                       key={ebook.id}
                       remainingDays={remainingDays}
                     />
-                    <Adsense feed className="border-t border-gray-900" />
+                    <Adsense
+                      feed
+                      className="border-t border-gray-900 px-3 sm:px-6 py-5"
+                    />
                   </div>
                 );
               }
