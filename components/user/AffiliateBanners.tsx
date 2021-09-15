@@ -1,9 +1,50 @@
 import Image from "next/image";
+import blog from "../../config/blog.json";
 
 const AffiliateBanners = (props: { saleId: number }) => {
   const { saleId } = props;
   return (
     <>
+      {saleId === 27 &&
+        blog.map((item) => {
+          if (item.slug === "historical-bl-manga")
+            return (
+              <div key={item.slug}>
+                <p className="mt-8 mb-2 text-sm font-bold text-center">
+                  ▼ヒストリカルBL特集もどうぞ！▼
+                </p>
+                <div className="border-4 border-gray-900 bg-gray-900 hover:bg-gray-800">
+                  <a
+                    className="flex items-center"
+                    href={`https://muchimemo.com/bl-manga/${item.slug}/`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <div className="sm:w-36 w-24" style={{ lineHeight: 0 }}>
+                      <Image
+                        src={item.image}
+                        alt={`${item.title}のイメージ画像`}
+                        width={800}
+                        height={800}
+                        placeholder="blur"
+                        blurDataURL="/images/placeholder.svg"
+                        className="hover:opacity-80"
+                      />
+                    </div>
+                    <div className="flex-1 mx-4">
+                      <h2 className="leading-snug line-clamp-3 font-medium mb-1 sm:text-xl text-sm text-white">
+                        {item.title}
+                      </h2>
+                      <p className="text-gray-300 text-sm sm:block hidden">
+                        {item.description}
+                      </p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            );
+        })}
+
       {saleId === 25 && (
         <div className="mt-7 sm:flex">
           <div className="sm:mr-4">
