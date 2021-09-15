@@ -70,7 +70,7 @@ export default function BlogPage() {
                     <BlogItem key={item.slug} post={item} />
                     <Adsense
                       feed
-                      className="sm:py-8 py-5 border-b-4 border-dotted border-gray-900"
+                      className="border-b-4 border-dotted border-gray-900"
                     />
                   </div>
                 );

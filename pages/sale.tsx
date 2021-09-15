@@ -98,7 +98,7 @@ export default function SalePage({ allSales }: { allSales: Array<Sale> }) {
                 return (
                   <div key={sale.id}>
                     <SaleItem sale={sale} key={sale.id} />
-                    <Adsense feed className="mb-8" />
+                    <Adsense feed className="-mt-4" />
                   </div>
                 );
               }
