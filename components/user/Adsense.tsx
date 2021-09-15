@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useRouter } from "next/router";
 
 declare const window: any;
 
@@ -7,21 +8,21 @@ const Adsense = (props: {
   feed?: boolean;
   className?: string;
 }) => {
-  useEffect(() => {
-    let adsbygoogle = window.adsbygoogle;
+  const { asPath } = useRouter();
 
+  useEffect(() => {
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  }, [asPath]);
 
   const { square, feed, className } = props;
 
   if (feed) {
     return (
-      <div className={className}>
+      <div className={className} key={asPath}>
         <ins
           className="adsbygoogle"
           style={{ display: "block" }}
@@ -34,7 +35,7 @@ const Adsense = (props: {
     );
   }
   return (
-    <div className={className}>
+    <div className={className} key={asPath}>
       <ins
         className="adsbygoogle"
         style={{ display: "block" }}
