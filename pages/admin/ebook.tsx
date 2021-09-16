@@ -71,33 +71,6 @@ const AdminEbookPage = ({
 export default AdminEbookPage;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { query } = ctx;
-
-  let formatId = [1, 2, 3];
-  if (query.formatId) {
-    formatId = [Number(query.formatId)];
-  }
-
-  let categoryId = [1, 2, 3, 4, 5, 6];
-  if (query.categoryId) {
-    categoryId = [Number(query.categoryId)];
-  }
-
-  const ebookData = await prisma.ebook.findMany({
-    where: {
-      formatId: { in: formatId },
-      categoryId: { in: categoryId },
-    },
-    include: {
-      format: true,
-      category: true,
-      sales: { include: { sale: true } },
-    },
-    orderBy: [{ isDeleted: "asc" }, { id: "desc" }],
-    take: 100,
-  });
-  const allEbooks = JSON.parse(JSON.stringify(ebookData));
-
   const formatData = await prisma.format.findMany({
     orderBy: { id: "asc" },
   });
@@ -109,9 +82,76 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const allCategories = JSON.parse(JSON.stringify(categoryData));
 
   const saleData = await prisma.sale.findMany({
+    where: { isPublished: true },
     orderBy: [{ isDeleted: "asc" }, { id: "desc" }],
   });
   const allSales = JSON.parse(JSON.stringify(saleData));
+
+  const { query } = ctx;
+
+  let sales = {};
+  if (query.saleId) {
+    sales = {
+      some: {
+        saleId: Number(query.saleId),
+      },
+    };
+  }
+
+  let formatId = {};
+  if (query.formatId) {
+    formatId = { in: Number(query.formatId) };
+  }
+
+  let categoryId = {};
+  if (query.categoryId) {
+    categoryId = { in: Number(query.categoryId) };
+  }
+
+  let keyword = "";
+  if (query.keyword) {
+    keyword = String(query.keyword);
+  }
+
+  let isRecommended = {};
+  if (query.isRecommended) {
+    isRecommended = true;
+  }
+
+  let isDeleted = {};
+  if (query.isDeleted) {
+    isDeleted = true;
+  }
+
+  let isPickup = {};
+  if (query.isPickup) {
+    isPickup = true;
+  }
+
+  const ebookData = await prisma.ebook.findMany({
+    where: {
+      sales,
+      formatId,
+      categoryId,
+      isRecommended,
+      isDeleted,
+      isPickup,
+      OR: [
+        { title: { contains: keyword } },
+        { authors: { contains: keyword } },
+      ],
+    },
+    include: {
+      format: true,
+      category: true,
+      sales: {
+        include: { sale: true },
+      },
+    },
+    orderBy: [{ isDeleted: "asc" }, { id: "desc" }],
+    take: 100,
+  });
+  const allEbooks = JSON.parse(JSON.stringify(ebookData));
 
   const { req, res } = ctx;
   await basicAuthCheck(req, res);

@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { ChatAltIcon } from "@heroicons/react/solid";
 import Image from "next/image";
 import moment from "moment";
 import "moment-timezone";
+import { useRouter } from "next/router";
 
 // types
 import { Ebook, Format, Category, Sale } from "../../interfaces";
@@ -24,339 +25,245 @@ const ListEbook = (props: {
   const { ebooks, formats, categories, sales, refreshData, isRefreshing } =
     props;
 
-  // filter feature
-  const [filteredEbooks, setFilteredEbooks] = useState<Ebook[]>([]);
-  useEffect(() => {
-    setFilteredEbooks(ebooks);
-  }, [ebooks]);
-
-  const [filterChecked, setFilterChecked] = useState({
-    format: [
-      { slug: "others", checked: true, id: 1 },
-      { slug: "manga", checked: true, id: 2 },
-      { slug: "novel", checked: true, id: 3 },
-    ],
-    category: [
-      { slug: "others", checked: true, id: 1 },
-      { slug: "bl", checked: true, id: 2 },
-      { slug: "girls", checked: true, id: 3 },
-      { slug: "women", checked: true, id: 4 },
-      { slug: "boys", checked: true, id: 5 },
-      { slug: "men", checked: true, id: 6 },
-    ],
+  // filter search feature
+  const [filters, setFilters] = useState({
+    formatId: 0,
+    categoryId: 0,
     keyword: "",
-    is_deleted: true,
-    is_recommended: true,
-    is_pickup: true,
-    sale: 0,
+    isDeleted: false,
+    isRecommended: false,
+    isPickup: false,
+    saleId: 0,
   });
 
-  // checked format filter
-  const filterFormatValue = (slug: string) => {
-    const formatResult = filterChecked.format.filter((x) => x.slug === slug);
-    return formatResult[0].checked;
-  };
-  const filterFormatOnChange = (
-    e: { target: { checked: boolean } },
-    slug: string
-  ) => {
-    const index = filterChecked.format.findIndex((x) => x.slug === slug);
-    let formatArr = filterChecked.format;
-    formatArr[index].checked = e.target.checked;
-    setFilterChecked({ ...filterChecked, format: formatArr });
-  };
+  let query = {};
+  useEffect(() => {
+    if (filters.saleId !== 0) {
+      query = Object.assign(query, { saleId: filters.saleId });
+    } else {
+      query = { saleId: {}, ...query };
+    }
 
-  // checked category filter
-  const filterCategoryValue = (slug: string) => {
-    const categoryResult = filterChecked.category.filter(
-      (x) => x.slug === slug
+    if (filters.formatId !== 0) {
+      query = Object.assign(query, { formatId: filters.formatId });
+    } else {
+      query = { formatId: {}, ...query };
+    }
+
+    if (filters.categoryId !== 0) {
+      query = Object.assign(query, { categoryId: filters.categoryId });
+    } else {
+      query = { categoryId: {}, ...query };
+    }
+
+    if (filters.keyword !== "") {
+      query = Object.assign(query, { keyword: filters.keyword });
+    } else {
+      query = { keyword: {}, ...query };
+    }
+
+    if (filters.isDeleted) {
+      query = Object.assign(query, { isDeleted: "1" });
+    } else {
+      query = { isDeleted: {}, ...query };
+    }
+
+    if (filters.isRecommended) {
+      query = Object.assign(query, { isRecommended: "1" });
+    } else {
+      query = { isRecommended: {}, ...query };
+    }
+
+    if (filters.isPickup) {
+      query = Object.assign(query, { isPickup: "1" });
+    } else {
+      query = { isPickup: {}, ...query };
+    }
+  }, [filters]);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+  const getFilteredEbooks = () => {
+    router.push(
+      {
+        pathname: "/admin/ebook",
+        query: query,
+      },
+      undefined,
+      { scroll: false }
     );
-    return categoryResult[0].checked;
-  };
-  const filterCategoryOnChange = (
-    e: { target: { checked: boolean } },
-    slug: string
-  ) => {
-    const index = filterChecked.category.findIndex((x) => x.slug === slug);
-    let categoryArr = filterChecked.category;
-    categoryArr[index].checked = e.target.checked;
-    setFilterChecked({ ...filterChecked, category: categoryArr });
+    setIsLoading(true);
   };
 
   useEffect(() => {
-    const updateFilter = async () => {
-      let result = ebooks;
-
-      try {
-        // format
-        const checkedFormatArr = await filterChecked.format
-          .filter((format) => format.checked)
-          .map((format) => format.id);
-        result = await result.filter((x) =>
-          checkedFormatArr.includes(x.formatId)
-        );
-      } catch (err: any) {
-        console.error(err.message);
-      }
-
-      try {
-        // category
-        const checkedCategoryArr = await filterChecked.category
-          .filter((category) => category.checked)
-          .map((category) => category.id);
-        result = await result.filter((x) =>
-          checkedCategoryArr.includes(x.categoryId)
-        );
-      } catch (err: any) {
-        console.error(err.message);
-      }
-
-      try {
-        // keyword
-        result = await result.filter((x) => {
-          const parsedAuthors = x.authors && JSON.parse(x.authors);
-          return (
-            x.title.includes(filterChecked.keyword) ||
-            (parsedAuthors &&
-              parsedAuthors[0].Name.includes(filterChecked.keyword))
-          );
-        });
-      } catch (err: any) {
-        console.error(err.message);
-      }
-
-      try {
-        // is_deleted
-        if (filterChecked.is_deleted !== true) {
-          result = await result.filter((x) => x.isDeleted === false);
-        }
-      } catch (err: any) {
-        console.error(err.message);
-      }
-
-      try {
-        // is_recommended
-        if (filterChecked.is_recommended !== true) {
-          result = await result.filter((x) => x.isRecommended === true);
-        }
-      } catch (err: any) {
-        console.error(err.message);
-      }
-
-      try {
-        // is_pickup
-        if (filterChecked.is_pickup !== true) {
-          result = await result.filter((x) => x.isPickup === true);
-        }
-      } catch (err: any) {
-        console.error(err.message);
-      }
-
-      try {
-        // sale
-        if (filterChecked.sale !== 0) {
-          result = await result.filter((x) => {
-            if (
-              x.sales &&
-              x.sales.some((y) => y.saleId === filterChecked.sale)
-            ) {
-              return x;
-            }
-          });
-        }
-      } catch (err: any) {
-        console.error(err.message);
-      }
-
-      setFilteredEbooks(result);
-    };
-    updateFilter();
-  }, [ebooks, filterChecked]);
+    setIsLoading(false);
+  }, [ebooks]);
 
   return (
     <>
-      <div className="flex justify-between items-start">
-        <div>
-          <h2 className="text-xl font-bold">登録済みの電子書籍一覧</h2>
+      <h2 className="text-xl font-bold mb-3">登録済みの電子書籍一覧</h2>
 
-          <div className="space-y-2 text-sm mt-3">
-            <fieldset className="space-x-4 flex items-center">
-              <div className="w-28">セール：</div>
-              <div className="flex-1">
-                <select
-                  id="location"
-                  name="location"
-                  className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm rounded-md"
-                  value={filterChecked.sale}
-                  onChange={(e) =>
-                    setFilterChecked({
-                      ...filterChecked,
-                      sale: Number(e.target.value),
-                    })
-                  }
-                >
-                  <option value="0">選択しない</option>
-                  {sales.map((sale) => {
-                    const now = moment().tz("Asia/Tokyo").format();
-                    const end = moment(sale.saleEnds).add(9, "h").format();
-                    const diff = moment(end).diff(now);
-                    if (diff >= 0) {
-                      return (
-                        <option key={sale.id} value={sale.id}>
-                          {sale.title}
-                        </option>
-                      );
-                    }
-                  })}
-                </select>
-              </div>
-            </fieldset>
-            <fieldset className="space-x-4 flex items-center">
-              <div className="w-28">フォーマット：</div>
-              {formats.map((format) => (
-                <div className="relative flex items-start" key={format.id}>
-                  <div className="flex items-center h-5">
-                    <input
-                      id={`format-${format.id}`}
-                      type="checkbox"
-                      className="focus:ring-teal-500 h-4 w-4 text-teal-600 border-gray-300 rounded"
-                      checked={filterFormatValue(format.slug)}
-                      onChange={(e) => filterFormatOnChange(e, format.slug)}
-                    />
-                  </div>
-                  <div className="ml-2 text-sm">
-                    <label
-                      htmlFor={`format-${format.id}`}
-                      className="text-gray-700"
-                    >
-                      {format.name}
-                    </label>
-                  </div>
-                </div>
-              ))}
-            </fieldset>
-            <fieldset className="space-x-4 flex items-center">
-              <div className="w-28">カテゴリー：</div>
-              {categories.map((category) => (
-                <div className="relative flex items-start" key={category.id}>
-                  <div className="flex items-center h-5">
-                    <input
-                      id={`category-${category.id}`}
-                      type="checkbox"
-                      className="focus:ring-teal-500 h-4 w-4 text-teal-600 border-gray-300 rounded"
-                      checked={filterCategoryValue(category.slug)}
-                      onChange={(e) => filterCategoryOnChange(e, category.slug)}
-                    />
-                  </div>
-                  <div className="ml-2 text-sm">
-                    <label
-                      htmlFor={`category-${category.id}`}
-                      className="text-gray-700"
-                    >
-                      {category.name}
-                    </label>
-                  </div>
-                </div>
-              ))}
-            </fieldset>
-            <fieldset className="space-x-4 flex items-center">
-              <div className="w-28">キーワード：</div>
-              <div className="flex-1">
-                <label htmlFor="keyword" className="sr-only">
-                  Keyword
-                </label>
-                <input
-                  type="text"
-                  id="keyword"
-                  className="focus:ring-teal-500 focus:border-teal-500 block w-full sm:text-sm border-gray-300 rounded-md px-2 py-1"
-                  value={filterChecked.keyword}
-                  onChange={(e) =>
-                    setFilterChecked({
-                      ...filterChecked,
-                      keyword: e.target.value,
-                    })
-                  }
-                />
-              </div>
-            </fieldset>
-            <div className="space-x-4 flex items-start">
-              <fieldset className="relative flex items-start">
-                <div className="flex items-center h-5">
-                  <input
-                    id="deleted"
-                    type="checkbox"
-                    className="focus:ring-teal-500 h-4 w-4 text-teal-600 border-gray-300 rounded"
-                    checked={filterChecked.is_deleted}
-                    onChange={(e) =>
-                      setFilterChecked({
-                        ...filterChecked,
-                        is_deleted: e.target.checked,
-                      })
-                    }
-                  />
-                </div>
-                <div className="ml-2 text-sm">
-                  <label htmlFor="deleted" className="text-gray-700">
-                    削除済みも表示
-                  </label>
-                </div>
-              </fieldset>
-              <fieldset className="relative flex items-start">
-                <div className="flex items-center h-5">
-                  <input
-                    id="recommended"
-                    type="checkbox"
-                    className="focus:ring-teal-500 h-4 w-4 text-teal-600 border-gray-300 rounded"
-                    checked={filterChecked.is_recommended}
-                    onChange={(e) =>
-                      setFilterChecked({
-                        ...filterChecked,
-                        is_recommended: e.target.checked,
-                      })
-                    }
-                  />
-                </div>
-                <div className="ml-2 text-sm">
-                  <label htmlFor="recommended" className="text-gray-700">
-                    オススメ以外も表示
-                  </label>
-                </div>
-              </fieldset>
-              <fieldset className="relative flex items-start">
-                <div className="flex items-center h-5">
-                  <input
-                    id="pickup"
-                    type="checkbox"
-                    className="focus:ring-teal-500 h-4 w-4 text-teal-600 border-gray-300 rounded"
-                    checked={filterChecked.is_pickup}
-                    onChange={(e) =>
-                      setFilterChecked({
-                        ...filterChecked,
-                        is_pickup: e.target.checked,
-                      })
-                    }
-                  />
-                </div>
-                <div className="ml-2 text-sm">
-                  <label htmlFor="pickup" className="text-gray-700">
-                    Pickup以外も表示
-                  </label>
-                </div>
-              </fieldset>
-            </div>
+      <div className="flex space-x-2 mb-2">
+        <select
+          className="block w-48 pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm rounded-md"
+          value={filters.saleId}
+          onChange={(e) =>
+            setFilters({
+              ...filters,
+              saleId: Number(e.target.value),
+            })
+          }
+        >
+          <option value="0">セール</option>
+          {sales.map((sale) => {
+            const now = moment().tz("Asia/Tokyo").format();
+            const end = moment(sale.saleEnds).add(9, "h").format();
+            const diff = moment(end).diff(now);
+            if (diff >= 0) {
+              return (
+                <option key={sale.id} value={sale.id}>
+                  {sale.title}
+                </option>
+              );
+            }
+          })}
+        </select>
+
+        <select
+          className="block pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm rounded-md"
+          value={filters.formatId}
+          onChange={(e) =>
+            setFilters({
+              ...filters,
+              formatId: Number(e.target.value),
+            })
+          }
+        >
+          <option value="0">フォーマット</option>
+          {formats.map((format) => (
+            <option key={format.id} value={format.id}>
+              {format.name}
+            </option>
+          ))}
+        </select>
+
+        <select
+          className="block pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm rounded-md"
+          value={filters.categoryId}
+          onChange={(e) =>
+            setFilters({
+              ...filters,
+              categoryId: Number(e.target.value),
+            })
+          }
+        >
+          <option value="0">カテゴリー</option>
+          {categories.map((category) => (
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
+          ))}
+        </select>
+
+        <input
+          type="text"
+          placeholder="タイトル、作者名"
+          className="focus:ring-teal-500 focus:border-teal-500 block w-full sm:text-sm border-gray-300 rounded-md px-3 py-2"
+          value={filters.keyword}
+          onChange={(e) =>
+            setFilters({
+              ...filters,
+              keyword: e.target.value,
+            })
+          }
+        />
+      </div>
+
+      <div className="space-x-4 flex items-start">
+        <fieldset className="relative flex items-start">
+          <div className="flex items-center h-5">
+            <input
+              id="deleted"
+              type="checkbox"
+              className="focus:ring-teal-500 h-4 w-4 text-teal-600 border-gray-300 rounded"
+              checked={filters.isDeleted}
+              onChange={(e) =>
+                setFilters({
+                  ...filters,
+                  isDeleted: e.target.checked,
+                })
+              }
+            />
           </div>
-        </div>
+          <div className="ml-2 text-sm">
+            <label htmlFor="deleted" className="text-gray-700">
+              削除済み
+            </label>
+          </div>
+        </fieldset>
+        <fieldset className="relative flex items-start">
+          <div className="flex items-center h-5">
+            <input
+              id="recommended"
+              type="checkbox"
+              className="focus:ring-teal-500 h-4 w-4 text-teal-600 border-gray-300 rounded"
+              checked={filters.isRecommended}
+              onChange={(e) =>
+                setFilters({
+                  ...filters,
+                  isRecommended: e.target.checked,
+                })
+              }
+            />
+          </div>
+          <div className="ml-2 text-sm">
+            <label htmlFor="recommended" className="text-gray-700">
+              オススメ
+            </label>
+          </div>
+        </fieldset>
+        <fieldset className="relative flex items-start">
+          <div className="flex items-center h-5">
+            <input
+              id="pickup"
+              type="checkbox"
+              className="focus:ring-teal-500 h-4 w-4 text-teal-600 border-gray-300 rounded"
+              checked={filters.isPickup}
+              onChange={(e) =>
+                setFilters({
+                  ...filters,
+                  isPickup: e.target.checked,
+                })
+              }
+            />
+          </div>
+          <div className="ml-2 text-sm">
+            <label htmlFor="pickup" className="text-gray-700">
+              Pickup
+            </label>
+          </div>
+        </fieldset>
+      </div>
+      <div className="mt-4">
+        <button
+          type="button"
+          onClick={getFilteredEbooks}
+          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+        >
+          データを再取得
+        </button>
         <button
           type="button"
           onClick={refreshData}
-          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-teal-700 bg-teal-100 hover:bg-teal-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-teal-700 bg-teal-100 hover:bg-teal-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 ml-2"
         >
           リストを更新
         </button>
       </div>
 
       <p className="mt-5 text-sm text-gray-700">
-        {filteredEbooks.length}件 {isRefreshing && <span>Refreshing...</span>}
+        {ebooks.length}件 {isRefreshing && <span>Refreshing...</span>}
+        {isLoading && <span>Loading...</span>}
       </p>
 
       <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg mt-2">
@@ -448,7 +355,7 @@ const ListEbook = (props: {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {filteredEbooks.map((ebook: Ebook) => (
+            {ebooks.map((ebook: Ebook) => (
               <tr
                 key={ebook.id}
                 className={`${
