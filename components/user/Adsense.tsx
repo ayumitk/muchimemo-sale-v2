@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 
-declare const window: any;
+interface Window {
+  adsbygoogle?: { [key: string]: unknown }[];
+}
+declare const window: Window;
 
 const Adsense = (props: {
   square?: boolean;

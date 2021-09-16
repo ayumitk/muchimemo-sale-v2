@@ -5,6 +5,52 @@ const AffiliateBanners = (props: { saleId: number }) => {
   const { saleId } = props;
   return (
     <>
+      {saleId === 60 && (
+        <div className="mt-7 sm:flex">
+          <div className="sm:mr-4">
+            <div className="font-bold mb-1 text-sm sm:text-base">
+              ▼コミックシーモアの特設ページ
+            </div>
+            <a
+              href="https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3549505&pid=886731152&vc_url=https%3A%2F%2Fwww.cmoa.jp%2Fsale%2F210916_cn25%2F"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block sm:w-64 w-52"
+            >
+              <Image
+                src="https://cmoa.akamaized.net/auto/images/sale/210916_cn25/upper_20210916.jpg"
+                alt="コミックシーモアの特設ページ"
+                placeholder="blur"
+                blurDataURL="/images/placeholder.svg"
+                width={770}
+                height={320}
+              />
+            </a>
+          </div>
+
+          <div className="sm:mr-4">
+            <div className="font-bold mb-1 text-sm sm:text-base">
+              ▼Renta!の特設ページ
+            </div>
+            <a
+              href="https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3549505&pid=886731192&vc_url=https%3A%2F%2Frenta.papy.co.jp%2Frenta%2Fsc%2Ffrm%2Fpage%2Ftopics%2Fbn_35777_20210916.htm%3Fref%3Dvc"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block sm:w-44 w-36"
+            >
+              <Image
+                src="https://img.papy.co.jp/lc/renta/img/label/tp_35777_l_02.png"
+                alt="Renta!の特設ページ"
+                placeholder="blur"
+                blurDataURL="/images/placeholder.svg"
+                width={360}
+                height={225}
+              />
+            </a>
+          </div>
+        </div>
+      )}
+
       {saleId === 27 &&
         blog.map((item) => {
           if (item.slug === "historical-bl-manga")

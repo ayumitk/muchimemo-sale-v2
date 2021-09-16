@@ -109,7 +109,7 @@ const ListSale = (props: {
                 <td className="px-6 py-4 text-sm">{sale.id}</td>
                 <td className="px-6 py-4 text-sm">
                   <a
-                    href={`/sale/${sale.id}/`}
+                    href={`/sale/${sale.id}`}
                     className="hover:text-teal-600 hover:underline"
                     target="_blank"
                     rel="noopener noreferrer"
