@@ -78,11 +78,11 @@ export default function HomePage({
       </Head>
 
       <section className="max-w-3xl mx-auto">
-        <Link href={`/sale/24`}>
+        <Link href={`/sale/18`}>
           <a className="block" style={{ lineHeight: 0 }}>
             <Image
-              src="/images/cover-images/24.jpg"
-              alt="【50％ポイント還元】花音の日 (9/16まで)"
+              src="/images/cover-images/18.jpg"
+              alt="【無料＆最大50%OFF】花音 夜のお仕事BL特集 (9/19まで)"
               width={1200}
               height={630}
               placeholder="blur"
