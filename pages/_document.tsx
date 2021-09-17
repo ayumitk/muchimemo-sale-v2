@@ -21,9 +21,9 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
           <script
+            data-ad-client="ca-pub-2243735568608949"
             async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2243735568608949"
-            crossOrigin="anonymous"
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
           ></script>
         </Head>
         <body>
