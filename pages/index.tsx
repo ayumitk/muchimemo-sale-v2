@@ -137,16 +137,16 @@ export default function HomePage({
         <Adsense
           client="ca-pub-2243735568608949"
           slot="4781975935"
-          className="adsbygoogle"
           style={{ display: "block" }}
+          layout="display"
           format="auto"
         />
 
         <Adsense
           client="ca-pub-2243735568608949"
           slot="3230248784"
-          className="adsbygoogle"
           style={{ display: "block" }}
+          layout="in-article"
           format="fluid"
         />
 
