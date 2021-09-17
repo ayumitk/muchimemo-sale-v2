@@ -12,7 +12,7 @@ import prisma from "../lib/prisma";
 import Layout from "../components/layout";
 import SaleItem from "../components/user/SaleItem";
 import BreadcrumbNav from "../components/user/BreadcrumbNav";
-import Adsense from "../components/user/Adsense";
+// import Adsense from "../components/user/Adsense";
 
 // types
 import { Sale } from "../interfaces";
@@ -98,7 +98,7 @@ export default function SalePage({ allSales }: { allSales: Array<Sale> }) {
                 return (
                   <div key={sale.id}>
                     <SaleItem sale={sale} key={sale.id} />
-                    <Adsense feed className="mb-8" />
+                    {/* <Adsense feed className="mb-8" /> */}
                   </div>
                 );
               }

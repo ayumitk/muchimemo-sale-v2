@@ -8,6 +8,7 @@ import "moment-timezone";
 import Link from "next/link";
 import blog from "../config/blog.json";
 import { ArrowCircleRightIcon } from "@heroicons/react/solid";
+import { Adsense } from "@ctrl/react-adsense";
 
 // db
 import prisma from "../lib/prisma";
@@ -16,7 +17,7 @@ import prisma from "../lib/prisma";
 import Layout from "../components/layout";
 import SaleItem from "../components/user/SaleItem";
 import PickupItem from "../components/user/PickupItem";
-import Adsense from "../components/user/Adsense";
+// import Adsense from "../components/user/Adsense";
 
 // types
 import { Sale, Ebook } from "../interfaces";
@@ -131,7 +132,9 @@ export default function HomePage({
           </ul>
         </section>
 
-        <Adsense square className="mb-16" />
+        {/* <Adsense square className="mb-16" /> */}
+
+        <Adsense client="ca-pub-2243735568608949" slot="4781975935" />
 
         <section className="mb-16">
           <h2
