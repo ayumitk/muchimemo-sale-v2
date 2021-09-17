@@ -8,7 +8,6 @@ import "moment-timezone";
 import Link from "next/link";
 import blog from "../config/blog.json";
 import { ArrowCircleRightIcon } from "@heroicons/react/solid";
-// import { Adsense } from "@ctrl/react-adsense";
 
 // db
 import prisma from "../lib/prisma";

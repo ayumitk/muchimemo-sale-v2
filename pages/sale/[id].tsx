@@ -14,7 +14,7 @@ import EbookItem from "../../components/user/EbookItem";
 import BreadcrumbNav from "../../components/user/BreadcrumbNav";
 import ShowSaleEnds from "../../components/user/ShowSaleEnds";
 import AffiliateBanners from "../../components/user/AffiliateBanners";
-// import Adsense from "../../components/user/Adsense";
+import Adsense from "../../components/user/Adsense";
 
 // types
 import { Sale, Ebook } from "../../interfaces";
@@ -211,10 +211,10 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
                       key={ebook.id}
                       remainingDays={remainingDays}
                     />
-                    {/* <Adsense
+                    <Adsense
                       feed
                       className="border-t border-gray-900 px-3 sm:px-6 py-5"
-                    /> */}
+                    />
                   </div>
                 );
               }

@@ -6,7 +6,7 @@ import blog from "../config/blog.json";
 import Layout from "../components/layout";
 import BreadcrumbNav from "../components/user/BreadcrumbNav";
 import BlogItem from "../components/user/BlogItem";
-// import Adsense from "../components/user/Adsense";
+import Adsense from "../components/user/Adsense";
 
 export default function BlogPage() {
   const title = "オススメBLマンガ･小説特集";
@@ -68,10 +68,10 @@ export default function BlogPage() {
                 return (
                   <div key={item.slug}>
                     <BlogItem key={item.slug} post={item} />
-                    {/* <Adsense
+                    <Adsense
                       feed
                       className="sm:py-8 py-5 border-b-4 border-dotted border-gray-900"
-                    /> */}
+                    />
                   </div>
                 );
               }
