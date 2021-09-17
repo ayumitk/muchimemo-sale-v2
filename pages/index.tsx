@@ -134,7 +134,21 @@ export default function HomePage({
 
         {/* <Adsense square className="mb-16" /> */}
 
-        <Adsense client="ca-pub-2243735568608949" slot="4781975935" />
+        <Adsense
+          client="ca-pub-2243735568608949"
+          slot="4781975935"
+          className="adsbygoogle"
+          style={{ display: "block" }}
+          format="auto"
+        />
+
+        <Adsense
+          client="ca-pub-2243735568608949"
+          slot="3230248784"
+          className="adsbygoogle"
+          style={{ display: "block" }}
+          format="fluid"
+        />
 
         <section className="mb-16">
           <h2
