@@ -78,11 +78,11 @@ export default function HomePage({
       </Head>
 
       <section className="max-w-3xl mx-auto">
-        <Link href={`/sale/18`}>
+        <Link href={`/sale/27`}>
           <a className="block" style={{ lineHeight: 0 }}>
             <Image
-              src="/images/cover-images/18.jpg"
-              alt="【無料＆最大50%OFF】花音 夜のお仕事BL特集 (9/19まで)"
+              src="/images/cover-images/27.jpg"
+              alt="【30%OFF】いつの時代も尊い… 祥伝社 ヒストリカルBL特集 (9/29まで)"
               width={1200}
               height={630}
               placeholder="blur"
