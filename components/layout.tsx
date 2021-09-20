@@ -3,7 +3,13 @@ import Link from "next/link";
 import { HeartIcon } from "@heroicons/react/solid";
 import { ExternalLinkIcon } from "@heroicons/react/outline";
 import config from "../config";
-import { SiteLogo, SaleIcon, NewIcon, NewspaperIcon, HomeIcon } from "./svg";
+import {
+  SiteLogo,
+  SaleIcon,
+  BookOpenIcon,
+  NewspaperIcon,
+  HomeIcon,
+} from "./svg";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -63,6 +69,17 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 </span>
               </a>
             </Link>
+            <Link href="/archives">
+              <a
+                className="block flex-1 text-center border-r border-gray-500 sm:py-3 py-1 hover:bg-yellow-50"
+                style={{ lineHeight: 1 }}
+              >
+                <BookOpenIcon className="w-5 h-5 sm:mr-1 inline-block align-text-bottom font-medium" />
+                <span className="text-xs sm:text-base block sm:inline-block">
+                  今月の本
+                </span>
+              </a>
+            </Link>
             <Link href="/blog">
               <a
                 className="block flex-1 text-center sm:border-r border-gray-500 sm:py-3 py-1 hover:bg-yellow-50"
@@ -74,17 +91,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 </span>
               </a>
             </Link>
-            {/* <Link href="/new">
-              <a
-                className="block flex-1 text-center sm:border-r border-gray-500 sm:py-3 py-1 hover:bg-yellow-50"
-                style={{ lineHeight: 1 }}
-              >
-                <NewIcon className="w-5 h-5 sm:mr-1 inline-block align-text-bottom font-medium" />
-                <span className="text-xs sm:text-base block sm:inline-block">
-                  新刊BL
-                </span>
-              </a>
-            </Link> */}
           </div>
         </nav>
       </header>

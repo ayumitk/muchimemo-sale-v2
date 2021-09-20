@@ -147,7 +147,7 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
           content={`${saleDetail.title} - ${config.siteTitleAlt}`}
         />
       </Head>
-      <BreadcrumbNav pageTitle={saleDetail.title} saleDetail />
+      <BreadcrumbNav pageTitle={saleDetail.title} sale />
       <article className="max-w-3xl mx-auto">
         <div className="px-4 md:px-6 lg:px-0">
           <ShowSaleEnds remainingDays={remainingDays + 1} className="mb-1" />

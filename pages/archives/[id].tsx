@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
 import Head from "next/head";
-import { GetStaticProps } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 import config from "../../config";
 import moment from "moment";
-import { SearchIcon } from "@heroicons/react/solid";
+import "moment/locale/ja";
 import { useRouter } from "next/router";
 
 // db
@@ -18,11 +17,16 @@ import Adsense from "../../components/user/Adsense";
 // types
 import { Ebook } from "../../interfaces";
 
-export default function booksOfTheMonthPage({ ebooks }: { ebooks: Ebook[] }) {
-  const title = "2021年9月に読んだおすすめBLマンガ･小説";
+export default function archiveDetailPage({ ebooks }: { ebooks: Ebook[] }) {
+  const router = useRouter();
+  const { id } = router.query;
+
+  const year = moment(id).format("Y") + "年";
+  const month = moment(id).format("MMMM");
+
+  const title = `${year}${month}に読んだおすすめBLマンガ･小説`;
   const description =
     "新刊やセールで購入したマンガや小説の中から、オススメの作品をご紹介します。一部、非BL作品も含まれてます。";
-  const pageId = "2021-09";
 
   return (
     <Layout>
@@ -33,10 +37,10 @@ export default function booksOfTheMonthPage({ ebooks }: { ebooks: Ebook[] }) {
         <meta name="description" content={description} />
         <meta
           name="image"
-          content={`${config.siteUrl}/images/cover-images/${pageId}.jpg`}
+          content={`${config.siteUrl}/images/cover-images/${id}.jpg`}
         />
 
-        <meta property="og:url" content={`${config.siteUrl}/sale/${pageId}/`} />
+        <meta property="og:url" content={`${config.siteUrl}/sale/${id}/`} />
         <meta property="og:type" content="article" />
         <meta
           property="og:title"
@@ -45,17 +49,14 @@ export default function booksOfTheMonthPage({ ebooks }: { ebooks: Ebook[] }) {
         <meta property="og:description" content={description} />
         <meta
           property="og:image"
-          content={`${config.siteUrl}/images/cover-images/${pageId}.jpg`}
+          content={`${config.siteUrl}/images/cover-images/${id}.jpg`}
         />
         <meta
           property="og:image:alt"
           content={`${title} - ${config.siteTitleAlt}`}
         />
 
-        <meta
-          name="twitter:url"
-          content={`${config.siteUrl}/sale/${pageId}/`}
-        />
+        <meta name="twitter:url" content={`${config.siteUrl}/sale/${id}/`} />
         <meta
           name="twitter:title"
           content={`${title} - ${config.siteTitleAlt}`}
@@ -63,14 +64,14 @@ export default function booksOfTheMonthPage({ ebooks }: { ebooks: Ebook[] }) {
         <meta name="twitter:description" content={description} />
         <meta
           name="twitter:image"
-          content={`${config.siteUrl}/images/cover-images/${pageId}.jpg`}
+          content={`${config.siteUrl}/images/cover-images/${id}.jpg`}
         />
         <meta
           name="twitter:image:alt"
           content={`${title} - ${config.siteTitleAlt}`}
         />
       </Head>
-      <BreadcrumbNav pageTitle={title} saleDetail />
+      <BreadcrumbNav pageTitle={title} archive />
       <article className="max-w-3xl mx-auto">
         <div className="px-4 md:px-6 lg:px-0">
           <h1 className="font-black text-2xl sm:text-4xl mb-4 tracking-tight">
@@ -110,22 +111,61 @@ export default function booksOfTheMonthPage({ ebooks }: { ebooks: Ebook[] }) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const data = await prisma.ebook.findMany({
+export const getStaticPaths: GetStaticPaths = async () => {
+  interface Ebook {
+    title: string;
+    readAt: string;
+  }
+
+  const res = await prisma.ebook.findMany({
+    where: { isDeleted: false, NOT: { readAt: null } },
+    select: {
+      readAt: true,
+      title: true,
+    },
+  });
+  const ebooks = JSON.parse(JSON.stringify(res));
+  const allEbooks = ebooks.map((ebook: Ebook) => ({
+    ...ebook,
+    readAt: ebook.readAt.slice(0, 7),
+  }));
+  const objectKeys = allEbooks
+    .map((ebook: Ebook) => ebook.readAt)
+    .filter((x: Ebook, i: number, self: Ebook[]) => {
+      return self.indexOf(x) === i;
+    });
+
+  const paths = objectKeys.map((key: string) => ({
+    params: {
+      id: key.toString(),
+    },
+  }));
+
+  return { paths, fallback: false };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  let readAt = {};
+  if (params && params.id) {
+    const start = params.id + "-01";
+    const end = params.id + "-" + moment(params.id, "YYYY-MM").daysInMonth();
+    readAt = {
+      gte: new Date(start),
+      lt: new Date(end),
+    };
+  }
+
+  const res = await prisma.ebook.findMany({
     where: {
-      readAt: {
-        gte: new Date("2021-09-01"),
-        lt: new Date("2021-09-30"),
-      },
+      readAt: readAt,
       isDeleted: false,
     },
     include: {
       format: true,
       category: true,
     },
-    orderBy: [{ isRecommended: "desc" }, { id: "desc" }],
+    orderBy: [{ categoryId: "asc" }, { authors: "desc" }],
   });
-  const ebooks = JSON.parse(JSON.stringify(data));
-
+  const ebooks = JSON.parse(JSON.stringify(res));
   return { props: { ebooks } };
 };

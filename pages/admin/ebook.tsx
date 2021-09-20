@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
+import moment from "moment";
 
 // db
 import prisma from "../../lib/prisma";
@@ -98,6 +99,17 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
 
+  let readAt = {};
+  if (query.readAt) {
+    const start = query.readAt + "-01";
+    const end =
+      query.readAt + "-" + moment(query.readAt, "YYYY-MM").daysInMonth();
+    readAt = {
+      gte: new Date(start),
+      lt: new Date(end),
+    };
+  }
+
   let formatId = {};
   if (query.formatId) {
     formatId = { in: Number(query.formatId) };
@@ -136,6 +148,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       isRecommended,
       isDeleted,
       isPickup,
+      readAt,
       OR: [
         { title: { contains: keyword } },
         { authors: { contains: keyword } },

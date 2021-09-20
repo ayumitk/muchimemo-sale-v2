@@ -36,7 +36,7 @@ const SaleItem = (props: { sale: Sale }) => {
 
   return (
     <li className="shadow mb-8">
-      <Link href={`/sale/${sale.id}/`}>
+      <Link href={`/sale/${sale.id}`}>
         <a>
           <div
             className={`px-4 py-5 sm:p-6 border-4 relative ${

@@ -34,10 +34,19 @@ const ListEbook = (props: {
     isRecommended: false,
     isPickup: false,
     saleId: 0,
+    readAt: "",
   });
 
   let query = {};
   useEffect(() => {
+    if (filters.readAt !== "") {
+      query = Object.assign(query, {
+        readAt: filters.readAt,
+      });
+    } else {
+      query = { readAt: {}, ...query };
+    }
+
     if (filters.saleId !== 0) {
       query = Object.assign(query, { saleId: filters.saleId });
     } else {
@@ -164,6 +173,22 @@ const ListEbook = (props: {
             </option>
           ))}
         </select>
+
+        <div className="flex">
+          <input
+            type="month"
+            className="w-full block px-3 py-2 text-base border-gray-300 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm rounded-l-md"
+            value={filters.readAt}
+            onChange={(e) => setFilters({ ...filters, readAt: e.target.value })}
+          />
+          <button
+            type="button"
+            className="rounded-r-md border border-gray-300 shadow-sm px-2 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 sm:mt-0 sm:col-start-1 sm:text-sm -ml-1"
+            onClick={() => setFilters({ ...filters, readAt: "" })}
+          >
+            Clear
+          </button>
+        </div>
 
         <input
           type="text"
@@ -338,12 +363,6 @@ const ListEbook = (props: {
                 scope="col"
                 className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
-                points
-              </th>
-              <th
-                scope="col"
-                className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
                 update
               </th>
               <th
@@ -481,9 +500,7 @@ const ListEbook = (props: {
                 </td>
                 <td className="px-2 py-2 text-sm text-red-500">
                   {ebook.price && `¥${ebook.price}`}
-                </td>
-                <td className="px-2 py-2 text-sm text-red-500">
-                  {ebook.points && `${ebook.points}pt`}
+                  <br />({ebook.points && `${ebook.points}pt`})
                 </td>
                 <td className="px-2 py-2 text-sm">
                   <UpdateEbook ebook={ebook} refreshData={refreshData} />

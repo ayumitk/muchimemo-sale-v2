@@ -224,11 +224,11 @@ const EditEbook = (props: {
                                   readAt: moment(e.target.value).toISOString(),
                                 })
                               }
-                              className="shadow-sm block w-full focus:ring-teal-500 focus:border-teal-500 border border-gray-300 rounded-md p-3"
+                              className="shadow-sm block w-full focus:ring-teal-500 focus:border-teal-500 border border-gray-300 rounded-l-md p-3"
                             />
                             <button
                               type="button"
-                              className="rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 sm:mt-0 sm:col-start-1 sm:text-sm ml-2"
+                              className="rounded-r-md border border-gray-300 shadow-sm px-3 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 sm:mt-0 sm:col-start-1 sm:text-sm -ml-1"
                               onClick={() =>
                                 ebookDetails &&
                                 setEbookDetails({
