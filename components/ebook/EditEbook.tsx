@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
+import moment from "moment";
 
 // types
 import { Ebook, Format, Category } from "../../interfaces";
@@ -199,6 +200,46 @@ const EditEbook = (props: {
                               />
                             </div>
                           )}
+                        </div>
+
+                        <div className="mb-5">
+                          <label
+                            htmlFor="image-url"
+                            className="block text-sm font-medium text-gray-700"
+                          >
+                            読んだ月
+                          </label>
+                          <div className="mt-1 flex">
+                            <input
+                              id="image-url"
+                              type="date"
+                              value={
+                                ebookDetails &&
+                                moment(ebookDetails.readAt).format("YYYY-MM-DD")
+                              }
+                              onChange={(e) =>
+                                ebookDetails &&
+                                setEbookDetails({
+                                  ...ebookDetails,
+                                  readAt: moment(e.target.value).toISOString(),
+                                })
+                              }
+                              className="shadow-sm block w-full focus:ring-teal-500 focus:border-teal-500 border border-gray-300 rounded-md p-3"
+                            />
+                            <button
+                              type="button"
+                              className="rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 sm:mt-0 sm:col-start-1 sm:text-sm ml-2"
+                              onClick={() =>
+                                ebookDetails &&
+                                setEbookDetails({
+                                  ...ebookDetails,
+                                  readAt: null,
+                                })
+                              }
+                            >
+                              Clear
+                            </button>
+                          </div>
                         </div>
 
                         <div className="mb-5 grid grid-cols-1 gap-y-5 gap-x-4 sm:grid-cols-6">

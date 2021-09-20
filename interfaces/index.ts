@@ -17,6 +17,7 @@ export interface Ebook {
   publisher?: string;
   rentaId?: string;
   title: string;
+  readAt?: string | null;
   updatedAt: string;
   format: Format;
   formatId: number;

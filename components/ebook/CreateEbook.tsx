@@ -137,6 +137,7 @@ const CreateEbook = (props: { ebooks: Ebook[]; refreshData: any }) => {
             : 0,
           formatId: formatId,
           categoryId: categoryId,
+          readAt: null,
         };
 
         // create a ebook

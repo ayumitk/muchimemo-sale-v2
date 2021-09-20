@@ -15,6 +15,7 @@ export default async function handle(
       categoryId: number;
       imageWidth?: number;
       imageHeight?: number;
+      readAt?: string | null;
     };
   },
   res: any
@@ -31,6 +32,7 @@ export default async function handle(
     categoryId,
     imageWidth,
     imageHeight,
+    readAt,
   } = req.body;
 
   const newEbook = await prisma.ebook.create({
@@ -46,6 +48,7 @@ export default async function handle(
       categoryId,
       imageWidth,
       imageHeight,
+      readAt,
     },
   });
   res.json(newEbook);
