@@ -4,6 +4,11 @@ import config from "../../config";
 import moment from "moment";
 import "moment/locale/ja";
 import { useRouter } from "next/router";
+import Link from "next/link";
+import {
+  ArrowCircleLeftIcon,
+  ArrowCircleRightIcon,
+} from "@heroicons/react/solid";
 
 // db
 import prisma from "../../lib/prisma";
@@ -17,9 +22,20 @@ import Adsense from "../../components/user/Adsense";
 // types
 import { Ebook } from "../../interfaces";
 
-export default function archiveDetailPage({ ebooks }: { ebooks: Ebook[] }) {
+export default function archiveDetailPage({
+  ebooks,
+  paths,
+}: {
+  ebooks: Ebook[];
+  paths: string[];
+}) {
   const router = useRouter();
   const { id } = router.query;
+
+  const currentIndex = paths.findIndex((x) => x === id);
+  const endOfIndex = paths.length - 1;
+  const prevId = currentIndex === endOfIndex ? "" : paths[currentIndex + 1];
+  const nextId = currentIndex === 0 ? "" : paths[currentIndex - 1];
 
   const year = moment(id).format("Y") + "年";
   const month = moment(id).format("MMMM");
@@ -106,6 +122,34 @@ export default function archiveDetailPage({ ebooks }: { ebooks: Ebook[] }) {
               );
             })}
         </ul>
+        <nav className="flex mt-6 px-3 sm:px-0">
+          {prevId !== "" && (
+            <Link href={`/archives/${prevId}`}>
+              <a className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-gray-900 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                <ArrowCircleLeftIcon
+                  className="-ml-1 mr-1 h-5 w-5"
+                  aria-hidden="true"
+                />
+                {`${moment(prevId).format("Y") + "年"}${moment(prevId).format(
+                  "MMMM"
+                )}`}
+              </a>
+            </Link>
+          )}
+          {nextId !== "" && (
+            <Link href={`/archives/${nextId}`}>
+              <a className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-gray-900 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 ml-auto">
+                {`${moment(nextId).format("Y") + "年"}${moment(nextId).format(
+                  "MMMM"
+                )}`}
+                <ArrowCircleRightIcon
+                  className="-mr-1 ml-1 h-5 w-5"
+                  aria-hidden="true"
+                />
+              </a>
+            </Link>
+          )}
+        </nav>
       </article>
     </Layout>
   );
@@ -113,7 +157,6 @@ export default function archiveDetailPage({ ebooks }: { ebooks: Ebook[] }) {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   interface Ebook {
-    title: string;
     readAt: string;
   }
 
@@ -121,19 +164,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
     where: { isDeleted: false, NOT: { readAt: null } },
     select: {
       readAt: true,
-      title: true,
     },
   });
   const ebooks = JSON.parse(JSON.stringify(res));
   const allEbooks = ebooks.map((ebook: Ebook) => ({
-    ...ebook,
     readAt: ebook.readAt.slice(0, 7),
   }));
   const objectKeys = allEbooks
     .map((ebook: Ebook) => ebook.readAt)
-    .filter((x: Ebook, i: number, self: Ebook[]) => {
-      return self.indexOf(x) === i;
-    });
+    .filter((x: Ebook, i: number, self: Ebook[]) => self.indexOf(x) === i);
 
   const paths = objectKeys.map((key: string) => ({
     params: {
@@ -167,5 +206,21 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     orderBy: [{ categoryId: "asc" }, { authors: "desc" }],
   });
   const ebooks = JSON.parse(JSON.stringify(res));
-  return { props: { ebooks } };
+
+  const pathsData = await prisma.ebook.findMany({
+    where: {
+      NOT: { readAt: null },
+      isDeleted: false,
+    },
+    select: { readAt: true },
+    orderBy: [{ readAt: "desc" }],
+  });
+  const paths = JSON.parse(JSON.stringify(pathsData))
+    .map((path: { readAt: string }) => path.readAt.slice(0, 7))
+    .filter(
+      (x: { readAt: string }, i: number, self: { readAt: string }[]) =>
+        self.indexOf(x) === i
+    );
+
+  return { props: { ebooks, paths } };
 };

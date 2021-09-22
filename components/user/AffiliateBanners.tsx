@@ -5,6 +5,71 @@ const AffiliateBanners = (props: { saleId: number }) => {
   const { saleId } = props;
   return (
     <>
+      {saleId === 62 && (
+        <div className="mt-7 sm:flex">
+          <div className="sm:mr-4">
+            <div className="font-bold mb-1 text-sm sm:text-base">
+              ▼コミックシーモアの特設ページ
+            </div>
+            <a
+              href="https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3549505&pid=886731152&vc_url=https%3A%2F%2Fwww.cmoa.jp%2Fsale%2F210923_cigarillo%2F"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block sm:w-64 w-52"
+            >
+              <Image
+                src="https://cmoa.akamaized.net/auto/images/sale/210923_cigarillo/upper_20210923.jpg"
+                alt="コミックシーモアの特設ページ"
+                placeholder="blur"
+                blurDataURL="/images/placeholder.svg"
+                width={770}
+                height={320}
+              />
+            </a>
+          </div>
+          <div className="sm:mr-4">
+            <div className="font-bold mb-1 text-sm sm:text-base">
+              ▼Renta!の特設ページ
+            </div>
+            <a
+              href="https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3549505&pid=886731192&vc_url=https%3A%2F%2Frenta.papy.co.jp%2Frenta%2Fsc%2Ffrm%2Fpage%2Ftopics%2Fbc_35822_20210923.htm"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block sm:w-44 w-36"
+            >
+              <Image
+                src="https://img.papy.co.jp/lc/renta/img/label/tp_35822_l_02.png"
+                alt="Renta!の特設ページ"
+                placeholder="blur"
+                blurDataURL="/images/placeholder.svg"
+                width={360}
+                height={225}
+              />
+            </a>
+          </div>
+          <div>
+            <div className="font-bold mb-1 text-sm sm:text-base">
+              ▼DMMブックスの特設ページ
+            </div>
+            <a
+              href="https://al.dmm.com/?lurl=https%3A%2F%2Fbook.dmm.com%2Flist%2Fcampaign%2FUYennI*g8tuh9dSWqdnatoLngdWylYe6yIG0y9fKidjUwNSE*tPysw1V3oS2eSBxjtm90Ky5gZ3FVtLRiYKzkYP3qQ__%2F&af_id=muchimemo-001&ch=toolbar&ch_id=link"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block sm:w-60 w-48"
+            >
+              <Image
+                src="https://ebook-assets.dmm.com/p/bnr/dc/rotation/book_210910145641shigariro_g.jpg"
+                alt="DMMブックスの特設ページ"
+                placeholder="blur"
+                blurDataURL="/images/placeholder.svg"
+                width={500}
+                height={220}
+              />
+            </a>
+          </div>
+        </div>
+      )}
+
       {saleId === 60 && (
         <div className="mt-7 sm:flex">
           <div className="sm:mr-4">

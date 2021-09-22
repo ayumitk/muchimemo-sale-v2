@@ -1,6 +1,7 @@
 import moment from "moment";
 import "moment-timezone";
 import { ChatAltIcon } from "@heroicons/react/solid";
+import Image from "next/image";
 
 // types
 import { Ebook, Format, Category, Sale } from "../../interfaces";
@@ -50,47 +51,53 @@ const ListSale = (props: {
             <tr>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 id
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                image
+              </th>
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 title
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               ></th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 ebooks
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 sale_ends
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 status
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 edit
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 delete
               </th>
@@ -106,8 +113,20 @@ const ListSale = (props: {
                     : ""
                 }
               >
-                <td className="px-6 py-4 text-sm">{sale.id}</td>
-                <td className="px-6 py-4 text-sm">
+                <td className="px-4 py-4 text-sm">{sale.id}</td>
+                <td className="text-sm">
+                  <div className="w-12" style={{ lineHeight: 0 }}>
+                    <Image
+                      src={`/images/cover-images/${sale.id}.jpg`}
+                      alt={`${sale.title}のイメージ画像`}
+                      width={1200}
+                      height={630}
+                      placeholder="blur"
+                      blurDataURL="/images/placeholder.svg"
+                    />
+                  </div>
+                </td>
+                <td className="px-4 py-4 text-sm">
                   <a
                     href={`/sale/${sale.id}`}
                     className="hover:text-teal-600 hover:underline"
@@ -117,31 +136,31 @@ const ListSale = (props: {
                     {sale.title}
                   </a>
                 </td>
-                <td className="px-6 py-4 text-sm">
+                <td className="px-4 py-4 text-sm">
                   <ChatAltIcon
                     className={`w-5 h-5 ${
                       sale.description ? "text-red-500" : "text-gray-300"
                     }`}
                   />
                 </td>
-                <td className="px-6 py-4 text-sm">
+                <td className="px-4 py-4 text-sm">
                   <EditEbooksOnSale
                     sale={sale}
                     ebooks={ebooks}
                     refreshData={refreshData}
                   />
                 </td>
-                <td className="px-6 py-4 text-sm">
+                <td className="px-4 py-4 text-sm">
                   {moment(sale.saleEnds).format("YYYY-MM-DD")}
                   {remainingDays(sale.saleEnds)}
                 </td>
-                <td className="px-6 py-4 text-sm">
+                <td className="px-4 py-4 text-sm">
                   {`${sale.isPublished ? "公開" : "下書き"}`}
                 </td>
-                <td className="px-6 py-4 text-sm">
+                <td className="px-4 py-4 text-sm">
                   <EditSale sale={sale} refreshData={refreshData} />
                 </td>
-                <td className="px-6 py-4 text-sm">
+                <td className="px-4 py-4 text-sm">
                   <DeleteSale sale={sale} refreshData={refreshData} />
                 </td>
               </tr>

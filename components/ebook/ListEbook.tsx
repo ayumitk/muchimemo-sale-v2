@@ -6,7 +6,7 @@ import "moment-timezone";
 import { useRouter } from "next/router";
 
 // types
-import { Ebook, Format, Category, Sale } from "../../interfaces";
+import { Ebook, Format, Category, Sale, Author } from "../../interfaces";
 
 // components
 import EditEbook from "./EditEbook";
@@ -405,7 +405,19 @@ const ListEbook = (props: {
                     ebook.imageHeight &&
                     `${ebook.imageWidth}x${ebook.imageHeight}`}
                 </td>
-                <td className="px-2 py-2 text-sm">{ebook.title}</td>
+                <td className="px-2 py-2 text-sm">
+                  {ebook.title}
+                  <br />
+                  {ebook.authors &&
+                    JSON.parse(ebook.authors).map(
+                      (author: Author, index: number) => (
+                        <span
+                          key={`${index}-${author.Name}`}
+                          className="mr-2 text-xs text-gray-700"
+                        >{`${author.Name}(${author.Role})`}</span>
+                      )
+                    )}
+                </td>
                 <td className="px-2 py-2 text-sm">
                   {ebook.format && ebook.format.name}
                 </td>
