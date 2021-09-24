@@ -1,17 +1,34 @@
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import config from "../config";
 import blog from "../config/blog.json";
+import adData from "../config/ad.json";
 
 // components
 import Layout from "../components/layout";
 import BreadcrumbNav from "../components/user/BreadcrumbNav";
 import BlogItem from "../components/user/BlogItem";
-import Adsense from "../components/user/Adsense";
+import Ad from "../components/user/Ad";
+
+// types
+import { AdData } from "../interfaces";
 
 export default function BlogPage() {
   const title = "オススメBLマンガ･小説特集";
   const description =
     "私の中で殿堂入りしているオススメのBLマンガ･小説、一般雑誌に掲載されてるけどBL好きが読んだら大興奮する作品、ブロマンス作品、歴史･SF･海外が舞台などテーマごとのオススメ作品を紹介します。";
+
+  const [ad, setAd] = useState<AdData[]>([]);
+  useEffect(() => {
+    const shuffle = ([...array]) => {
+      for (let i = array.length - 1; i >= 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    };
+    setAd(shuffle(adData));
+  }, []);
 
   return (
     <Layout>
@@ -64,18 +81,23 @@ export default function BlogPage() {
           </p>
           <ul className="border-t-4 border-dotted border-gray-900">
             {blog.map((item, index) => {
-              // if (index === 2) {
-              //   return (
-              //     <div key={item.slug}>
-              //       <BlogItem key={item.slug} post={item} />
-              //       <Adsense
-              //         feed
-              //         className="sm:py-8 py-5 border-b-4 border-dotted border-gray-900"
-              //       />
-              //     </div>
-              //   );
-              // }
-              return <BlogItem key={item.slug} post={item} />;
+              let adIndex = 0;
+              if (index === 8) {
+                adIndex = 1;
+              } else if (index === 14) {
+                adIndex = 2;
+              }
+              return (
+                <div key={item.slug}>
+                  {(index === 2 || index === 8 || index === 14) && (
+                    <Ad
+                      adData={ad[adIndex]}
+                      className="sm:py-8 py-4 border-b-4 border-dotted border-gray-900 text-center"
+                    />
+                  )}
+                  <BlogItem key={item.slug} post={item} />
+                </div>
+              );
             })}
           </ul>
         </div>

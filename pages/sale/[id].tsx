@@ -4,6 +4,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import config from "../../config";
 import moment from "moment";
 import { SearchIcon } from "@heroicons/react/solid";
+import adData from "../../config/ad.json";
 
 // db
 import prisma from "../../lib/prisma";
@@ -14,10 +15,10 @@ import EbookItem from "../../components/user/EbookItem";
 import BreadcrumbNav from "../../components/user/BreadcrumbNav";
 import ShowSaleEnds from "../../components/user/ShowSaleEnds";
 import AffiliateBanners from "../../components/user/AffiliateBanners";
-import Adsense from "../../components/user/Adsense";
+import Ad from "../../components/user/Ad";
 
 // types
-import { Sale, Ebook } from "../../interfaces";
+import { Sale, Ebook, AdData } from "../../interfaces";
 
 export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
   const description = saleDetail.description
@@ -97,6 +98,18 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
 
     filteredEbooks && setEbookOnSale(result);
   }, [filterManga, filterNovel, filterKeyword]);
+
+  const [ad, setAd] = useState<AdData[]>([]);
+  useEffect(() => {
+    const shuffle = ([...array]) => {
+      for (let i = array.length - 1; i >= 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    };
+    setAd(shuffle(adData));
+  }, []);
 
   return (
     <Layout>
@@ -203,27 +216,27 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
         <ul className="border-b border-gray-900">
           {ebookOnSale &&
             ebookOnSale.map((ebook, index) => {
-              // if (index === 2) {
-              //   return (
-              //     <div key={ebook.id}>
-              //       <EbookItem
-              //         ebook={ebook}
-              //         key={ebook.id}
-              //         remainingDays={remainingDays}
-              //       />
-              //       <Adsense
-              //         feed
-              //         className="border-t border-gray-900 px-3 sm:px-6 py-5"
-              //       />
-              //     </div>
-              //   );
-              // }
+              let adIndex = 0;
+              if (index === 8) {
+                adIndex = 1;
+              } else if (index === 14) {
+                adIndex = 2;
+              }
+
               return (
-                <EbookItem
-                  ebook={ebook}
-                  key={ebook.id}
-                  remainingDays={remainingDays}
-                />
+                <div key={ebook.id}>
+                  {(index === 2 || index === 8 || index === 14) && (
+                    <Ad
+                      adData={ad[adIndex]}
+                      className="border-t border-gray-900 py-4 sm:py-6 text-center"
+                    />
+                  )}
+                  <EbookItem
+                    ebook={ebook}
+                    key={ebook.id}
+                    remainingDays={remainingDays}
+                  />
+                </div>
               );
             })}
         </ul>

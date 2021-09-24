@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import { GetStaticPaths, GetStaticProps } from "next";
 import config from "../../config";
@@ -9,6 +10,7 @@ import {
   ArrowCircleLeftIcon,
   ArrowCircleRightIcon,
 } from "@heroicons/react/solid";
+import adData from "../../config/ad.json";
 
 // db
 import prisma from "../../lib/prisma";
@@ -17,10 +19,10 @@ import prisma from "../../lib/prisma";
 import Layout from "../../components/layout";
 import EbookItem from "../../components/user/EbookItem";
 import BreadcrumbNav from "../../components/user/BreadcrumbNav";
-import Adsense from "../../components/user/Adsense";
+import Ad from "../../components/user/Ad";
 
 // types
-import { Ebook } from "../../interfaces";
+import { Ebook, AdData } from "../../interfaces";
 
 export default function archiveDetailPage({
   ebooks,
@@ -43,6 +45,18 @@ export default function archiveDetailPage({
   const title = `${year}${month}に読んだおすすめBLマンガ･小説`;
   const description =
     "新刊やセールで購入したマンガや小説の中から、オススメの作品をご紹介します。一部、非BL作品も含まれてます。";
+
+  const [ad, setAd] = useState<AdData[]>([]);
+  useEffect(() => {
+    const shuffle = ([...array]) => {
+      for (let i = array.length - 1; i >= 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    };
+    setAd(shuffle(adData));
+  }, []);
 
   return (
     <Layout>
@@ -102,23 +116,23 @@ export default function archiveDetailPage({
         <ul className="border-b border-gray-900">
           {ebooks &&
             ebooks.map((ebook, index) => {
-              // if (index === 2) {
-              //   return (
-              //     <div key={ebook.id}>
-              //       <EbookItem
-              //         ebook={ebook}
-              //         key={ebook.id}
-              //         remainingDays={-1}
-              //       />
-              //       <Adsense
-              //         feed
-              //         className="border-t border-gray-900 px-3 sm:px-6 py-5"
-              //       />
-              //     </div>
-              //   );
-              // }
+              let adIndex = 0;
+              if (index === 8) {
+                adIndex = 1;
+              } else if (index === 14) {
+                adIndex = 2;
+              }
+
               return (
-                <EbookItem ebook={ebook} key={ebook.id} remainingDays={-1} />
+                <div key={ebook.id}>
+                  {(index === 2 || index === 8 || index === 14) && (
+                    <Ad
+                      adData={ad[adIndex]}
+                      className="border-t border-gray-900 py-4 sm:py-6 text-center"
+                    />
+                  )}
+                  <EbookItem ebook={ebook} key={ebook.id} remainingDays={-1} />
+                </div>
               );
             })}
         </ul>

@@ -2,11 +2,8 @@ import { useEffect, useState } from "react";
 import Head from "next/head";
 import { GetStaticProps } from "next";
 import config from "../config";
-import moment from "moment";
-import "moment/locale/ja";
 import _ from "lodash";
-import Image from "next/image";
-import Link from "next/link";
+import adData from "../config/ad.json";
 
 // db
 import prisma from "../lib/prisma";
@@ -14,22 +11,18 @@ import prisma from "../lib/prisma";
 // components
 import Layout from "../components/layout";
 import BreadcrumbNav from "../components/user/BreadcrumbNav";
+import ArchiveItem from "../components/user/ArchiveItem";
+import Ad from "../components/user/Ad";
 
 // types
-import { Ebook } from "../interfaces";
-
-interface Archives {
-  id: string;
-  ebooks: Ebook[];
-}
+import { Ebook, AdData, Archive } from "../interfaces";
 
 export default function ArchivesPage({ ebooks }: { ebooks: Ebook[] }) {
   const title = "毎月のおすすめBLマンガ･小説";
   const description =
     "新刊やセールで購入したマンガや小説の中から、オススメの作品をご紹介します。一部、非BL作品も含まれてます。";
 
-  const [archives, setArchives] = useState<Archives[]>([]);
-
+  const [archives, setArchives] = useState<Archive[]>([]);
   useEffect(() => {
     const allEbooks = ebooks.map((ebook) => ({
       ...ebook,
@@ -52,6 +45,18 @@ export default function ArchivesPage({ ebooks }: { ebooks: Ebook[] }) {
 
     setArchives(result);
   }, [ebooks]);
+
+  const [ad, setAd] = useState<AdData[]>([]);
+  useEffect(() => {
+    const shuffle = ([...array]) => {
+      for (let i = array.length - 1; i >= 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    };
+    setAd(shuffle(adData));
+  }, []);
 
   return (
     <Layout>
@@ -105,60 +110,24 @@ export default function ArchivesPage({ ebooks }: { ebooks: Ebook[] }) {
         <section>
           <ul className="grid grid-cols-1 sm:grid-cols-2 gap-8">
             {archives &&
-              archives.map((archive) => {
-                const year = moment(archive.id).format("Y") + "年";
-                const month = moment(archive.id).format("MMMM");
+              archives.map((archive, index) => {
+                let adIndex = 0;
+                if (index === 8) {
+                  adIndex = 1;
+                } else if (index === 14) {
+                  adIndex = 2;
+                }
                 return (
-                  <li key={archive.id}>
-                    <Link href={`/archives/${archive.id}`}>
-                      <a className="border-t-4 border-gray-900 block hover:bg-yellow-50">
-                        <h2 className="text-2xl sm:text-3xl font-black py-1 sm:py-2 text-center border-b border-gray-900 mb-2">
-                          {year}
-                          {month}
-                        </h2>
-                        <div className="flex">
-                          {archive.ebooks.map((ebook, index) => {
-                            if (index < 4) {
-                              return (
-                                <div key={ebook.id} style={{ lineHeight: 0 }}>
-                                  <Image
-                                    src={
-                                      ebook.imageUrl
-                                        ? ebook.imageUrl
-                                        : "/images/placeholder.svg"
-                                    }
-                                    alt={`${ebook.title}の表紙`}
-                                    width={
-                                      ebook.imageWidth ? ebook.imageWidth : 343
-                                    }
-                                    height={
-                                      ebook.imageHeight
-                                        ? ebook.imageHeight
-                                        : 500
-                                    }
-                                    placeholder="blur"
-                                    blurDataURL="/images/placeholder.svg"
-                                  />
-                                </div>
-                              );
-                            }
-                          })}
-                        </div>
-                        <div className="text-sm text-gray-700 pb-8 pt-2">
-                          {archive.ebooks.map((ebook, index) => {
-                            if (index < 4) {
-                              return (
-                                <div key={ebook.id} className="line-clamp-1">
-                                  {ebook.title}
-                                </div>
-                              );
-                            }
-                          })}
-                          など、{archive.ebooks.length}作品
-                        </div>
-                      </a>
-                    </Link>
-                  </li>
+                  <div key={archive.id}>
+                    {(index === 2 || index === 8 || index === 14) && (
+                      <Ad
+                        adData={ad[adIndex]}
+                        className="mb-8 text-center"
+                        grid
+                      />
+                    )}
+                    <ArchiveItem index={index} archive={archive} />
+                  </div>
                 );
               })}
           </ul>

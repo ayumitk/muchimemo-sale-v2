@@ -70,3 +70,14 @@ export interface Post {
   date: string;
   contentHtml:string;
 }
+
+export interface AdData {
+  id: string;
+  name: string;
+  url: string;
+}
+
+export interface Archive {
+  id: string;
+  ebooks: Ebook[];
+}

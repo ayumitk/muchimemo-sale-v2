@@ -8,6 +8,7 @@ import "moment-timezone";
 import Link from "next/link";
 import blog from "../config/blog.json";
 import { ArrowCircleRightIcon } from "@heroicons/react/solid";
+import adData from "../config/ad.json";
 
 // db
 import prisma from "../lib/prisma";
@@ -16,10 +17,10 @@ import prisma from "../lib/prisma";
 import Layout from "../components/layout";
 import SaleItem from "../components/user/SaleItem";
 import PickupItem from "../components/user/PickupItem";
-import Adsense from "../components/user/Adsense";
+import Ad from "../components/user/Ad";
 
 // types
-import { Sale, Ebook } from "../interfaces";
+import { Sale, Ebook, AdData } from "../interfaces";
 
 export default function HomePage({
   allSales,
@@ -49,6 +50,18 @@ export default function HomePage({
     });
     return onSale;
   };
+
+  const [ad, setAd] = useState<AdData[]>([]);
+  useEffect(() => {
+    const shuffle = ([...array]) => {
+      for (let i = array.length - 1; i >= 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    };
+    setAd(shuffle(adData));
+  }, []);
 
   return (
     <Layout>
@@ -98,7 +111,7 @@ export default function HomePage({
           BLジャンルを中心に、Kindleセール中のマンガ・小説をおすすめコメント付きで紹介します！
         </h1>
 
-        <section className="mb-16">
+        <section className="mb-8 sm:mb-14">
           <h2
             className="font-black text-xl sm:text-2xl bg-gray-900 text-white inline-block relative pl-4 pr-8 mb-4"
             style={{ height: `50px`, lineHeight: `50px` }}
@@ -131,7 +144,7 @@ export default function HomePage({
           </ul>
         </section>
 
-        {/* <Adsense square className="mb-16" /> */}
+        <Ad adData={ad[0]} className="mb-10 sm:mb-16 text-center" />
 
         <section className="mb-16">
           <h2
@@ -214,8 +227,13 @@ export default function HomePage({
             </h2>
           </div>
           <ul>
-            {orderedSales.map((sale) => (
-              <SaleItem sale={sale} key={sale.id} />
+            {orderedSales.map((sale, index) => (
+              <div key={sale.id}>
+                {index === 1 && (
+                  <Ad adData={ad[1]} className="text-center mb-8" />
+                )}
+                <SaleItem sale={sale} />
+              </div>
             ))}
           </ul>
           <div className="text-center">

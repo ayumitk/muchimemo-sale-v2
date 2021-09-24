@@ -4,6 +4,7 @@ import { GetStaticProps } from "next";
 import config from "../config";
 import moment from "moment";
 import "moment-timezone";
+import adData from "../config/ad.json";
 
 // db
 import prisma from "../lib/prisma";
@@ -12,10 +13,10 @@ import prisma from "../lib/prisma";
 import Layout from "../components/layout";
 import SaleItem from "../components/user/SaleItem";
 import BreadcrumbNav from "../components/user/BreadcrumbNav";
-import Adsense from "../components/user/Adsense";
+import Ad from "../components/user/Ad";
 
 // types
-import { Sale } from "../interfaces";
+import { Sale, AdData } from "../interfaces";
 
 export default function SalePage({ allSales }: { allSales: Array<Sale> }) {
   const [orderedSales, setOrderedSales] = useState<Sale[]>([]);
@@ -37,6 +38,18 @@ export default function SalePage({ allSales }: { allSales: Array<Sale> }) {
 
     setOrderedSales(onSale.concat(expiredSale));
   }, [allSales]);
+
+  const [ad, setAd] = useState<AdData[]>([]);
+  useEffect(() => {
+    const shuffle = ([...array]) => {
+      for (let i = array.length - 1; i >= 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    };
+    setAd(shuffle(adData));
+  }, []);
 
   const title = "開催中のセール一覧";
 
@@ -94,15 +107,20 @@ export default function SalePage({ allSales }: { allSales: Array<Sale> }) {
         <section>
           <ul>
             {orderedSales.map((sale, index) => {
-              // if (index === 2) {
-              //   return (
-              //     <div key={sale.id}>
-              //       <SaleItem sale={sale} key={sale.id} />
-              //       <Adsense feed className="mb-8" />
-              //     </div>
-              //   );
-              // }
-              return <SaleItem sale={sale} key={sale.id} />;
+              let adIndex = 0;
+              if (index === 8) {
+                adIndex = 1;
+              } else if (index === 14) {
+                adIndex = 2;
+              }
+              return (
+                <div key={sale.id}>
+                  {(index === 2 || index === 8 || index === 14) && (
+                    <Ad adData={ad[adIndex]} className="mb-8 text-center" />
+                  )}
+                  <SaleItem sale={sale} key={sale.id} />
+                </div>
+              );
             })}
           </ul>
         </section>
