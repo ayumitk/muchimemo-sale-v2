@@ -115,7 +115,7 @@ export default function HomePage({
           </h2>
           <ul className="grid grid-flow-col grid-cols-3 sm:grid-cols-6 grid-rows-2 sm:grid-rows-1 gap-3">
             {pickupEbooks.length > 0 &&
-              pickupEbooks.map((ebook) => {
+              pickupEbooks.map((ebook, index) => {
                 if (
                   pickupSale(ebook.sales.map((item) => item.sale)).length > 0
                 ) {
