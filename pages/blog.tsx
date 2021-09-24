@@ -64,17 +64,17 @@ export default function BlogPage() {
           </p>
           <ul className="border-t-4 border-dotted border-gray-900">
             {blog.map((item, index) => {
-              if (index === 2) {
-                return (
-                  <div key={item.slug}>
-                    <BlogItem key={item.slug} post={item} />
-                    <Adsense
-                      feed
-                      className="sm:py-8 py-5 border-b-4 border-dotted border-gray-900"
-                    />
-                  </div>
-                );
-              }
+              // if (index === 2) {
+              //   return (
+              //     <div key={item.slug}>
+              //       <BlogItem key={item.slug} post={item} />
+              //       <Adsense
+              //         feed
+              //         className="sm:py-8 py-5 border-b-4 border-dotted border-gray-900"
+              //       />
+              //     </div>
+              //   );
+              // }
               return <BlogItem key={item.slug} post={item} />;
             })}
           </ul>

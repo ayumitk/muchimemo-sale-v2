@@ -102,21 +102,21 @@ export default function archiveDetailPage({
         <ul className="border-b border-gray-900">
           {ebooks &&
             ebooks.map((ebook, index) => {
-              if (index === 2) {
-                return (
-                  <div key={ebook.id}>
-                    <EbookItem
-                      ebook={ebook}
-                      key={ebook.id}
-                      remainingDays={-1}
-                    />
-                    <Adsense
-                      feed
-                      className="border-t border-gray-900 px-3 sm:px-6 py-5"
-                    />
-                  </div>
-                );
-              }
+              // if (index === 2) {
+              //   return (
+              //     <div key={ebook.id}>
+              //       <EbookItem
+              //         ebook={ebook}
+              //         key={ebook.id}
+              //         remainingDays={-1}
+              //       />
+              //       <Adsense
+              //         feed
+              //         className="border-t border-gray-900 px-3 sm:px-6 py-5"
+              //       />
+              //     </div>
+              //   );
+              // }
               return (
                 <EbookItem ebook={ebook} key={ebook.id} remainingDays={-1} />
               );

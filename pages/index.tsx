@@ -131,7 +131,7 @@ export default function HomePage({
           </ul>
         </section>
 
-        <Adsense square className="mb-16" />
+        {/* <Adsense square className="mb-16" /> */}
 
         <section className="mb-16">
           <h2

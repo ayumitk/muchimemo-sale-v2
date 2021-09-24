@@ -203,21 +203,21 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
         <ul className="border-b border-gray-900">
           {ebookOnSale &&
             ebookOnSale.map((ebook, index) => {
-              if (index === 2) {
-                return (
-                  <div key={ebook.id}>
-                    <EbookItem
-                      ebook={ebook}
-                      key={ebook.id}
-                      remainingDays={remainingDays}
-                    />
-                    <Adsense
-                      feed
-                      className="border-t border-gray-900 px-3 sm:px-6 py-5"
-                    />
-                  </div>
-                );
-              }
+              // if (index === 2) {
+              //   return (
+              //     <div key={ebook.id}>
+              //       <EbookItem
+              //         ebook={ebook}
+              //         key={ebook.id}
+              //         remainingDays={remainingDays}
+              //       />
+              //       <Adsense
+              //         feed
+              //         className="border-t border-gray-900 px-3 sm:px-6 py-5"
+              //       />
+              //     </div>
+              //   );
+              // }
               return (
                 <EbookItem
                   ebook={ebook}
