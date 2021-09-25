@@ -5,6 +5,51 @@ const AffiliateBanners = (props: { saleId: number }) => {
   const { saleId } = props;
   return (
     <>
+      {saleId === 65 && (
+        <div className="mt-7 sm:flex">
+          <div className="sm:mr-4">
+            <div className="font-bold mb-1 text-sm sm:text-base">
+              ▼コミックシーモアの特設ページ
+            </div>
+            <a
+              href="https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3549505&pid=886731152&vc_url=https%3A%2F%2Fwww.cmoa.jp%2Fsale%2F210924_aunrekishi%2F"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block sm:w-64 w-52"
+            >
+              <Image
+                src="https://cmoa.akamaized.net/auto/images/sale/210924_aunrekishi/upper_20210924.jpg"
+                alt="コミックシーモアの特設ページ"
+                placeholder="blur"
+                blurDataURL="/images/placeholder.svg"
+                width={770}
+                height={320}
+              />
+            </a>
+          </div>
+          <div>
+            <div className="font-bold mb-1 text-sm sm:text-base">
+              ▼DMMブックスの特設ページ
+            </div>
+            <a
+              href="https://al.dmm.com/?lurl=https%3A%2F%2Fbook.dmm.com%2Flist%2Fcampaign%2FhuG*0P6JgrGDgKGF0Lbp0s%2Cp0YOg0cyhh92CiY7k0pTCh4KKgJvV17fX0rue1eWpguaF0bmAjaLk%2F&af_id=muchimemo-001&ch=toolbar&ch_id=link"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block sm:w-60 w-48"
+            >
+              <Image
+                src="https://cmoa.akamaized.net/auto/images/sale/210924_aunrekishi/upper_20210924.jpg"
+                alt="DMMブックスの特設ページ"
+                placeholder="blur"
+                blurDataURL="/images/placeholder.svg"
+                width={770}
+                height={320}
+              />
+            </a>
+          </div>
+        </div>
+      )}
+
       {saleId === 62 && (
         <div className="mt-7 sm:flex">
           <div className="sm:mr-4">
