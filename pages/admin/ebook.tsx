@@ -136,6 +136,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     categoryId = { in: Number(query.categoryId) };
   }
 
+  let labelId = {};
+  if (query.labelId) {
+    labelId = { in: Number(query.labelId) };
+  }
+
   let keyword = "";
   if (query.keyword) {
     keyword = String(query.keyword);
@@ -161,6 +166,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       sales,
       formatId,
       categoryId,
+      labelId,
       isRecommended,
       isDeleted,
       isPickup,

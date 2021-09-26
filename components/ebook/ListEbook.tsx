@@ -189,6 +189,24 @@ const ListEbook = (props: {
           ))}
         </select>
 
+        <select
+          className="block w-48 pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm rounded-md"
+          value={filters.labelId}
+          onChange={(e) =>
+            setFilters({
+              ...filters,
+              labelId: Number(e.target.value),
+            })
+          }
+        >
+          <option value="0">レーベル</option>
+          {labels.map((label) => (
+            <option key={label.id} value={label.id}>
+              {label.name}
+            </option>
+          ))}
+        </select>
+
         <div className="flex">
           <input
             type="month"

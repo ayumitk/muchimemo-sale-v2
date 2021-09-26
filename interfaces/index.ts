@@ -72,6 +72,12 @@ export interface Label {
   slug: string;
 }
 
+export interface Publisher {
+  id: number;
+  name: string;
+  slug: string;
+}
+
 export interface Post {
   id: number;
   title: string;

@@ -21,6 +21,7 @@ import Ad from "../../components/user/Ad";
 import { Sale, Ebook, AdData } from "../../interfaces";
 
 export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
+  console.log(saleDetail);
   const description = saleDetail.description
     ? saleDetail.description
     : `
