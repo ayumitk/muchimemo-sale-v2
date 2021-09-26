@@ -332,7 +332,7 @@ const EditEbook = (props: {
                               >
                                 {labels.map((label) => (
                                   <option key={label.id} value={label.id}>
-                                    {label.id} {label.name}
+                                    {label.name}
                                   </option>
                                 ))}
                               </select>

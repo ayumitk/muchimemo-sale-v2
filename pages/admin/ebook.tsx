@@ -51,6 +51,14 @@ const AdminEbookPage = ({
     setIsRefreshing(false);
   }, [allEbooks]);
 
+  const [labels, setLabels] = useState<Label[]>([]);
+  useEffect(() => {
+    const orderdLabels = allLabels.sort((a: Label, b: Label) =>
+      a.name.localeCompare(b.name)
+    );
+    setLabels(orderdLabels);
+  }, [allLabels]);
+
   return (
     <Layout>
       <Head>
@@ -62,7 +70,7 @@ const AdminEbookPage = ({
           ebooks={ebooks}
           formats={allFormats}
           categories={allCategories}
-          labels={allLabels}
+          labels={labels}
           sales={allSales}
           refreshData={refreshData}
           isRefreshing={isRefreshing}
