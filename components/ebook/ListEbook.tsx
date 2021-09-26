@@ -320,12 +320,6 @@ const ListEbook = (props: {
                 scope="col"
                 className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
-                amazon_id
-              </th>
-              <th
-                scope="col"
-                className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
                 image
               </th>
               <th
@@ -345,6 +339,12 @@ const ListEbook = (props: {
                 className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 category
+              </th>
+              <th
+                scope="col"
+                className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                label
               </th>
               <th
                 scope="col"
@@ -396,8 +396,10 @@ const ListEbook = (props: {
                   ebook.isDeleted ? "bg-gray-100 text-gray-400" : ""
                 } ${ebook.isRecommended && "bg-yellow-50"}`}
               >
-                <td className="pl-4 pr-2 py-2 text-sm">{ebook.id}</td>
-                <td className="px-2 py-2 text-sm">{ebook.amazonId}</td>
+                <td className="pl-4 pr-2 py-2 text-sm">
+                  {ebook.id}{" "}
+                  <span className="block text-xs">{ebook.amazonId}</span>
+                </td>
                 <td className="px-2 py-1 text-xs text-gray-500">
                   <div
                     className={`w-10 ${ebook.isDeleted && "opacity-50"}`}
@@ -438,6 +440,9 @@ const ListEbook = (props: {
                 </td>
                 <td className="px-2 py-2 text-sm">
                   {ebook.category && ebook.category.name}
+                </td>
+                <td className="px-2 py-2 text-sm">
+                  {ebook.label && ebook.label.name}
                 </td>
                 <td className="px-2 py-2 text-sm">
                   <ChatAltIcon

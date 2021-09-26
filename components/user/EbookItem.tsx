@@ -65,7 +65,11 @@ const EbookItem = (props: { ebook: Ebook; remainingDays: number }) => {
             <span className="mr-2">{ebook.publisher}</span>
 
             {ebook.labelId !== 1 && (
-              <span className="mr-1">{ebook.label.name}</span>
+              <Link href={`/label/${ebook.label.slug}`}>
+                <a className="text-blue-700 hover:underline mr-1">
+                  {ebook.label.name}
+                </a>
+              </Link>
             )}
 
             {ebook.reviewCount && ebook.reviewCount > 0 ? (
