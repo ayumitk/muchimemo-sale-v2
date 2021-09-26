@@ -216,6 +216,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     include: {
       format: true,
       category: true,
+      label: true,
     },
     orderBy: [{ categoryId: "asc" }, { authors: "desc" }],
   });
