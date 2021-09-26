@@ -6,7 +6,7 @@ import "moment-timezone";
 import { useRouter } from "next/router";
 
 // types
-import { Ebook, Format, Category, Sale, Author } from "../../interfaces";
+import { Ebook, Format, Category, Label, Sale, Author } from "../../interfaces";
 
 // components
 import EditEbook from "./EditEbook";
@@ -18,17 +18,26 @@ const ListEbook = (props: {
   ebooks: Ebook[];
   formats: Format[];
   categories: Category[];
+  labels: Label[];
   sales: Sale[];
   refreshData: any;
   isRefreshing: boolean;
 }) => {
-  const { ebooks, formats, categories, sales, refreshData, isRefreshing } =
-    props;
+  const {
+    ebooks,
+    formats,
+    categories,
+    labels,
+    sales,
+    refreshData,
+    isRefreshing,
+  } = props;
 
   // filter search feature
   const [filters, setFilters] = useState({
     formatId: 0,
     categoryId: 0,
+    labelId: 0,
     keyword: "",
     isDeleted: false,
     isRecommended: false,
@@ -63,6 +72,12 @@ const ListEbook = (props: {
       query = Object.assign(query, { categoryId: filters.categoryId });
     } else {
       query = { categoryId: {}, ...query };
+    }
+
+    if (filters.labelId !== 0) {
+      query = Object.assign(query, { labelId: filters.labelId });
+    } else {
+      query = { labelId: {}, ...query };
     }
 
     if (filters.keyword !== "") {
@@ -504,6 +519,7 @@ const ListEbook = (props: {
                     ebook={ebook}
                     formats={formats}
                     categories={categories}
+                    labels={labels}
                     refreshData={refreshData}
                   />
                 </td>

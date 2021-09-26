@@ -13,7 +13,7 @@ import CreateEbook from "../../components/ebook/CreateEbook";
 import ListEbook from "../../components/ebook/ListEbook";
 
 // types
-import { Ebook, Format, Category, Sale } from "../../interfaces";
+import { Ebook, Format, Category, Label, Sale } from "../../interfaces";
 
 // util
 import basicAuthCheck from "../../utils/basicAuthCheck";
@@ -22,11 +22,13 @@ const AdminEbookPage = ({
   allEbooks,
   allFormats,
   allCategories,
+  allLabels,
   allSales,
 }: {
   allEbooks: Ebook[];
   allFormats: Format[];
   allCategories: Category[];
+  allLabels: Label[];
   allSales: Sale[];
 }) => {
   // get all created ebooks
@@ -60,6 +62,7 @@ const AdminEbookPage = ({
           ebooks={ebooks}
           formats={allFormats}
           categories={allCategories}
+          labels={allLabels}
           sales={allSales}
           refreshData={refreshData}
           isRefreshing={isRefreshing}
@@ -81,6 +84,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     orderBy: { id: "asc" },
   });
   const allCategories = JSON.parse(JSON.stringify(categoryData));
+
+  const labelData = await prisma.label.findMany({
+    orderBy: { id: "asc" },
+  });
+  const allLabels = JSON.parse(JSON.stringify(labelData));
 
   const saleData = await prisma.sale.findMany({
     where: { isPublished: true },
@@ -157,6 +165,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     include: {
       format: true,
       category: true,
+      label: true,
       sales: {
         include: { sale: true },
       },
@@ -169,5 +178,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { req, res } = ctx;
   await basicAuthCheck(req, res);
 
-  return { props: { allEbooks, allFormats, allCategories, allSales } };
+  return {
+    props: { allEbooks, allFormats, allCategories, allLabels, allSales },
+  };
 };

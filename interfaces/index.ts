@@ -23,6 +23,8 @@ export interface Ebook {
   formatId: number;
   category: Category;
   categoryId: number;
+  label: Label;
+  labelId: number;
   reviewCount: number;
   reviewAverage: string;
   sales: Array<EbookOnSale>;
@@ -59,6 +61,12 @@ export interface Format {
 }
 
 export interface Category {
+  id: number;
+  name: string;
+  slug: string;
+}
+
+export interface Label {
   id: number;
   name: string;
   slug: string;

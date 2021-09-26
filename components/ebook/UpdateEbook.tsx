@@ -33,7 +33,6 @@ const UpdateEbook = (props: { ebook: Ebook; refreshData: any }) => {
       try {
         const body = {
           ...ebook,
-          title: res.ItemInfo.Title.DisplayValue,
           imageUrl: res.Images.Primary.Large.URL,
           imageWidth: res.Images.Primary.Large.Width,
           imageHeight: res.Images.Primary.Large.Height,

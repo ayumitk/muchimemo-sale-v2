@@ -31,10 +31,12 @@ model Ebook {
   authors        String?
   publisher      String?
   comment        String?
+  label          Label      @relation(fields: [labelId], references: [id])
+  labelId        Int        @default(1)
   format         Format     @relation(fields: [formatId], references: [id])
-  formatId       Int
+  formatId       Int        @default(1)
   category       Category   @relation(fields: [categoryId], references: [id])
-  categoryId     Int
+  categoryId     Int        @default(1)
   amazonId       String     @unique @map(name: "amazon_id")
   rentaId        String?    @map(name: "renta_id")
   cmoaId         String?    @map(name: "cmoa_id")
@@ -72,6 +74,15 @@ model Format {
 }
 
 model Category {
+  id         Int       @default(autoincrement()) @id
+  name       String
+  slug       String    @unique
+  createdAt  DateTime  @default(now()) @map(name: "created_at")
+  updatedAt  DateTime  @updatedAt @map(name: "updated_at")
+  ebooks     Ebook[]
+}
+
+model Label {
   id         Int       @default(autoincrement()) @id
   name       String
   slug       String    @unique

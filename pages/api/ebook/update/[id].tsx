@@ -4,9 +4,11 @@ import prisma from "../../../../lib/prisma";
 export default async function handle(
   req: {
     body: {
+      title: string;
       comment?: string;
       formatId: number;
       categoryId: number;
+      labelId: number;
       rentaId?: string;
       cmoaId?: string;
       dmmId?: string;
@@ -29,9 +31,11 @@ export default async function handle(
 ) {
   const ebookId = req.query.id;
   const {
+    title,
     comment,
     formatId,
     categoryId,
+    labelId,
     rentaId,
     cmoaId,
     dmmId,
@@ -50,9 +54,11 @@ export default async function handle(
   const updateEbook = await prisma.ebook.update({
     where: { id: Number(ebookId) },
     data: {
+      title,
       comment,
       formatId,
       categoryId,
+      labelId,
       rentaId,
       cmoaId,
       dmmId,

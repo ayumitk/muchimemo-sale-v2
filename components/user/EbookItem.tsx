@@ -62,7 +62,11 @@ const EbookItem = (props: { ebook: Ebook; remainingDays: number }) => {
                 >{`${author.Name}(${author.Role})`}</span>
               ))}
 
-            <span className="mr-1">{ebook.publisher}</span>
+            <span className="mr-2">{ebook.publisher}</span>
+
+            {ebook.labelId !== 1 && (
+              <span className="mr-1">{ebook.label.name}</span>
+            )}
 
             {ebook.reviewCount && ebook.reviewCount > 0 ? (
               <span className="whitespace-nowrap">

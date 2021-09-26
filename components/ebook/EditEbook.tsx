@@ -4,15 +4,16 @@ import Image from "next/image";
 import moment from "moment";
 
 // types
-import { Ebook, Format, Category } from "../../interfaces";
+import { Ebook, Format, Category, Label } from "../../interfaces";
 
 const EditEbook = (props: {
   ebook: Ebook;
   formats: Format[];
   categories: Category[];
+  labels: Label[];
   refreshData: any;
 }) => {
-  const { ebook, formats, categories, refreshData } = props;
+  const { ebook, formats, categories, labels, refreshData } = props;
 
   const [ebookDetails, setEbookDetails] = useState<Ebook>();
   useEffect(() => {
@@ -114,8 +115,14 @@ const EditEbook = (props: {
                                 id="book-title"
                                 type="text"
                                 value={ebookDetails && ebookDetails.title}
-                                readOnly
-                                className="shadow-sm block w-full focus:ring-0 focus:border-gray-300 border border-gray-300 rounded-md p-3 bg-gray-100"
+                                onChange={(e) => {
+                                  ebookDetails &&
+                                    setEbookDetails({
+                                      ...ebookDetails,
+                                      title: e.target.value,
+                                    });
+                                }}
+                                className="shadow-sm block w-full focus:ring-teal-500 focus:border-teal-500 border border-gray-300 rounded-md p-3"
                               />
                             </div>
                             <div className="relative flex items-start">
@@ -296,6 +303,36 @@ const EditEbook = (props: {
                                 {categories.map((category) => (
                                   <option key={category.id} value={category.id}>
                                     {category.id} {category.name}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                          </div>
+
+                          <div className="sm:col-span-6">
+                            <label
+                              htmlFor="renta-id"
+                              className="block text-sm font-medium text-gray-700"
+                            >
+                              レーベル
+                            </label>
+                            <div className="mt-1">
+                              <select
+                                id="location"
+                                name="location"
+                                className="block w-full pl-3 pr-10 py-3 text-base border-gray-300 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm rounded-md"
+                                value={ebookDetails && ebookDetails.labelId}
+                                onChange={(e) => {
+                                  ebookDetails &&
+                                    setEbookDetails({
+                                      ...ebookDetails,
+                                      labelId: Number(e.target.value),
+                                    });
+                                }}
+                              >
+                                {labels.map((label) => (
+                                  <option key={label.id} value={label.id}>
+                                    {label.id} {label.name}
                                   </option>
                                 ))}
                               </select>
