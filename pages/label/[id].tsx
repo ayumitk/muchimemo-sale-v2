@@ -46,6 +46,14 @@ export default function labelDetailPage({
     setAd(shuffle(adData));
   }, []);
 
+  const [orderedEbooks, setOrderedEbooks] = useState<Ebook[]>();
+  useEffect(() => {
+    const result = ebooks.sort((a: Ebook, b: Ebook) =>
+      a.title.localeCompare(b.title)
+    );
+    setOrderedEbooks(result);
+  }, [ebooks]);
+
   return (
     <Layout>
       <Head>
@@ -89,7 +97,7 @@ export default function labelDetailPage({
           content={`${title} - ${config.siteTitleAlt}`}
         />
       </Head>
-      <BreadcrumbNav pageTitle={title} />
+      <BreadcrumbNav pageTitle={label.name} label />
       <article className="max-w-3xl mx-auto">
         <div className="px-4 md:px-6 lg:px-0">
           <h1 className="font-black text-2xl sm:text-4xl mb-4 tracking-tight">
@@ -99,11 +107,11 @@ export default function labelDetailPage({
         </div>
 
         <p className="py-3 text-sm text-gray-700 border-t-4 border-gray-900 mt-10 px-4 md:px-6 lg:px-0">
-          {ebooks && ebooks.length}作品表示中
+          {orderedEbooks && orderedEbooks.length}作品表示中
         </p>
         <ul className="border-b border-gray-900">
-          {ebooks &&
-            ebooks.map((ebook, index) => {
+          {orderedEbooks &&
+            orderedEbooks.map((ebook, index) => {
               let adIndex = 0;
               if (index === 8) {
                 adIndex = 1;
@@ -131,6 +139,13 @@ export default function labelDetailPage({
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const res = await prisma.label.findMany({
+    where: {
+      ebooks: {
+        some: {
+          OR: [{ NOT: { comment: null } }, { isRecommended: true }],
+        },
+      },
+    },
     select: {
       slug: true,
     },
@@ -155,28 +170,23 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       label: {
         slug: slug,
       },
-      // NOT: { comment: null },
-      // isRecommended: true,
+      OR: [{ NOT: { comment: null } }, { isRecommended: true }],
     },
     include: {
       format: true,
       category: true,
       label: true,
     },
-    orderBy: [
-      { isRecommended: "desc" },
-      { comment: "asc" },
-      { authors: "desc" },
-    ],
+    orderBy: [{ isRecommended: "desc" }, { authors: "desc" }],
   });
   const ebooks = JSON.parse(JSON.stringify(ebooksData));
 
-  const labelData = await prisma.label.findMany({
+  const labelData = await prisma.label.findUnique({
     where: {
-      slug: slug,
+      slug: String(slug),
     },
   });
-  const label = JSON.parse(JSON.stringify(labelData[0]));
+  const label = JSON.parse(JSON.stringify(labelData));
 
   return { props: { ebooks, label } };
 };

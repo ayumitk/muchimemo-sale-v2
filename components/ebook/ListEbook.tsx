@@ -33,17 +33,19 @@ const ListEbook = (props: {
     isRefreshing,
   } = props;
 
+  const router = useRouter();
+
   // filter search feature
   const [filters, setFilters] = useState({
-    formatId: 0,
-    categoryId: 0,
-    labelId: 0,
-    keyword: "",
-    isDeleted: false,
-    isRecommended: false,
-    isPickup: false,
-    saleId: 0,
-    readAt: "",
+    formatId: router.query.formatId ? Number(router.query.formatId) : 0,
+    categoryId: router.query.categoryId ? Number(router.query.categoryId) : 0,
+    labelId: router.query.labelId ? Number(router.query.labelId) : 0,
+    keyword: router.query.keyword ? String(router.query.keyword) : "",
+    isDeleted: router.query.isDeleted === "" ? false : true,
+    isRecommended: router.query.isRecommended === "" ? false : true,
+    isPickup: router.query.isPickup === "" ? false : true,
+    saleId: router.query.saleId ? Number(router.query.saleId) : 0,
+    readAt: router.query.readAt ? String(router.query.readAt) : "",
   });
 
   let query = {};
@@ -106,7 +108,6 @@ const ListEbook = (props: {
   }, [filters]);
 
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
   const getFilteredEbooks = () => {
     router.push(
       {
@@ -122,6 +123,28 @@ const ListEbook = (props: {
   useEffect(() => {
     setIsLoading(false);
   }, [ebooks]);
+
+  const clearData = () => {
+    setFilters({
+      formatId: 0,
+      categoryId: 0,
+      labelId: 0,
+      keyword: "",
+      isDeleted: false,
+      isRecommended: false,
+      isPickup: false,
+      saleId: 0,
+      readAt: "",
+    });
+    router.push(
+      {
+        pathname: "/admin/ebook",
+      },
+      undefined,
+      { scroll: false }
+    );
+    setIsLoading(true);
+  };
 
   return (
     <>
@@ -313,9 +336,16 @@ const ListEbook = (props: {
         <button
           type="button"
           onClick={refreshData}
-          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-teal-700 bg-teal-100 hover:bg-teal-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 ml-2"
+          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-teal-700 bg-teal-100 hover:bg-teal-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-200 ml-2"
         >
           リストを更新
+        </button>
+        <button
+          type="button"
+          onClick={clearData}
+          className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 ml-2"
+        >
+          条件をクリア
         </button>
       </div>
 

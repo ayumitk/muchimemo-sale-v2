@@ -70,6 +70,7 @@ export interface Label {
   id: number;
   name: string;
   slug: string;
+  ebooks: Ebook[]
 }
 
 export interface Publisher {
