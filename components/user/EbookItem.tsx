@@ -62,9 +62,9 @@ const EbookItem = (props: { ebook: Ebook; remainingDays: number }) => {
                 >{`${author.Name}(${author.Role})`}</span>
               ))}
 
-            <span className="mr-2">{ebook.publisher}</span>
-
-            {ebook.labelId !== 1 && (
+            {ebook.labelId === 1 ? (
+              <span className="mr-2">{ebook.publisher}</span>
+            ) : (
               <Link href={`/label/${ebook.label.slug}`}>
                 <a className="text-blue-700 hover:underline mr-1">
                   {ebook.label.name}
