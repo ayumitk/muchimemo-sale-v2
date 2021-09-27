@@ -80,6 +80,7 @@ model Category {
   createdAt  DateTime  @default(now()) @map(name: "created_at")
   updatedAt  DateTime  @updatedAt @map(name: "updated_at")
   ebooks     Ebook[]
+  labels     Label[]
 }
 
 model Label {
@@ -91,6 +92,8 @@ model Label {
   ebooks      Ebook[]
   publisher   Publisher  @relation(fields: [publisherId], references: [id])
   publisherId Int        @default(1)
+  category   Category    @relation(fields: [categoryId], references: [id])
+  categoryId Int         @default(1)
 }
 
 model Publisher {

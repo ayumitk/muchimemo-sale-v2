@@ -23,34 +23,12 @@ import Ad from "../components/user/Ad";
 import { Sale, Ebook, AdData } from "../interfaces";
 
 export default function HomePage({
-  allSales,
+  sales,
   pickupEbooks,
 }: {
-  allSales: Array<Sale>;
+  sales: Array<Sale>;
   pickupEbooks: Array<Ebook>;
 }) {
-  const [orderedSales, setOrderedSales] = useState<Sale[]>([]);
-
-  useEffect(() => {
-    const onSale = allSales.filter((sale) => {
-      const now = moment().tz("Asia/Tokyo").format();
-      const end = moment(sale.saleEnds).add(9, "h").format();
-      const diff = moment(end).diff(now);
-      return diff >= 0;
-    });
-    setOrderedSales(onSale.slice(0, 4));
-  }, [allSales]);
-
-  const pickupSale = (sales: Sale[]) => {
-    const onSale = sales.filter((sale) => {
-      const now = moment().tz("Asia/Tokyo").format();
-      const end = moment(sale.saleEnds).add(9, "h").format();
-      const diff = moment(end).diff(now);
-      return diff >= 0;
-    });
-    return onSale;
-  };
-
   const [ad, setAd] = useState<AdData[]>([]);
   useEffect(() => {
     const shuffle = ([...array]) => {
@@ -128,18 +106,14 @@ export default function HomePage({
           </h2>
           <ul className="grid grid-flow-col grid-cols-3 sm:grid-cols-6 grid-rows-2 sm:grid-rows-1 gap-3">
             {pickupEbooks.length > 0 &&
-              pickupEbooks.map((ebook, index) => {
-                if (
-                  pickupSale(ebook.sales.map((item) => item.sale)).length > 0
-                ) {
-                  return (
-                    <PickupItem
-                      ebook={ebook}
-                      sale={pickupSale(ebook.sales.map((item) => item.sale))[0]}
-                      key={ebook.id}
-                    />
-                  );
-                }
+              pickupEbooks.map((ebook) => {
+                return (
+                  <PickupItem
+                    ebook={ebook}
+                    sale={ebook.sales[0].sale}
+                    key={ebook.id}
+                  />
+                );
               })}
           </ul>
         </section>
@@ -227,7 +201,7 @@ export default function HomePage({
             </h2>
           </div>
           <ul>
-            {orderedSales.map((sale, index) => (
+            {sales.map((sale, index) => (
               <div key={sale.id}>
                 {index === 1 && (
                   <Ad adData={ad[1]} className="text-center mb-8" />
@@ -252,34 +226,43 @@ export default function HomePage({
 
 export const getStaticProps: GetStaticProps = async () => {
   const data = await prisma.sale.findMany({
-    where: { isPublished: true },
+    where: {
+      isPublished: true,
+      saleEnds: { gte: moment().tz("Asia/Tokyo").format() },
+    },
     include: {
       ebooks: {
         include: {
           ebook: true,
         },
-        where: {
-          ebook: {
-            isDeleted: false,
+      },
+    },
+    orderBy: { saleEnds: "asc" },
+    take: 4,
+  });
+  const sales = JSON.parse(JSON.stringify(data));
+
+  const pickup = await prisma.ebook.findMany({
+    where: {
+      isPickup: true,
+      sales: {
+        some: {
+          sale: {
+            saleEnds: { gte: moment().tz("Asia/Tokyo").format() },
           },
         },
       },
     },
-    orderBy: { saleEnds: "asc" },
-  });
-  const allSales = JSON.parse(JSON.stringify(data));
-
-  const pickup = await prisma.ebook.findMany({
-    where: { isPickup: true },
     include: {
       sales: {
         include: {
-          sale: {},
+          sale: true,
         },
       },
     },
+    take: 6,
   });
   const pickupEbooks = JSON.parse(JSON.stringify(pickup));
 
-  return { props: { allSales, pickupEbooks } };
+  return { props: { sales, pickupEbooks } };
 };

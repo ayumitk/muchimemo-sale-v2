@@ -16,7 +16,13 @@ import Ad from "../components/user/Ad";
 // types
 import { Label, AdData } from "../interfaces";
 
-export default function LabelPage({ labels }: { labels: Label[] }) {
+interface Category {
+  id: number;
+  name: string;
+  labels: Label[];
+}
+
+export default function LabelPage({ categories }: { categories: Category[] }) {
   const title = "レーベル";
   const description = "レーベル別におすすめのマンガ・小説を紹介します。";
 
@@ -83,18 +89,31 @@ export default function LabelPage({ labels }: { labels: Label[] }) {
 
         <section>
           <ul className="">
-            {labels &&
-              labels.map((label) => {
-                if (label.id !== 1) {
+            {categories &&
+              categories.map((category) => {
+                if (category.id !== 1) {
                   return (
-                    <div key={label.id}>
-                      <Link href={`/label/${label.slug}`}>
-                        <a className="text-blue-700 hover:underline mr-1">
-                          {label.name}{" "}
-                          {label.ebooks.length > 0 &&
-                            `(${label.ebooks.length})`}
-                        </a>
-                      </Link>
+                    <div className="mb-10" key={category.id}>
+                      <h2 className="text-2xl font-bold mb-2">
+                        {category.name}
+                      </h2>
+                      <div>
+                        {category.labels.map((label) => {
+                          if (label.id !== 1) {
+                            return (
+                              <div key={label.id}>
+                                <Link href={`/label/${label.slug}`}>
+                                  <a className="text-blue-700 hover:underline mr-1">
+                                    {label.name}{" "}
+                                    {label.ebooks.length > 0 &&
+                                      `(${label.ebooks.length})`}
+                                  </a>
+                                </Link>
+                              </div>
+                            );
+                          }
+                        })}
+                      </div>
                     </div>
                   );
                 }
@@ -107,26 +126,34 @@ export default function LabelPage({ labels }: { labels: Label[] }) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const data = await prisma.label.findMany({
-    where: {
-      ebooks: {
-        some: {
-          OR: [{ NOT: { comment: null } }, { isRecommended: true }],
-        },
-      },
-    },
+  const data = await prisma.category.findMany({
     select: {
       id: true,
-      slug: true,
       name: true,
-      ebooks: {
+      labels: {
         where: {
-          OR: [{ NOT: { comment: null } }, { isRecommended: true }],
+          ebooks: {
+            some: {
+              OR: [{ NOT: { comment: null } }, { isRecommended: true }],
+            },
+          },
         },
+        select: {
+          id: true,
+          slug: true,
+          name: true,
+          ebooks: {
+            where: {
+              OR: [{ NOT: { comment: null } }, { isRecommended: true }],
+            },
+          },
+        },
+        orderBy: [{ name: "asc" }],
       },
     },
-    orderBy: [{ name: "asc" }],
+    orderBy: [{ id: "asc" }],
   });
-  const labels = JSON.parse(JSON.stringify(data));
-  return { props: { labels } };
+  const categories = JSON.parse(JSON.stringify(data));
+
+  return { props: { categories } };
 };

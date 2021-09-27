@@ -121,8 +121,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const end =
       query.readAt + "-" + moment(query.readAt, "YYYY-MM").daysInMonth();
     readAt = {
-      gte: new Date(start),
-      lt: new Date(end),
+      gte: moment(start).format(),
+      lt: moment(end).format(),
     };
   }
 

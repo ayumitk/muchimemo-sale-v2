@@ -203,8 +203,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const start = params.id + "-01";
     const end = params.id + "-" + moment(params.id, "YYYY-MM").daysInMonth();
     readAt = {
-      gte: new Date(start),
-      lt: new Date(end),
+      gte: moment(start).format(),
+      lt: moment(end).format(),
     };
   }
 
