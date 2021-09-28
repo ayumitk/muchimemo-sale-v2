@@ -28,6 +28,7 @@ export interface Ebook {
   reviewCount: number;
   reviewAverage: string;
   sales: Array<EbookOnSale>;
+  tags: Array<EbookTag>;
 }
 
 export interface Author {
@@ -44,6 +45,15 @@ export interface EbookOnSale {
   createdAt: string;
 }
 
+export interface EbookTag {
+  id:number;
+  ebookId: number;
+  ebook: Ebook;
+  tagId: number;
+  tag: Tag;
+  createdAt: string;
+}
+
 export interface Sale {
   id: number;
   title: string;
@@ -52,6 +62,13 @@ export interface Sale {
   isDeleted:boolean;
   isPublished:boolean;
   ebooks: Array<EbookOnSale>;
+}
+
+export interface Tag {
+  id: number;
+  name: string;
+  slug: string;
+  ebooks: Array<EbookTag>;
 }
 
 export interface Format {

@@ -22,6 +22,15 @@ model Sale {
   ebooks      EbookOnSale[]
 }
 
+model Tag {
+  id          Int       @default(autoincrement()) @id
+  name        String
+  slug        String    @unique
+  createdAt   DateTime  @default(now()) @map(name: "created_at")
+  updatedAt   DateTime  @updatedAt @map(name: "updated_at")
+  ebooks      EbookTag[]
+}
+
 model Ebook {
   id             Int        @default(autoincrement()) @id
   title          String
@@ -52,6 +61,7 @@ model Ebook {
   createdAt      DateTime   @default(now()) @map(name: "created_at")
   updatedAt      DateTime   @updatedAt @map(name: "updated_at")
   sales          EbookOnSale[]
+  tags           EbookTag[]
 }
 
 model EbookOnSale {
@@ -60,8 +70,16 @@ model EbookOnSale {
   ebook      Ebook     @relation(fields: [ebookId], references: [id])
   ebookId    Int // relation scalar field (used in the `@relation` attribute above)
   createdAt  DateTime  @default(now()) @map(name: "created_at")
-
   @@id([saleId, ebookId])
+}
+
+model EbookTag {
+  tag        Tag      @relation(fields: [tagId], references: [id])
+  tagId      Int // relation scalar field (used in the `@relation` attribute above)
+  ebook      Ebook     @relation(fields: [ebookId], references: [id])
+  ebookId    Int // relation scalar field (used in the `@relation` attribute above)
+  createdAt  DateTime  @default(now()) @map(name: "created_at")
+  @@id([tagId, ebookId])
 }
 
 model Format {

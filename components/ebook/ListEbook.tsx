@@ -6,10 +6,19 @@ import "moment-timezone";
 import { useRouter } from "next/router";
 
 // types
-import { Ebook, Format, Category, Label, Sale, Author } from "../../interfaces";
+import {
+  Ebook,
+  Format,
+  Category,
+  Label,
+  Sale,
+  Author,
+  Tag,
+} from "../../interfaces";
 
 // components
 import EditEbook from "./EditEbook";
+import EditTag from "./EditTag";
 import DeleteEbook from "./DeleteEbook";
 import UpdateEbook from "./UpdateEbook";
 import DmmUpdateEbook from "./DmmUpdateEbook";
@@ -20,6 +29,7 @@ const ListEbook = (props: {
   categories: Category[];
   labels: Label[];
   sales: Sale[];
+  tags: Tag[];
   refreshData: any;
   isRefreshing: boolean;
 }) => {
@@ -29,6 +39,7 @@ const ListEbook = (props: {
     categories,
     labels,
     sales,
+    tags,
     refreshData,
     isRefreshing,
   } = props;
@@ -414,6 +425,12 @@ const ListEbook = (props: {
                 scope="col"
                 className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
+                tag
+              </th>
+              <th
+                scope="col"
+                className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
                 delete
               </th>
               <th
@@ -573,6 +590,18 @@ const ListEbook = (props: {
                     formats={formats}
                     categories={categories}
                     labels={labels}
+                    refreshData={refreshData}
+                  />
+                </td>
+                <td className="px-2 py-2 text-sm">
+                  {ebook.tags.map((item) => (
+                    <span className="text-xs block whitespace-nowrap mb-0.5">
+                      {item.tag.name}
+                    </span>
+                  ))}
+                  <EditTag
+                    ebook={ebook}
+                    tags={tags}
                     refreshData={refreshData}
                   />
                 </td>
