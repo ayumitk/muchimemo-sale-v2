@@ -5,6 +5,7 @@ export default async function handle(
   req: {
     body: {
       title: string;
+      description?: string;
       comment?: string;
       formatId: number;
       categoryId: number;
@@ -32,6 +33,7 @@ export default async function handle(
   const ebookId = req.query.id;
   const {
     title,
+    description,
     comment,
     formatId,
     categoryId,
@@ -55,6 +57,7 @@ export default async function handle(
     where: { id: Number(ebookId) },
     data: {
       title,
+      description,
       comment,
       formatId,
       categoryId,

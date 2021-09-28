@@ -371,83 +371,84 @@ const ListEbook = (props: {
             <tr>
               <th
                 scope="col"
-                className="pl-4 pr-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="pl-4 pr-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 id
               </th>
               <th
                 scope="col"
-                className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 image
               </th>
               <th
                 scope="col"
-                className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 title
               </th>
               <th
                 scope="col"
-                className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 format
               </th>
               <th
                 scope="col"
-                className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 category
               </th>
               <th
                 scope="col"
-                className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-40"
               >
                 label
               </th>
               <th
                 scope="col"
-                className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              ></th>
-              <th
-                scope="col"
-                className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
-                product page
-              </th>
-              <th
-                scope="col"
-                className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
-                edit
-              </th>
-              <th
-                scope="col"
-                className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 tag
               </th>
               <th
                 scope="col"
-                className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              ></th>
+              <th
+                scope="col"
+                className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                product page
+              </th>
+              <th
+                scope="col"
+                className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                edit
+              </th>
+
+              <th
+                scope="col"
+                className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 delete
               </th>
               <th
                 scope="col"
-                className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 price
               </th>
               <th
                 scope="col"
-                className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 update
               </th>
               <th
                 scope="col"
-                className="pl-2 pr-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="pl-1 pr-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 review
               </th>
@@ -461,11 +462,11 @@ const ListEbook = (props: {
                   ebook.isDeleted ? "bg-gray-100 text-gray-400" : ""
                 } ${ebook.isRecommended && "bg-yellow-50"}`}
               >
-                <td className="pl-4 pr-2 py-2 text-sm">
+                <td className="pl-4 pr-1 py-2 text-sm">
                   {ebook.id}{" "}
                   <span className="block text-xs">{ebook.amazonId}</span>
                 </td>
-                <td className="px-2 py-1 text-xs text-gray-500">
+                <td className="px-1 py-1 text-xs text-gray-500">
                   <div
                     className={`w-10 ${ebook.isDeleted && "opacity-50"}`}
                     style={{ lineHeight: 0 }}
@@ -487,7 +488,7 @@ const ListEbook = (props: {
                     ebook.imageHeight &&
                     `${ebook.imageWidth}x${ebook.imageHeight}`}
                 </td>
-                <td className="px-2 py-2 text-sm">
+                <td className="px-1 py-2 text-sm">
                   {ebook.title}
                   <br />
                   {ebook.authors &&
@@ -500,23 +501,40 @@ const ListEbook = (props: {
                       )
                     )}
                 </td>
-                <td className="px-2 py-2 text-sm">
+                <td className="px-1 py-2 text-sm">
                   {ebook.format && ebook.format.name}
                 </td>
-                <td className="px-2 py-2 text-sm">
-                  {ebook.category && ebook.category.name}
+                <td className="px-1 py-2 text-sm">
+                  {ebook.category && ebook.category.id === 2
+                    ? "BL"
+                    : ebook.category.name}
                 </td>
-                <td className="px-2 py-2 text-sm">
+                <td className="px-1 py-2 text-sm">
                   {ebook.label && ebook.label.name}
                 </td>
-                <td className="px-2 py-2 text-sm">
+                <td className="px-1 py-2 text-sm">
+                  {ebook.tags.map((item) => (
+                    <span
+                      className="text-xs block whitespace-nowrap mb-0.5"
+                      key={item.tag.id}
+                    >
+                      {item.tag.name}
+                    </span>
+                  ))}
+                  <EditTag
+                    ebook={ebook}
+                    tags={tags}
+                    refreshData={refreshData}
+                  />
+                </td>
+                <td className="px-2 py-2">
                   <ChatAltIcon
                     className={`w-5 h-5 ${
                       ebook.comment ? "text-red-500" : "text-gray-300"
                     }`}
                   />
                 </td>
-                <td className="px-2 py-2 text-sm">
+                <td className="px-1 py-2 text-sm">
                   <a
                     href={`https://www.amazon.co.jp/dp/${ebook.amazonId}/`}
                     target="_blank"
@@ -584,7 +602,7 @@ const ListEbook = (props: {
                     />
                   </a>
                 </td>
-                <td className="px-2 py-2 text-sm">
+                <td className="px-1 py-2 text-sm text-center">
                   <EditEbook
                     ebook={ebook}
                     formats={formats}
@@ -593,32 +611,23 @@ const ListEbook = (props: {
                     refreshData={refreshData}
                   />
                 </td>
-                <td className="px-2 py-2 text-sm">
-                  {ebook.tags.map((item) => (
-                    <span className="text-xs block whitespace-nowrap mb-0.5">
-                      {item.tag.name}
-                    </span>
-                  ))}
-                  <EditTag
-                    ebook={ebook}
-                    tags={tags}
-                    refreshData={refreshData}
-                  />
-                </td>
-                <td className="px-2 py-2 text-sm">
+                <td className="px-1 py-2 text-sm text-center">
                   <DeleteEbook ebook={ebook} refreshData={refreshData} />
                 </td>
-                <td className="px-2 py-2 text-sm text-red-500">
+                <td className="pr-2 py-2 text-sm text-red-500 text-right">
                   {ebook.price && `¥${ebook.price}`}
-                  <br />({ebook.points && `${ebook.points}pt`})
+                  <span className="block text-xs">
+                    ({ebook.points && `${ebook.points}pt`})
+                  </span>
                 </td>
-                <td className="px-2 py-2 text-sm">
+                <td className="px-1 py-2 text-sm">
                   <UpdateEbook ebook={ebook} refreshData={refreshData} />
                 </td>
-                <td className="pl-2 pr-4 py-2 text-sm">
-                  {ebook.reviewAverage && ebook.reviewAverage}(
-                  {ebook.reviewCount && ebook.reviewCount})
-                  <br />
+                <td className="pl-1 pr-3 py-2 text-sm">
+                  <span className="block">
+                    {ebook.reviewAverage && ebook.reviewAverage}(
+                    {ebook.reviewCount && ebook.reviewCount})
+                  </span>
                   <DmmUpdateEbook ebook={ebook} refreshData={refreshData} />
                 </td>
               </tr>

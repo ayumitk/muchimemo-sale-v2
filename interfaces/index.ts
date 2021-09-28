@@ -2,6 +2,7 @@ export interface Ebook {
   amazonId: string;
   authors?: string;
   cmoaId?: string;
+  description?: string;
   comment?: string;
   createdAt: string;
   dmmId?: string;

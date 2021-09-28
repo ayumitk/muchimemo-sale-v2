@@ -49,7 +49,7 @@ const EditEbook = (props: {
     <>
       <button
         onClick={() => modalOpen()}
-        className="text-teal-500 hover:text-teal-600 hover:underline"
+        className="text-teal-500 hover:text-teal-600 hover:underline whitespace-nowrap"
       >
         編集
       </button>
@@ -361,6 +361,34 @@ const EditEbook = (props: {
                                   setEbookDetails({
                                     ...ebookDetails,
                                     comment: e.target.value,
+                                  });
+                              }}
+                              className="shadow-sm block w-full focus:ring-teal-500 focus:border-teal-500 border border-gray-300 rounded-md p-3"
+                            ></textarea>
+                          </div>
+                        </div>
+
+                        <div className="mb-5">
+                          <label
+                            htmlFor="description"
+                            className="block text-sm font-medium text-gray-700"
+                          >
+                            あらすじ
+                          </label>
+                          <div className="mt-1">
+                            <textarea
+                              id="description"
+                              rows={3}
+                              value={
+                                ebookDetails && ebookDetails.description
+                                  ? ebookDetails.description
+                                  : ""
+                              }
+                              onChange={(e) => {
+                                ebookDetails &&
+                                  setEbookDetails({
+                                    ...ebookDetails,
+                                    description: e.target.value,
                                   });
                               }}
                               className="shadow-sm block w-full focus:ring-teal-500 focus:border-teal-500 border border-gray-300 rounded-md p-3"
