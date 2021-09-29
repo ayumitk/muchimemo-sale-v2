@@ -271,6 +271,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
               format: true,
               category: true,
               label: true,
+              tags: {
+                include: {
+                  tag: true,
+                },
+              },
             },
           },
         },

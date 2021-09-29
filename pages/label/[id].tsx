@@ -63,10 +63,13 @@ export default function labelDetailPage({
         <meta name="description" content={description} />
         <meta
           name="image"
-          content={`${config.siteUrl}/images/cover-images/.jpg`}
+          content={`${config.siteUrl}/images/cover-images/common.jpg`}
         />
 
-        <meta property="og:url" content={`${config.siteUrl}/sale//`} />
+        <meta
+          property="og:url"
+          content={`${config.siteUrl}/label/${label.slug}`}
+        />
         <meta property="og:type" content="article" />
         <meta
           property="og:title"
@@ -75,14 +78,17 @@ export default function labelDetailPage({
         <meta property="og:description" content={description} />
         <meta
           property="og:image"
-          content={`${config.siteUrl}/images/cover-images/.jpg`}
+          content={`${config.siteUrl}/images/cover-images/common.jpg`}
         />
         <meta
           property="og:image:alt"
           content={`${title} - ${config.siteTitleAlt}`}
         />
 
-        <meta name="twitter:url" content={`${config.siteUrl}/sale//`} />
+        <meta
+          name="twitter:url"
+          content={`${config.siteUrl}/label/${label.slug}`}
+        />
         <meta
           name="twitter:title"
           content={`${title} - ${config.siteTitleAlt}`}
@@ -90,7 +96,7 @@ export default function labelDetailPage({
         <meta name="twitter:description" content={description} />
         <meta
           name="twitter:image"
-          content={`${config.siteUrl}/images/cover-images/.jpg`}
+          content={`${config.siteUrl}/images/cover-images/common.jpg`}
         />
         <meta
           name="twitter:image:alt"

@@ -70,7 +70,7 @@ export default function archiveDetailPage({
           content={`${config.siteUrl}/images/cover-images/${id}.jpg`}
         />
 
-        <meta property="og:url" content={`${config.siteUrl}/sale/${id}/`} />
+        <meta property="og:url" content={`${config.siteUrl}/archives/${id}`} />
         <meta property="og:type" content="article" />
         <meta
           property="og:title"
@@ -86,7 +86,7 @@ export default function archiveDetailPage({
           content={`${title} - ${config.siteTitleAlt}`}
         />
 
-        <meta name="twitter:url" content={`${config.siteUrl}/sale/${id}/`} />
+        <meta name="twitter:url" content={`${config.siteUrl}/archives/${id}`} />
         <meta
           name="twitter:title"
           content={`${title} - ${config.siteTitleAlt}`}
@@ -101,7 +101,7 @@ export default function archiveDetailPage({
           content={`${title} - ${config.siteTitleAlt}`}
         />
       </Head>
-      <BreadcrumbNav pageTitle={title} archive />
+      <BreadcrumbNav pageTitle={`${year}${month}`} archive />
       <article className="max-w-3xl mx-auto">
         <div className="px-4 md:px-6 lg:px-0">
           <h1 className="font-black text-2xl sm:text-4xl mb-4 tracking-tight">
@@ -217,6 +217,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       format: true,
       category: true,
       label: true,
+      tags: {
+        include: {
+          tag: true,
+        },
+      },
     },
     orderBy: [{ categoryId: "asc" }, { authors: "desc" }],
   });

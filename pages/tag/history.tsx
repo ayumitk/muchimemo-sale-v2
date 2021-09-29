@@ -2,11 +2,8 @@ import { useEffect, useState } from "react";
 import Head from "next/head";
 import { GetStaticProps } from "next";
 import config from "../../config";
-import Image from "next/image";
-import moment from "moment";
 import "moment-timezone";
 import Link from "next/link";
-import blog from "../../config/blog.json";
 import { ArrowCircleRightIcon } from "@heroicons/react/solid";
 import adData from "../../config/ad.json";
 
@@ -15,9 +12,9 @@ import prisma from "../../lib/prisma";
 
 // components
 import Layout from "../../components/layout";
-import SaleItem from "../../components/user/SaleItem";
-import PickupItem from "../../components/user/PickupItem";
 import Ad from "../../components/user/Ad";
+import EbookItem from "../../components/user/EbookItem";
+import BreadcrumbNav from "../../components/user/BreadcrumbNav";
 
 // types
 import { Tag, AdData, Ebook } from "../../interfaces";
@@ -31,6 +28,9 @@ export default function ThreesomePage({
   blEbooks: Ebook[];
   broEbooks: Ebook[];
 }) {
+  const title = `${tag.name}のおすすめBL•ブロマンス作品`;
+  const description = `私が1番好きなジャンルが歴史•時代モノBL！ただ着物を着せただけ、のような作品ではなく、その時代の空気が感じられ、その時代だからこそのストーリーを求めています。`;
+
   const [ad, setAd] = useState<AdData[]>([]);
   useEffect(() => {
     const shuffle = ([...array]) => {
@@ -46,40 +46,79 @@ export default function ThreesomePage({
   return (
     <Layout>
       <Head>
-        <title>{config.siteTitleAlt}</title>
-        <meta name="description" content={config.siteDescription} />
-        <meta name="image" content={`${config.siteUrl}${config.siteBanner}`} />
+        <title>
+          {title} - {config.siteTitleAlt}
+        </title>
+        <meta name="description" content={description} />
+        <meta
+          name="image"
+          content={`${config.siteUrl}/images/cover-images/common.jpg`}
+        />
 
-        <meta property="og:url" content={config.siteUrl} />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content={config.siteTitleAlt} />
-        <meta property="og:description" content={config.siteDescription} />
+        <meta property="og:url" content={`${config.siteUrl}/${tag.slug}`} />
+        <meta property="og:type" content="article" />
+        <meta
+          property="og:title"
+          content={`${title} - ${config.siteTitleAlt}`}
+        />
+        <meta property="og:description" content={description} />
         <meta
           property="og:image"
-          content={`${config.siteUrl}${config.siteBanner}`}
+          content={`${config.siteUrl}/images/cover-images/common.jpg`}
         />
-        <meta property="og:image:alt" content={config.siteTitleAlt} />
+        <meta
+          property="og:image:alt"
+          content={`${title} - ${config.siteTitleAlt}`}
+        />
 
-        <meta name="twitter:url" content={config.siteUrl} />
-        <meta name="twitter:title" content={config.siteTitleAlt} />
-        <meta name="twitter:description" content={config.siteDescription} />
+        <meta name="twitter:url" content={`${config.siteUrl}/${tag.slug}`} />
+        <meta
+          name="twitter:title"
+          content={`${title} - ${config.siteTitleAlt}`}
+        />
+        <meta name="twitter:description" content={description} />
         <meta
           name="twitter:image"
-          content={`${config.siteUrl}${config.siteBanner}`}
+          content={`${config.siteUrl}/images/cover-images/common.jpg`}
         />
-        <meta name="twitter:image:alt" content={config.siteTitleAlt} />
+        <meta
+          name="twitter:image:alt"
+          content={`${title} - ${config.siteTitleAlt}`}
+        />
       </Head>
+      <BreadcrumbNav pageTitle={tag.name} />
+      <article className="max-w-3xl mx-auto">
+        <header className="px-4 md:px-6 lg:px-0 mb-10">
+          <h1 className="font-black text-2xl sm:text-4xl mb-4 tracking-tight">
+            {title}
+          </h1>
+          <p className="text-gray-700 text-sm sm:text-base">{description}</p>
+        </header>
 
-      <section className="max-w-3xl mx-auto">
-        <h2 className="text-2xl font-bold mb-2">BL</h2>
-        {blEbooks.map((ebook) => (
-          <div key={ebook.id}>{ebook.title}</div>
-        ))}
-        <h2 className="text-2xl font-bold mb-2 mt-10">ブロマンス･BLっぽい</h2>
-        {broEbooks.map((ebook) => (
-          <div key={ebook.id}>{ebook.title}</div>
-        ))}
-      </section>
+        <h2 className="sm:text-3xl text-xl font-black sm:py-4 py-3 border-t-4 border-gray-900 px-4 md:px-6 lg:px-0">
+          ボーイズラブ
+          <span className="text-gray-700 text-sm font-normal ml-2">
+            {blEbooks.length}作品
+          </span>
+        </h2>
+        <ul className="border-b border-gray-900">
+          {blEbooks.map((ebook) => (
+            <EbookItem ebook={ebook} key={ebook.id} remainingDays={-1} />
+          ))}
+        </ul>
+
+        <h2 className="sm:text-3xl text-xl font-black sm:py-4 py-3 border-t-4 border-gray-900 px-4 md:px-6 lg:px-0 mt-20">
+          ブロマンス･BLっぽい
+          <span className="text-gray-700 text-sm font-normal ml-2">
+            {broEbooks.length}作品
+          </span>
+        </h2>
+        <ul className="border-b border-gray-900">
+          {broEbooks.map((ebook) => (
+            <EbookItem ebook={ebook} key={ebook.id} remainingDays={-1} />
+          ))}
+        </ul>
+      </article>
     </Layout>
   );
 }
@@ -110,7 +149,7 @@ export const getStaticProps: GetStaticProps = async () => {
         },
       },
     },
-    orderBy: [{ isRecommended: "asc" }],
+    orderBy: [{ isRecommended: "desc" }, { title: "asc" }],
   });
   const blEbooks = JSON.parse(JSON.stringify(blData));
 
@@ -132,7 +171,7 @@ export const getStaticProps: GetStaticProps = async () => {
         },
       },
     },
-    orderBy: [{ isRecommended: "asc" }],
+    orderBy: [{ isRecommended: "desc" }, { title: "asc" }],
   });
   const broEbooks = JSON.parse(JSON.stringify(broData));
 

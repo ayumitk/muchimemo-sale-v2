@@ -69,11 +69,11 @@ export default function HomePage({
       </Head>
 
       <section className="max-w-3xl mx-auto">
-        <Link href={`/sale/27`}>
+        <Link href={`/sale/65`}>
           <a className="block" style={{ lineHeight: 0 }}>
             <Image
-              src="/images/cover-images/27.jpg"
-              alt="【30%OFF】いつの時代も尊い… 祥伝社 ヒストリカルBL特集 (9/29まで)"
+              src="/images/cover-images/65.jpg"
+              alt="【期間限定無料】小学館 『阿・吽』完結記念！ 大河歴史ロマン特集 (10/7まで)"
               width={1200}
               height={630}
               placeholder="blur"

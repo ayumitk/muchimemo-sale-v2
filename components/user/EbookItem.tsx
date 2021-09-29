@@ -3,6 +3,7 @@ import Link from "next/link";
 import moment from "moment";
 import "moment-timezone";
 import Image from "next/image";
+import { TagIcon } from "@heroicons/react/solid";
 
 // types
 import { Author, Ebook } from "../../interfaces";
@@ -22,7 +23,7 @@ const EbookItem = (props: { ebook: Ebook; remainingDays: number }) => {
           href={`https://www.amazon.co.jp/dp/${ebook.amazonId}?tag=ayutak04-22&linkCode=ogi&th=1&psc=1`}
           target="_blank"
           rel="noopener noreferrer"
-          className="block hover:opacity-80 w-24 sm:w-28"
+          className="block hover:opacity-80 w-24 sm:w-28 flex-shrink-0"
           style={{ lineHeight: 0 }}
         >
           <Image
@@ -37,19 +38,41 @@ const EbookItem = (props: { ebook: Ebook; remainingDays: number }) => {
         <div className="ml-3 sm:ml-5 flex-1">
           <p className="text-gray-700 text-sm sm:text-base mb-2">
             <span
-              className={`text-xs py-0.5 px-2 mr-1 rounded-sm border ${
+              className={`sm:py-0.5 px-1.5 sm:px-2 mr-1 rounded-sm border ${
                 ebook.formatId === 2
                   ? "bg-pink-50 text-pink-600 border-pink-600"
                   : "bg-blue-50 text-blue-600 border-blue-600"
               }`}
+              style={{ fontSize: "0.687rem" }}
             >
               {ebook.format.name}
             </span>
-            <span className="text-xs py-0.5 px-2 mr-2 rounded-sm border border-gray-700 bg-gray-50">
+            <span
+              className="sm:py-0.5 px-1.5 sm:px-2 mr-2 rounded-sm border border-gray-700 bg-gray-50"
+              style={{ fontSize: "0.687rem" }}
+            >
               {ebook.category.name}
             </span>
+            {ebook.tags.length > 0 &&
+              ebook.tags.map((item) =>
+                item.tag.id === 3 ? (
+                  <Link href={`/tag/${item.tag.slug}`} key={item.tag.id}>
+                    <a className="text-blue-700 hover:underline mr-1">
+                      <span className="text-xs mr-2">
+                        <TagIcon className="w-4 h-4 inline-block mr-0.5" />
+                        {item.tag.name}
+                      </span>
+                    </a>
+                  </Link>
+                ) : (
+                  <span className="text-xs mr-2" key={item.tag.id}>
+                    <TagIcon className="w-4 h-4 inline-block mr-0.5" />
+                    {item.tag.name}
+                  </span>
+                )
+              )}
           </p>
-          <h2 className="font-bold text-lg sm:text-2xl leading-tight sm:mb-1">
+          <h2 className="font-bold text-xl sm:text-2xl leading-tight mb-1">
             {ebook.title}
           </h2>
 
@@ -120,10 +143,10 @@ const EbookItem = (props: { ebook: Ebook; remainingDays: number }) => {
               href={`https://www.amazon.co.jp/dp/${ebook.amazonId}?tag=ayutak04-22&linkCode=ogi&th=1&psc=1`}
               target="_blank"
               rel="noopener noreferrer"
-              className="mr-1 mb-1 inline-flex items-center justify-center w-24 sm:w-32 h-11 sm:h-12 border border-gray-400 shadow-sm text-base rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
+              className="mr-1 mb-1 inline-flex items-center justify-center px-2 sm:w-32 h-10 sm:h-12 border border-gray-400 shadow-sm text-base rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
             >
               <span className="sr-only">Amazonで購入する</span>
-              <span className="w-14 sm:w-16" style={{ lineHeight: 0 }}>
+              <span className="w-11 sm:w-16" style={{ lineHeight: 0 }}>
                 <Image
                   src="/images/amazon-logo.png"
                   alt="Amazonのロゴ"
@@ -137,10 +160,10 @@ const EbookItem = (props: { ebook: Ebook; remainingDays: number }) => {
                 href={`https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3549505&pid=886731192&vc_url=https%3A%2F%2Frenta.papy.co.jp%2Frenta%2Fsc%2Ffrm%2Fitem%2F${ebook.rentaId}%2F`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mr-1 mb-1 inline-flex items-center justify-center w-24 sm:w-32 h-11 sm:h-12 border border-gray-400 shadow-sm text-base rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
+                className="mr-1 mb-1 inline-flex items-center justify-center px-2 sm:w-32 h-10 sm:h-12 border border-gray-400 shadow-sm text-base rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
               >
                 <span className="sr-only">Renta!で購入する</span>
-                <span className="w-14 sm:w-16" style={{ lineHeight: 0 }}>
+                <span className="w-11 sm:w-16" style={{ lineHeight: 0 }}>
                   <Image
                     src="/images/renta-logo.png"
                     alt="Renta!のロゴ"
@@ -155,10 +178,10 @@ const EbookItem = (props: { ebook: Ebook; remainingDays: number }) => {
                 href={`https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3549505&pid=886731152&vc_url=https%3A%2F%2Fwww.cmoa.jp%2Ftitle%2F${ebook.cmoaId}%2F%E3%80%80%E3%81%82`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mr-1 mb-1 inline-flex items-center justify-center w-24 sm:w-32 h-11 sm:h-12 border border-gray-400 shadow-sm text-base rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
+                className="mr-1 mb-1 inline-flex items-center justify-center px-2 sm:w-32 h-10 sm:h-12 border border-gray-400 shadow-sm text-base rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
               >
                 <span className="sr-only">シーモアで購入する</span>
-                <span className="w-12 sm:w-14" style={{ lineHeight: 0 }}>
+                <span className="w-8 sm:w-14" style={{ lineHeight: 0 }}>
                   <Image
                     src="/images/cmoa-logo.png"
                     alt="シーモアのロゴ"
@@ -173,10 +196,10 @@ const EbookItem = (props: { ebook: Ebook; remainingDays: number }) => {
                 href={`https://al.dmm.com/?lurl=https%3A%2F%2Fbook.dmm.com%2Fdetail%2F${ebook.dmmId}%2F&af_id=muchimemo-001&ch=link_tool&ch_id=link`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mr-1 mb-1 inline-flex items-center justify-center w-24 sm:w-32 h-11 sm:h-12 border border-gray-400 shadow-sm text-base rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
+                className="mr-1 mb-1 inline-flex items-center justify-center px-1 sm:w-32 h-10 sm:h-12 border border-gray-400 shadow-sm text-base rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
               >
                 <span className="sr-only">DMMブックスで購入する</span>
-                <span className="w-20 sm:w-24" style={{ lineHeight: 0 }}>
+                <span className="w-10 sm:w-20" style={{ lineHeight: 0 }}>
                   <Image
                     src="/images/dmm-logo.svg"
                     alt="DMMブックスのロゴ"
