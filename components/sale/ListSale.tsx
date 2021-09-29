@@ -70,13 +70,19 @@ const ListSale = (props: {
               <th
                 scope="col"
                 className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              ></th>
+              >
+                edit
+              </th>
               <th
                 scope="col"
                 className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 ebooks
               </th>
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              ></th>
               <th
                 scope="col"
                 className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -88,12 +94,6 @@ const ListSale = (props: {
                 className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 status
-              </th>
-              <th
-                scope="col"
-                className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
-                edit
               </th>
               <th
                 scope="col"
@@ -137,11 +137,7 @@ const ListSale = (props: {
                   </a>
                 </td>
                 <td className="px-4 py-4 text-sm">
-                  <ChatAltIcon
-                    className={`w-5 h-5 ${
-                      sale.description ? "text-red-500" : "text-gray-300"
-                    }`}
-                  />
+                  <EditSale sale={sale} refreshData={refreshData} />
                 </td>
                 <td className="px-4 py-4 text-sm">
                   <EditEbooksOnSale
@@ -151,14 +147,18 @@ const ListSale = (props: {
                   />
                 </td>
                 <td className="px-4 py-4 text-sm">
+                  <ChatAltIcon
+                    className={`w-5 h-5 ${
+                      sale.description ? "text-red-500" : "text-gray-300"
+                    }`}
+                  />
+                </td>
+                <td className="px-4 py-4 text-sm">
                   {moment(sale.saleEnds).format("YYYY-MM-DD")}
                   {remainingDays(sale.saleEnds)}
                 </td>
                 <td className="px-4 py-4 text-sm">
                   {`${sale.isPublished ? "公開" : "下書き"}`}
-                </td>
-                <td className="px-4 py-4 text-sm">
-                  <EditSale sale={sale} refreshData={refreshData} />
                 </td>
                 <td className="px-4 py-4 text-sm">
                   <DeleteSale sale={sale} refreshData={refreshData} />

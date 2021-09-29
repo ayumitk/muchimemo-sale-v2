@@ -48,7 +48,7 @@ const EditTag = (props: { ebook: Ebook; tags: Tag[]; refreshData: any }) => {
     <>
       <button
         onClick={() => modalOpen()}
-        className="text-teal-500 hover:text-teal-600 hover:underline"
+        className="text-teal-500 hover:text-teal-600 hover:underline whitespace-nowrap"
       >
         タグ編集
       </button>

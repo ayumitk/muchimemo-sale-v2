@@ -52,9 +52,9 @@ const ListEbook = (props: {
     categoryId: router.query.categoryId ? Number(router.query.categoryId) : 0,
     labelId: router.query.labelId ? Number(router.query.labelId) : 0,
     keyword: router.query.keyword ? String(router.query.keyword) : "",
-    isDeleted: router.query.isDeleted === "" ? false : true,
-    isRecommended: router.query.isRecommended === "" ? false : true,
-    isPickup: router.query.isPickup === "" ? false : true,
+    isDeleted: router.query.isDeleted === "1" ? true : false,
+    isRecommended: router.query.isRecommended === "1" ? true : false,
+    isPickup: router.query.isPickup === "1" ? true : false,
     saleId: router.query.saleId ? Number(router.query.saleId) : 0,
     readAt: router.query.readAt ? String(router.query.readAt) : "",
   });
@@ -391,6 +391,18 @@ const ListEbook = (props: {
                 scope="col"
                 className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
+                edit
+              </th>
+              <th
+                scope="col"
+                className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                tag
+              </th>
+              <th
+                scope="col"
+                className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
                 format
               </th>
               <th
@@ -408,31 +420,12 @@ const ListEbook = (props: {
               <th
                 scope="col"
                 className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
-                tag
-              </th>
-              <th
-                scope="col"
-                className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               ></th>
               <th
                 scope="col"
                 className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 product page
-              </th>
-              <th
-                scope="col"
-                className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
-                edit
-              </th>
-
-              <th
-                scope="col"
-                className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
-                delete
               </th>
               <th
                 scope="col"
@@ -448,9 +441,15 @@ const ListEbook = (props: {
               </th>
               <th
                 scope="col"
-                className="pl-1 pr-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 review
+              </th>
+              <th
+                scope="col"
+                className="pl-1 pr-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                delete
               </th>
             </tr>
           </thead>
@@ -501,16 +500,14 @@ const ListEbook = (props: {
                       )
                     )}
                 </td>
-                <td className="px-1 py-2 text-sm">
-                  {ebook.format && ebook.format.name}
-                </td>
-                <td className="px-1 py-2 text-sm">
-                  {ebook.category && ebook.category.id === 2
-                    ? "BL"
-                    : ebook.category.name}
-                </td>
-                <td className="px-1 py-2 text-sm">
-                  {ebook.label && ebook.label.name}
+                <td className="px-1 py-2 text-sm text-center">
+                  <EditEbook
+                    ebook={ebook}
+                    formats={formats}
+                    categories={categories}
+                    labels={labels}
+                    refreshData={refreshData}
+                  />
                 </td>
                 <td className="px-1 py-2 text-sm">
                   {ebook.tags.map((item) => (
@@ -526,6 +523,17 @@ const ListEbook = (props: {
                     tags={tags}
                     refreshData={refreshData}
                   />
+                </td>
+                <td className="px-1 py-2 text-sm text-center">
+                  {ebook.format && ebook.format.name}
+                </td>
+                <td className="px-1 py-2 text-sm text-center">
+                  {ebook.category && ebook.category.id === 2
+                    ? "BL"
+                    : ebook.category.name}
+                </td>
+                <td className="px-1 py-2 text-sm">
+                  {ebook.label && ebook.label.name}
                 </td>
                 <td className="px-2 py-2">
                   <ChatAltIcon
@@ -602,18 +610,6 @@ const ListEbook = (props: {
                     />
                   </a>
                 </td>
-                <td className="px-1 py-2 text-sm text-center">
-                  <EditEbook
-                    ebook={ebook}
-                    formats={formats}
-                    categories={categories}
-                    labels={labels}
-                    refreshData={refreshData}
-                  />
-                </td>
-                <td className="px-1 py-2 text-sm text-center">
-                  <DeleteEbook ebook={ebook} refreshData={refreshData} />
-                </td>
                 <td className="pr-2 py-2 text-sm text-red-500 text-right">
                   {ebook.price && `¥${ebook.price}`}
                   <span className="block text-xs">
@@ -623,12 +619,15 @@ const ListEbook = (props: {
                 <td className="px-1 py-2 text-sm">
                   <UpdateEbook ebook={ebook} refreshData={refreshData} />
                 </td>
-                <td className="pl-1 pr-3 py-2 text-sm">
+                <td className="px-1 py-2 text-sm">
                   <span className="block">
                     {ebook.reviewAverage && ebook.reviewAverage}(
                     {ebook.reviewCount && ebook.reviewCount})
                   </span>
                   <DmmUpdateEbook ebook={ebook} refreshData={refreshData} />
+                </td>
+                <td className="pl-1 pr-3 py-2 text-sm text-center">
+                  <DeleteEbook ebook={ebook} refreshData={refreshData} />
                 </td>
               </tr>
             ))}
