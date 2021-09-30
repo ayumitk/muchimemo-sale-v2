@@ -15,6 +15,7 @@ import Layout from "../../components/layout";
 import Ad from "../../components/user/Ad";
 import EbookItem from "../../components/user/EbookItem";
 import BreadcrumbNav from "../../components/user/BreadcrumbNav";
+import TagNav from "../../components/user/TagNav";
 
 // types
 import { Tag, AdData, Ebook } from "../../interfaces";
@@ -23,10 +24,12 @@ export default function ModernHistoryPage({
   tag,
   blEbooks,
   broEbooks,
+  allTags,
 }: {
   tag: Tag;
   blEbooks: Ebook[];
   broEbooks: Ebook[];
+  allTags: Tag[];
 }) {
   const title = `${tag.name}のおすすめBL•ブロマンス作品`;
   const description = `明治•大正•昭和あたりの日本、西部開拓時代の北米、20世紀のヨーロッパなどを舞台にした、ちょっと昔のレトロで浪漫たっぷりなボーイズラブ作品`;
@@ -88,21 +91,12 @@ export default function ModernHistoryPage({
       </Head>
       <BreadcrumbNav pageTitle={tag.name} />
       <article className="max-w-3xl mx-auto">
-        <header className="px-4 md:px-6 lg:px-0 mb-10">
+        <header className="px-4 md:px-6 lg:px-0 mb-8">
           <h1 className="font-black text-2xl sm:text-4xl mb-4 tracking-tight">
             {title}
           </h1>
           <p className="text-gray-700 text-sm sm:text-base">{description}</p>
-
-          <Link href={`/tag/history`}>
-            <a className="inline-flex items-center text-blue-700 hover:underline mt-5">
-              <ArrowCircleRightIcon
-                className="-ml-1 mr-1 h-5 w-5"
-                aria-hidden="true"
-              />
-              時代･歴史モノのBL作品もチェック
-            </a>
-          </Link>
+          <TagNav tags={allTags} />
         </header>
 
         <h2 className="sm:text-3xl text-xl font-black sm:py-4 py-3 border-t-4 border-gray-900 px-4 md:px-6 lg:px-0">
@@ -129,16 +123,8 @@ export default function ModernHistoryPage({
           ))}
         </ul>
 
-        <footer>
-          <Link href={`/tag/history`}>
-            <a className="inline-flex items-center text-blue-700 hover:underline mt-5">
-              <ArrowCircleRightIcon
-                className="-ml-1 mr-1 h-5 w-5"
-                aria-hidden="true"
-              />
-              時代･歴史モノのBL作品もチェック
-            </a>
-          </Link>
+        <footer className="px-4 md:px-6 lg:px-0">
+          <TagNav tags={allTags} />
         </footer>
       </article>
     </Layout>
@@ -146,12 +132,19 @@ export default function ModernHistoryPage({
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const data = await prisma.tag.findMany({
+  const data = await prisma.tag.findUnique({
     where: {
       id: 20,
     },
   });
-  const tag = JSON.parse(JSON.stringify(data))[0];
+  const tag = JSON.parse(JSON.stringify(data));
+
+  const tagData = await prisma.tag.findMany({
+    where: {
+      OR: [{ id: 3 }, { id: 6 }, { id: 20 }],
+    },
+  });
+  const allTags = JSON.parse(JSON.stringify(tagData));
 
   const blData = await prisma.ebook.findMany({
     where: {
@@ -197,5 +190,5 @@ export const getStaticProps: GetStaticProps = async () => {
   });
   const broEbooks = JSON.parse(JSON.stringify(broData));
 
-  return { props: { tag, blEbooks, broEbooks } };
+  return { props: { tag, blEbooks, broEbooks, allTags } };
 };

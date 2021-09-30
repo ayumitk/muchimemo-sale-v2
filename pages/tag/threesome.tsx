@@ -3,8 +3,6 @@ import Head from "next/head";
 import { GetStaticProps } from "next";
 import config from "../../config";
 import "moment-timezone";
-import Link from "next/link";
-import { ArrowCircleRightIcon } from "@heroicons/react/solid";
 import adData from "../../config/ad.json";
 
 // db
@@ -20,19 +18,17 @@ import TagNav from "../../components/user/TagNav";
 // types
 import { Tag, AdData, Ebook } from "../../interfaces";
 
-export default function HistoryPage({
+export default function ThreesomePage({
   tag,
   blEbooks,
-  broEbooks,
   allTags,
 }: {
   tag: Tag;
   blEbooks: Ebook[];
-  broEbooks: Ebook[];
   allTags: Tag[];
 }) {
-  const title = `${tag.name}のおすすめBL•ブロマンス作品`;
-  const description = `私が1番好きなジャンルが歴史•時代モノBL！ただ着物を着せただけ、のような作品ではなく、その時代の空気が感じられ、その時代だからこそのストーリーを求めています。`;
+  const title = `${tag.name}のおすすめBL作品`;
+  const description = `ただエロくするための複数プレイではなく、1度だけのアクシデントでもなく、ちゃんと3人で愛が成立している3PモノのBLを探し求めています。`;
 
   const [ad, setAd] = useState<AdData[]>([]);
   useEffect(() => {
@@ -91,7 +87,7 @@ export default function HistoryPage({
       </Head>
       <BreadcrumbNav pageTitle={tag.name} />
       <article className="max-w-3xl mx-auto">
-        <header className="px-4 md:px-6 lg:px-0 mb-10">
+        <header className="px-4 md:px-6 lg:px-0 mb-8">
           <h1 className="font-black text-2xl sm:text-4xl mb-4 tracking-tight">
             {title}
           </h1>
@@ -111,18 +107,6 @@ export default function HistoryPage({
           ))}
         </ul>
 
-        <h2 className="sm:text-3xl text-xl font-black sm:py-4 py-3 border-t-4 border-gray-900 px-4 md:px-6 lg:px-0 mt-20">
-          ブロマンス･BLっぽい
-          <span className="text-gray-700 text-sm font-normal ml-2">
-            {broEbooks.length}作品
-          </span>
-        </h2>
-        <ul className="border-b border-gray-900">
-          {broEbooks.map((ebook) => (
-            <EbookItem ebook={ebook} key={ebook.id} remainingDays={-1} />
-          ))}
-        </ul>
-
         <footer className="px-4 md:px-6 lg:px-0">
           <TagNav tags={allTags} />
         </footer>
@@ -134,7 +118,7 @@ export default function HistoryPage({
 export const getStaticProps: GetStaticProps = async () => {
   const data = await prisma.tag.findUnique({
     where: {
-      id: 3,
+      id: 6,
     },
   });
   const tag = JSON.parse(JSON.stringify(data));
@@ -150,7 +134,7 @@ export const getStaticProps: GetStaticProps = async () => {
     where: {
       categoryId: 2,
       AND: [
-        { tags: { some: { tagId: 3 } } },
+        { tags: { some: { tagId: 6 } } },
         // { tags: { none: { tagId: 13 } } },
       ],
     },
@@ -168,27 +152,5 @@ export const getStaticProps: GetStaticProps = async () => {
   });
   const blEbooks = JSON.parse(JSON.stringify(blData));
 
-  const broData = await prisma.ebook.findMany({
-    where: {
-      AND: [
-        { tags: { some: { tagId: 3 } } },
-        { tags: { some: { tagId: 15 } } },
-        // { tags: { none: { tagId: 13 } } },
-      ],
-    },
-    include: {
-      category: true,
-      format: true,
-      label: true,
-      tags: {
-        include: {
-          tag: true,
-        },
-      },
-    },
-    orderBy: [{ isRecommended: "desc" }, { title: "asc" }],
-  });
-  const broEbooks = JSON.parse(JSON.stringify(broData));
-
-  return { props: { tag, blEbooks, broEbooks, allTags } };
+  return { props: { tag, blEbooks, allTags } };
 };
