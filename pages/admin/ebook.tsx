@@ -134,6 +134,15 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
 
+  let tags = {};
+  if (query.tagId) {
+    tags = {
+      some: {
+        tagId: Number(query.tagId),
+      },
+    };
+  }
+
   let formatId = {};
   if (query.formatId) {
     formatId = { in: Number(query.formatId) };
@@ -172,6 +181,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const ebookData = await prisma.ebook.findMany({
     where: {
       sales,
+      tags,
       formatId,
       categoryId,
       labelId,

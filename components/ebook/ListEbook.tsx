@@ -48,6 +48,7 @@ const ListEbook = (props: {
 
   // filter search feature
   const [filters, setFilters] = useState({
+    tagId: router.query.tagId ? Number(router.query.tagId) : 0,
     formatId: router.query.formatId ? Number(router.query.formatId) : 0,
     categoryId: router.query.categoryId ? Number(router.query.categoryId) : 0,
     labelId: router.query.labelId ? Number(router.query.labelId) : 0,
@@ -73,6 +74,12 @@ const ListEbook = (props: {
       query = Object.assign(query, { saleId: filters.saleId });
     } else {
       query = { saleId: {}, ...query };
+    }
+
+    if (filters.tagId !== 0) {
+      query = Object.assign(query, { tagId: filters.tagId });
+    } else {
+      query = { tagId: {}, ...query };
     }
 
     if (filters.formatId !== 0) {
@@ -137,6 +144,7 @@ const ListEbook = (props: {
 
   const clearData = () => {
     setFilters({
+      tagId: 0,
       formatId: 0,
       categoryId: 0,
       labelId: 0,
@@ -188,6 +196,24 @@ const ListEbook = (props: {
         </select>
 
         <select
+          className="block w-36 pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm rounded-md"
+          value={filters.tagId}
+          onChange={(e) =>
+            setFilters({
+              ...filters,
+              tagId: Number(e.target.value),
+            })
+          }
+        >
+          <option value="0">タグ</option>
+          {tags.map((tag) => (
+            <option key={tag.id} value={tag.id}>
+              {tag.name}
+            </option>
+          ))}
+        </select>
+
+        <select
           className="block pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm rounded-md"
           value={filters.formatId}
           onChange={(e) =>
@@ -224,7 +250,7 @@ const ListEbook = (props: {
         </select>
 
         <select
-          className="block w-48 pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm rounded-md"
+          className="block w-36 pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm rounded-md"
           value={filters.labelId}
           onChange={(e) =>
             setFilters({
