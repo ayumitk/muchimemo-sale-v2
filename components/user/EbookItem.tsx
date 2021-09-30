@@ -55,7 +55,7 @@ const EbookItem = (props: { ebook: Ebook; remainingDays: number }) => {
             </span>
             {ebook.tags.length > 0 &&
               ebook.tags.map((item) =>
-                item.tag.id === 3 ? (
+                item.tag.id === 3 || item.tag.id === 20 ? (
                   <Link href={`/tag/${item.tag.slug}`} key={item.tag.id}>
                     <a className="text-blue-700 hover:underline mr-1">
                       <span className="text-xs mr-2">

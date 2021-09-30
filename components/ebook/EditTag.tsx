@@ -99,7 +99,7 @@ const EditTag = (props: { ebook: Ebook; tags: Tag[]; refreshData: any }) => {
                     >
                       タグを編集
                     </Dialog.Title>
-                    <ul className="my-10">
+                    <ul className="my-10 grid grid-cols-2 gap-2">
                       {tags &&
                         tags.map((tag) => {
                           const tagAdded = ebook.tags.some(
@@ -107,7 +107,7 @@ const EditTag = (props: { ebook: Ebook; tags: Tag[]; refreshData: any }) => {
                           );
                           return (
                             <li
-                              className={`flex items-center border rounded-md py-3 px-5 my-2 ${
+                              className={`flex items-center border rounded-md py-3 px-3 ${
                                 tagAdded
                                   ? "bg-teal-50 border-teal-500 text-teal-600"
                                   : "border-gray-300"

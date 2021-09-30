@@ -4,8 +4,8 @@ import { GetStaticProps } from "next";
 import config from "../../config";
 import "moment-timezone";
 import Link from "next/link";
-import { ArrowCircleRightIcon } from "@heroicons/react/solid";
 import adData from "../../config/ad.json";
+import { ArrowCircleRightIcon } from "@heroicons/react/solid";
 
 // db
 import prisma from "../../lib/prisma";
@@ -19,7 +19,7 @@ import BreadcrumbNav from "../../components/user/BreadcrumbNav";
 // types
 import { Tag, AdData, Ebook } from "../../interfaces";
 
-export default function HistoryPage({
+export default function ModernHistoryPage({
   tag,
   blEbooks,
   broEbooks,
@@ -29,7 +29,7 @@ export default function HistoryPage({
   broEbooks: Ebook[];
 }) {
   const title = `${tag.name}のおすすめBL•ブロマンス作品`;
-  const description = `私が1番好きなジャンルが歴史•時代モノBL！ただ着物を着せただけ、のような作品ではなく、その時代の空気が感じられ、その時代だからこそのストーリーを求めています。`;
+  const description = `明治•大正•昭和あたりの日本、西部開拓時代の北米、20世紀のヨーロッパなどを舞台にした、ちょっと昔のレトロで浪漫たっぷりなボーイズラブ作品`;
 
   const [ad, setAd] = useState<AdData[]>([]);
   useEffect(() => {
@@ -94,13 +94,13 @@ export default function HistoryPage({
           </h1>
           <p className="text-gray-700 text-sm sm:text-base">{description}</p>
 
-          <Link href={`/tag/modern-history`}>
+          <Link href={`/tag/history`}>
             <a className="inline-flex items-center text-blue-700 hover:underline mt-5">
               <ArrowCircleRightIcon
                 className="-ml-1 mr-1 h-5 w-5"
                 aria-hidden="true"
               />
-              近代モノのBL作品もチェック
+              時代･歴史モノのBL作品もチェック
             </a>
           </Link>
         </header>
@@ -130,13 +130,13 @@ export default function HistoryPage({
         </ul>
 
         <footer>
-          <Link href={`/tag/modern-history`}>
+          <Link href={`/tag/history`}>
             <a className="inline-flex items-center text-blue-700 hover:underline mt-5">
               <ArrowCircleRightIcon
                 className="-ml-1 mr-1 h-5 w-5"
                 aria-hidden="true"
               />
-              近代モノのBL作品もチェック
+              時代･歴史モノのBL作品もチェック
             </a>
           </Link>
         </footer>
@@ -148,7 +148,7 @@ export default function HistoryPage({
 export const getStaticProps: GetStaticProps = async () => {
   const data = await prisma.tag.findMany({
     where: {
-      id: 3,
+      id: 20,
     },
   });
   const tag = JSON.parse(JSON.stringify(data))[0];
@@ -157,7 +157,7 @@ export const getStaticProps: GetStaticProps = async () => {
     where: {
       categoryId: 2,
       AND: [
-        { tags: { some: { tagId: 3 } } },
+        { tags: { some: { tagId: 20 } } },
         // { tags: { none: { tagId: 13 } } },
       ],
     },
@@ -178,7 +178,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const broData = await prisma.ebook.findMany({
     where: {
       AND: [
-        { tags: { some: { tagId: 3 } } },
+        { tags: { some: { tagId: 20 } } },
         { tags: { some: { tagId: 15 } } },
         // { tags: { none: { tagId: 13 } } },
       ],
