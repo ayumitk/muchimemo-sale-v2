@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ChatAltIcon } from "@heroicons/react/solid";
+import { ChatAltIcon, DocumentTextIcon } from "@heroicons/react/solid";
 import Image from "next/image";
 import moment from "moment";
 import "moment-timezone";
@@ -450,6 +450,10 @@ const ListEbook = (props: {
               <th
                 scope="col"
                 className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              ></th>
+              <th
+                scope="col"
+                className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 product page
               </th>
@@ -560,6 +564,13 @@ const ListEbook = (props: {
                 </td>
                 <td className="px-1 py-2 text-sm">
                   {ebook.label && ebook.label.name}
+                </td>
+                <td className="px-2 py-2">
+                  <DocumentTextIcon
+                    className={`w-5 h-5 ${
+                      ebook.description ? "text-red-500" : "text-gray-300"
+                    }`}
+                  />
                 </td>
                 <td className="px-2 py-2">
                   <ChatAltIcon

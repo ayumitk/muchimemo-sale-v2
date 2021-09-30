@@ -143,6 +143,7 @@ export const getStaticProps: GetStaticProps = async () => {
     where: {
       OR: [{ id: 3 }, { id: 6 }, { id: 20 }],
     },
+    orderBy: { name: "asc" },
   });
   const allTags = JSON.parse(JSON.stringify(tagData));
 
@@ -153,6 +154,7 @@ export const getStaticProps: GetStaticProps = async () => {
         { tags: { some: { tagId: 20 } } },
         // { tags: { none: { tagId: 13 } } },
       ],
+      isDeleted: false,
     },
     include: {
       category: true,
@@ -162,6 +164,7 @@ export const getStaticProps: GetStaticProps = async () => {
         include: {
           tag: true,
         },
+        orderBy: { tag: { name: "asc" } },
       },
     },
     orderBy: [{ isRecommended: "desc" }, { title: "asc" }],
@@ -175,6 +178,7 @@ export const getStaticProps: GetStaticProps = async () => {
         { tags: { some: { tagId: 15 } } },
         // { tags: { none: { tagId: 13 } } },
       ],
+      isDeleted: false,
     },
     include: {
       category: true,
@@ -184,6 +188,7 @@ export const getStaticProps: GetStaticProps = async () => {
         include: {
           tag: true,
         },
+        orderBy: { tag: { name: "asc" } },
       },
     },
     orderBy: [{ isRecommended: "desc" }, { title: "asc" }],

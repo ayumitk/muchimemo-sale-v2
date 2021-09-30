@@ -275,6 +275,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
                 include: {
                   tag: true,
                 },
+                orderBy: { tag: { name: "asc" } },
               },
             },
           },

@@ -221,9 +221,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         include: {
           tag: true,
         },
+        orderBy: { tag: { name: "asc" } },
       },
     },
-    orderBy: [{ categoryId: "asc" }, { authors: "desc" }],
+    orderBy: [
+      { categoryId: "asc" },
+      { isRecommended: "desc" },
+      { comment: "asc" },
+    ],
   });
   const ebooks = JSON.parse(JSON.stringify(res));
 

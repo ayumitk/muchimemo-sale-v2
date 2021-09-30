@@ -2,14 +2,6 @@ import { useEffect, useState } from "react";
 import Head from "next/head";
 import { GetStaticPaths, GetStaticProps, GetServerSideProps } from "next";
 import config from "../../config";
-import moment from "moment";
-import "moment/locale/ja";
-import { useRouter } from "next/router";
-import Link from "next/link";
-import {
-  ArrowCircleLeftIcon,
-  ArrowCircleRightIcon,
-} from "@heroicons/react/solid";
 import adData from "../../config/ad.json";
 
 // db
@@ -176,12 +168,19 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       label: {
         slug: slug,
       },
+      isDeleted: false,
       OR: [{ NOT: { comment: null } }, { isRecommended: true }],
     },
     include: {
       format: true,
       category: true,
       label: true,
+      tags: {
+        include: {
+          tag: true,
+        },
+        orderBy: { tag: { name: "asc" } },
+      },
     },
     orderBy: [{ isRecommended: "desc" }, { authors: "desc" }],
   });

@@ -1,15 +1,22 @@
-import { StarIcon } from "@heroicons/react/solid";
+import { useState } from "react";
 import Link from "next/link";
 import moment from "moment";
 import "moment-timezone";
 import Image from "next/image";
-import { TagIcon } from "@heroicons/react/solid";
+import {
+  StarIcon,
+  TagIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+} from "@heroicons/react/solid";
 
 // types
 import { Author, Ebook } from "../../interfaces";
 
 const EbookItem = (props: { ebook: Ebook; remainingDays: number }) => {
   const { ebook, remainingDays } = props;
+
+  const [descriptionActive, setDescriptionActive] = useState(false);
 
   return (
     <li
@@ -19,22 +26,44 @@ const EbookItem = (props: { ebook: Ebook; remainingDays: number }) => {
       id={`item-${ebook.id}`}
     >
       <div className="flex">
-        <a
-          href={`https://www.amazon.co.jp/dp/${ebook.amazonId}?tag=ayutak04-22&linkCode=ogi&th=1&psc=1`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block hover:opacity-80 w-24 sm:w-28 flex-shrink-0"
-          style={{ lineHeight: 0 }}
+        <div
+          className={`w-24 sm:w-28 flex-shrink-0 relative ${
+            ebook.description && "pb-8"
+          }`}
         >
-          <Image
-            src={ebook.imageUrl ? ebook.imageUrl : "/images/placeholder.svg"}
-            alt={`${ebook.title}の表紙`}
-            width={ebook.imageWidth ? ebook.imageWidth : 343}
-            height={ebook.imageHeight ? ebook.imageHeight : 500}
-            placeholder="blur"
-            blurDataURL="/images/placeholder.svg"
-          />
-        </a>
+          <a
+            href={`https://www.amazon.co.jp/dp/${ebook.amazonId}?tag=ayutak04-22&linkCode=ogi&th=1&psc=1`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block hover:opacity-80"
+            style={{ lineHeight: 0 }}
+          >
+            <Image
+              src={ebook.imageUrl ? ebook.imageUrl : "/images/placeholder.svg"}
+              alt={`${ebook.title}の表紙`}
+              width={ebook.imageWidth ? ebook.imageWidth : 343}
+              height={ebook.imageHeight ? ebook.imageHeight : 500}
+              placeholder="blur"
+              blurDataURL="/images/placeholder.svg"
+            />
+          </a>
+          {ebook.description && (
+            <button
+              type="button"
+              className={`text-center text-xs block bg-gray-800 text-white py-1 w-full absolute bottom-0 ${
+                descriptionActive ? "rounded-t" : "rounded"
+              }`}
+              onClick={() => setDescriptionActive(!descriptionActive)}
+            >
+              あらすじ
+              {descriptionActive ? (
+                <ChevronUpIcon className="w-4 h-4 inline-block" />
+              ) : (
+                <ChevronDownIcon className="w-4 h-4 inline-block" />
+              )}
+            </button>
+          )}
+        </div>
         <div className="ml-3 sm:ml-5 flex-1">
           <p className="text-gray-700 text-sm sm:text-base mb-2">
             <span
@@ -57,9 +86,9 @@ const EbookItem = (props: { ebook: Ebook; remainingDays: number }) => {
               ebook.tags.map((item) =>
                 item.tag.id === 3 || item.tag.id === 6 || item.tag.id === 20 ? (
                   <Link href={`/tag/${item.tag.slug}`} key={item.tag.id}>
-                    <a className="text-blue-700 hover:underline mr-1">
-                      <span className="text-xs mr-2">
-                        <TagIcon className="w-4 h-4 inline-block mr-0.5" />
+                    <a className="text-blue-700 hover:underline sm:mr-2 mr-1 whitespace-nowrap text-xs">
+                      <span>
+                        <TagIcon className="w-4 h-4 inline-block sm:mr-0.5" />
                         {item.tag.name}
                       </span>
                     </a>
@@ -138,12 +167,12 @@ const EbookItem = (props: { ebook: Ebook; remainingDays: number }) => {
             </p>
           )}
 
-          <div className="mt-2 flex flex-wrap">
+          <div className="mt-1 flex flex-wrap">
             <a
               href={`https://www.amazon.co.jp/dp/${ebook.amazonId}?tag=ayutak04-22&linkCode=ogi&th=1&psc=1`}
               target="_blank"
               rel="noopener noreferrer"
-              className="mr-1 mb-1 inline-flex items-center justify-center px-2 sm:w-32 h-10 sm:h-12 border border-gray-400 shadow-sm text-base rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
+              className="mr-1 mt-1 inline-flex items-center justify-center px-2 sm:w-32 h-10 sm:h-12 border border-gray-400 shadow-sm text-base rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
             >
               <span className="sr-only">Amazonで購入する</span>
               <span className="w-11 sm:w-16" style={{ lineHeight: 0 }}>
@@ -160,7 +189,7 @@ const EbookItem = (props: { ebook: Ebook; remainingDays: number }) => {
                 href={`https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3549505&pid=886731192&vc_url=https%3A%2F%2Frenta.papy.co.jp%2Frenta%2Fsc%2Ffrm%2Fitem%2F${ebook.rentaId}%2F`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mr-1 mb-1 inline-flex items-center justify-center px-2 sm:w-32 h-10 sm:h-12 border border-gray-400 shadow-sm text-base rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
+                className="mr-1 mt-1 inline-flex items-center justify-center px-2 sm:w-32 h-10 sm:h-12 border border-gray-400 shadow-sm text-base rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
               >
                 <span className="sr-only">Renta!で購入する</span>
                 <span className="w-11 sm:w-16" style={{ lineHeight: 0 }}>
@@ -178,7 +207,7 @@ const EbookItem = (props: { ebook: Ebook; remainingDays: number }) => {
                 href={`https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3549505&pid=886731152&vc_url=https%3A%2F%2Fwww.cmoa.jp%2Ftitle%2F${ebook.cmoaId}%2F%E3%80%80%E3%81%82`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mr-1 mb-1 inline-flex items-center justify-center px-2 sm:w-32 h-10 sm:h-12 border border-gray-400 shadow-sm text-base rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
+                className="mr-1 mt-1 inline-flex items-center justify-center px-2 sm:w-32 h-10 sm:h-12 border border-gray-400 shadow-sm text-base rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
               >
                 <span className="sr-only">シーモアで購入する</span>
                 <span className="w-8 sm:w-14" style={{ lineHeight: 0 }}>
@@ -196,7 +225,7 @@ const EbookItem = (props: { ebook: Ebook; remainingDays: number }) => {
                 href={`https://al.dmm.com/?lurl=https%3A%2F%2Fbook.dmm.com%2Fdetail%2F${ebook.dmmId}%2F&af_id=muchimemo-001&ch=link_tool&ch_id=link`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mr-1 mb-1 inline-flex items-center justify-center px-1 sm:w-32 h-10 sm:h-12 border border-gray-400 shadow-sm text-base rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
+                className="mr-1 mt-1 inline-flex items-center justify-center px-1 sm:w-32 h-10 sm:h-12 border border-gray-400 shadow-sm text-base rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
               >
                 <span className="sr-only">DMMブックスで購入する</span>
                 <span className="w-10 sm:w-20" style={{ lineHeight: 0 }}>
@@ -232,6 +261,11 @@ const EbookItem = (props: { ebook: Ebook; remainingDays: number }) => {
           )}
         </div>
       </div>
+      {descriptionActive && ebook.description && (
+        <div className="bg-gray-800 text-white p-3 w-full text-sm rounded-tr rounded-b leading-relaxed">
+          {ebook.description}
+        </div>
+      )}
       {ebook.comment && (
         <div className="flex mt-3">
           <div className="mt-2 w-10">

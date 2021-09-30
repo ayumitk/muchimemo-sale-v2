@@ -87,7 +87,7 @@ export default AdminEbookPage;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const tagData = await prisma.tag.findMany({
-    orderBy: { id: "asc" },
+    orderBy: { name: "asc" },
   });
   const allTags = JSON.parse(JSON.stringify(tagData));
 
