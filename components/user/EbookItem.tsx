@@ -184,9 +184,10 @@ const EbookItem = (props: { ebook: Ebook; remainingDays: number }) => {
                 />
               </span>
             </a>
+
             {ebook.rentaId && (
               <a
-                href={`https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3549505&pid=886731192&vc_url=https%3A%2F%2Frenta.papy.co.jp%2Frenta%2Fsc%2Ffrm%2Fitem%2F${ebook.rentaId}%2F`}
+                href={`https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3616145&pid=887405098&vc_url=https%3A%2F%2Frenta.papy.co.jp%2Frenta%2Fsc%2Ffrm%2Fitem%2F${ebook.rentaId}%2F%3Fref%3Dvc`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mr-1 mt-1 inline-flex items-center justify-center px-2 sm:w-32 h-10 sm:h-12 border border-gray-400 shadow-sm text-base rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
@@ -202,9 +203,10 @@ const EbookItem = (props: { ebook: Ebook; remainingDays: number }) => {
                 </span>
               </a>
             )}
+
             {ebook.cmoaId && (
               <a
-                href={`https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3549505&pid=886731152&vc_url=https%3A%2F%2Fwww.cmoa.jp%2Ftitle%2F${ebook.cmoaId}%2F%E3%80%80%E3%81%82`}
+                href={`https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3616145&pid=887405101&vc_url=https%3A%2F%2Fwww.cmoa.jp%2Ftitle%2F${ebook.cmoaId}%2F`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mr-1 mt-1 inline-flex items-center justify-center px-2 sm:w-32 h-10 sm:h-12 border border-gray-400 shadow-sm text-base rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
@@ -220,6 +222,7 @@ const EbookItem = (props: { ebook: Ebook; remainingDays: number }) => {
                 </span>
               </a>
             )}
+
             {ebook.dmmId && (
               <a
                 href={`https://al.dmm.com/?lurl=https%3A%2F%2Fbook.dmm.com%2Fdetail%2F${ebook.dmmId}%2F&af_id=muchimemo-001&ch=link_tool&ch_id=link`}
