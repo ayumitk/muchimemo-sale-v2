@@ -141,7 +141,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const tagData = await prisma.tag.findMany({
     where: {
-      OR: [{ id: 3 }, { id: 6 }, { id: 20 }],
+      OR: [{ id: 3 }, { id: 6 }, { id: 20 }, { id: 15 }],
     },
     orderBy: { name: "asc" },
   });

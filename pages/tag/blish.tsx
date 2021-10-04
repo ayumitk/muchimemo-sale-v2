@@ -18,7 +18,7 @@ import TagNav from "../../components/user/TagNav";
 // types
 import { Tag, AdData, Ebook } from "../../interfaces";
 
-export default function ThreesomePage({
+export default function BlishPage({
   tag,
   blEbooks,
   allTags,
@@ -27,8 +27,8 @@ export default function ThreesomePage({
   blEbooks: Ebook[];
   allTags: Tag[];
 }) {
-  const title = `${tag.name}のおすすめBL作品`;
-  const description = `ただエロくするための複数プレイではなく、1度だけのアクシデントでもなく、ちゃんと3人で愛が成立している3PモノのBLを探し求めています。`;
+  const title = `${tag.name}おすすめ作品`;
+  const description = `BLマンガ雑誌では連載されてないんですが、そこはかとなく？がっつり？BLな香りが漂う作品を紹介します`;
 
   const [ad, setAd] = useState<AdData[]>([]);
   useEffect(() => {
@@ -118,7 +118,7 @@ export default function ThreesomePage({
 export const getStaticProps: GetStaticProps = async () => {
   const data = await prisma.tag.findUnique({
     where: {
-      id: 6,
+      id: 15,
     },
   });
   const tag = JSON.parse(JSON.stringify(data));
@@ -133,9 +133,9 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const blData = await prisma.ebook.findMany({
     where: {
-      categoryId: 2,
+      // categoryId: 2,
       AND: [
-        { tags: { some: { tagId: 6 } } },
+        { tags: { some: { tagId: 15 } } },
         // { tags: { none: { tagId: 13 } } },
       ],
       isDeleted: false,
@@ -151,7 +151,7 @@ export const getStaticProps: GetStaticProps = async () => {
         orderBy: { tag: { name: "asc" } },
       },
     },
-    orderBy: [{ isRecommended: "desc" }, { title: "asc" }],
+    orderBy: [{ isRecommended: "desc" }, { authors: "asc" }, { title: "asc" }],
   });
   const blEbooks = JSON.parse(JSON.stringify(blData));
 
