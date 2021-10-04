@@ -5,5 +5,5 @@ module.exports = {
     policies: [{ userAgent: "*", allow: "/", disallow: "/admin/" }],
   },
   sitemapSize: 7000,
-  exclude: ["/admin/*", "/archives/*"],
+  exclude: ["/admin/*"],
 };
