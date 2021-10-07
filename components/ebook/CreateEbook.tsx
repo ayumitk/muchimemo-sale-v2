@@ -107,6 +107,9 @@ const CreateEbook = (props: { ebooks: Ebook[]; refreshData: any }) => {
         const boys = res.BrowseNodeInfo.BrowseNodes.some(
           (browseNode: { Id: string }) => browseNode.Id === "2430812051"
         );
+        const general = res.BrowseNodeInfo.BrowseNodes.some(
+          (browseNode: { Id: string }) => browseNode.Id === "2292764051"
+        );
 
         let categoryId = 1; // その他
         if (bl) {
@@ -119,6 +122,8 @@ const CreateEbook = (props: { ebooks: Ebook[]; refreshData: any }) => {
           categoryId = 5; // 少年
         } else if (men) {
           categoryId = 6; // 青年
+        } else if (general) {
+          categoryId = 7; // 一般
         }
 
         const body = {
