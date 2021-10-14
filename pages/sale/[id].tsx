@@ -85,18 +85,7 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
         filteredEbooks.filter((ebook) => ebook.formatId !== 3);
     }
 
-    const pickupEbooks = filteredEbooks
-      .filter((ebook) => ebook.isPickup)
-      .sort((a: Ebook, b: Ebook) => a.title.localeCompare(b.title));
-    const recommendedEbooks = filteredEbooks
-      .filter((ebook) => ebook.isRecommended && !ebook.isPickup)
-      .sort((a: Ebook, b: Ebook) => a.title.localeCompare(b.title));
-    const restOfEbooks = filteredEbooks
-      .filter((ebook) => !ebook.isRecommended)
-      .sort((a: Ebook, b: Ebook) => a.title.localeCompare(b.title));
-    const result = pickupEbooks.concat(recommendedEbooks, restOfEbooks);
-
-    filteredEbooks && setEbookOnSale(result);
+    setEbookOnSale(filteredEbooks);
   }, [filterManga, filterNovel, filterKeyword]);
 
   const [ad, setAd] = useState<AdData[]>([]);
@@ -280,6 +269,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             },
           },
         },
+        orderBy: [
+          { ebook: { isRecommended: "desc" } },
+          { ebook: { comment: "asc" } },
+          { ebook: { title: "asc" } },
+        ],
         where: {
           ebook: {
             isDeleted: false,
