@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import Head from "next/head";
 import { GetStaticProps } from "next";
 import config from "../config";
@@ -69,11 +69,11 @@ export default function HomePage({
       </Head>
 
       <section className="max-w-3xl mx-auto">
-        <Link href={`/sale/71`}>
+        <Link href={`/sale/76`}>
           <a className="block" style={{ lineHeight: 0 }}>
             <Image
-              src="/images/cover-images/71.jpg"
-              alt="【最大50%OFF 】Kindle本秋の読書キャンペーン BLマンガ編 (10/14まで)"
+              src="/images/cover-images/76.jpg"
+              alt="【30%ポイント還元】河出書房 長野まゆみフェア (10/20まで)"
               width={1200}
               height={630}
               placeholder="blur"
@@ -85,8 +85,10 @@ export default function HomePage({
       </section>
 
       <div className="max-w-3xl mx-auto px-4 md:px-6 lg:px-0">
-        <h1 className="my-5 sm:my-10 text-sm sm:text-base text-center">
-          BLジャンルを中心に、Kindleセール中のマンガ・小説をおすすめコメント付きで紹介します！
+        <h1 className="my-5 sm:my-10 text-xs sm:text-base text-center">
+          ボーイズラブ作品、BLっぽい作品、ブロマンス作品を中心に、
+          <br className="hidden sm:block" />
+          Kindleセール中のおすすめマンガ・小説を紹介しています
         </h1>
 
         <section className="mb-8 sm:mb-14">
@@ -202,12 +204,14 @@ export default function HomePage({
           </div>
           <ul>
             {sales.map((sale, index) => (
-              <div key={sale.id}>
+              <Fragment key={sale.id}>
                 {index === 1 && (
-                  <Ad adData={ad[1]} className="text-center mb-8" />
+                  <li>
+                    <Ad adData={ad[1]} className="text-center mb-8" />
+                  </li>
                 )}
                 <SaleItem sale={sale} />
-              </div>
+              </Fragment>
             ))}
           </ul>
           <div className="text-center">

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import Head from "next/head";
 import { GetStaticProps } from "next";
 import config from "../config";
@@ -118,16 +118,14 @@ export default function ArchivesPage({ ebooks }: { ebooks: Ebook[] }) {
                   adIndex = 2;
                 }
                 return (
-                  <div key={archive.id}>
+                  <Fragment key={archive.id}>
                     {(index === 2 || index === 8 || index === 14) && (
-                      <Ad
-                        adData={ad[adIndex]}
-                        className="mb-8 text-center"
-                        grid
-                      />
+                      <li className="sm:hidden">
+                        <Ad adData={ad[adIndex]} className="mb-8 text-center" />
+                      </li>
                     )}
                     <ArchiveItem index={index} archive={archive} />
-                  </div>
+                  </Fragment>
                 );
               })}
           </ul>

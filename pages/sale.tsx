@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import Head from "next/head";
 import { GetStaticProps } from "next";
 import config from "../config";
@@ -114,12 +114,14 @@ export default function SalePage({ allSales }: { allSales: Array<Sale> }) {
                 adIndex = 2;
               }
               return (
-                <div key={sale.id}>
+                <Fragment key={sale.id}>
                   {(index === 2 || index === 8 || index === 14) && (
-                    <Ad adData={ad[adIndex]} className="mb-8 text-center" />
+                    <li>
+                      <Ad adData={ad[adIndex]} className="mb-8 text-center" />
+                    </li>
                   )}
-                  <SaleItem sale={sale} key={sale.id} />
-                </div>
+                  <SaleItem sale={sale} />
+                </Fragment>
               );
             })}
           </ul>

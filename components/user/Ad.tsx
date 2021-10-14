@@ -3,16 +3,13 @@ import Image from "next/image";
 // types
 import { AdData } from "../../interfaces";
 
-const Ad = (props: { className?: string; adData: AdData; grid?: boolean }) => {
-  const { className, adData, grid } = props;
+const Ad = (props: { className?: string; adData: AdData }) => {
+  const { className, adData } = props;
 
   return (
     <>
       {adData && (
-        <div
-          className={`${className} ${grid && "hidden"}`}
-          style={{ lineHeight: 0 }}
-        >
+        <div className={className} style={{ lineHeight: 0 }}>
           <a
             className="hidden sm:block hover:opacity-80"
             href={adData.url}

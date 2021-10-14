@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import Head from "next/head";
 import config from "../config";
 import blog from "../config/blog.json";
@@ -88,15 +88,17 @@ export default function BlogPage() {
                 adIndex = 2;
               }
               return (
-                <div key={item.slug}>
+                <Fragment key={item.slug}>
                   {(index === 2 || index === 8 || index === 14) && (
-                    <Ad
-                      adData={ad[adIndex]}
-                      className="sm:py-8 py-4 border-b-4 border-dotted border-gray-900 text-center"
-                    />
+                    <li>
+                      <Ad
+                        adData={ad[adIndex]}
+                        className="sm:py-8 py-4 border-b-4 border-dotted border-gray-900 text-center"
+                      />
+                    </li>
                   )}
-                  <BlogItem key={item.slug} post={item} />
-                </div>
+                  <BlogItem post={item} />
+                </Fragment>
               );
             })}
           </ul>

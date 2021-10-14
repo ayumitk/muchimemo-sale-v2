@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import Head from "next/head";
 import { GetStaticPaths, GetStaticProps, GetServerSideProps } from "next";
 import config from "../../config";
@@ -118,15 +118,17 @@ export default function labelDetailPage({
               }
 
               return (
-                <div key={ebook.id}>
+                <Fragment key={ebook.id}>
                   {(index === 2 || index === 8 || index === 14) && (
-                    <Ad
-                      adData={ad[adIndex]}
-                      className="border-t border-gray-900 py-4 sm:py-6 text-center"
-                    />
+                    <li>
+                      <Ad
+                        adData={ad[adIndex]}
+                        className="border-t border-gray-900 py-4 sm:py-6 text-center"
+                      />
+                    </li>
                   )}
-                  <EbookItem ebook={ebook} key={ebook.id} remainingDays={-1} />
-                </div>
+                  <EbookItem ebook={ebook} remainingDays={-1} />
+                </Fragment>
               );
             })}
         </ul>
