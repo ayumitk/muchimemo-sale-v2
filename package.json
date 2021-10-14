@@ -6,7 +6,8 @@
     "dev": "next dev -H 192.168.0.17",
     "start": "next start",
     "build": "next build",
-    "postbuild": "next-sitemap"
+    "postbuild": "next-sitemap",
+    "bundle-analyzer": "ANALYZE=true next build"
   },
   "dependencies": {
     "@babel/core": "^7.0.0-0",
@@ -37,6 +38,7 @@
     "tailwindcss": "^2.2.7"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^11.1.2",
     "@prisma/client": "^3.0.2",
     "@types/node": "^16.7.1",
     "@types/react": "^17.0.19",
