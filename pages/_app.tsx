@@ -6,9 +6,7 @@ import { init } from "../utils/ga";
 
 const App = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {
-    setTimeout(() => {
-      init(process.env.NEXT_PUBLIC_G);
-    }, 1000);
+    init(process.env.NEXT_PUBLIC_G);
   }, []);
   return <Component {...pageProps} />;
 };
