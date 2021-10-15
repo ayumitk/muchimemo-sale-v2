@@ -2,7 +2,7 @@ import { useEffect, useState, Fragment } from "react";
 import Head from "next/head";
 import { GetStaticProps } from "next";
 import config from "../config";
-import _ from "lodash";
+import groupBy from "lodash/groupBy";
 import adData from "../config/ad.json";
 
 // db
@@ -29,7 +29,7 @@ export default function ArchivesPage({ ebooks }: { ebooks: Ebook[] }) {
       readAt: ebook.readAt && ebook.readAt.slice(0, 7),
     }));
 
-    const group = _.groupBy(allEbooks, "readAt");
+    const group = groupBy(allEbooks, "readAt");
 
     const result = Object.keys(group)
       .map((k) => {
