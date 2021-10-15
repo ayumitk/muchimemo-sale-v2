@@ -20,6 +20,7 @@ module.exports = withBundleAnalyzer({
     return config;
   },
   images: {
+    imageSizes: [128, 256],
     domains: [
       "m.media-amazon.com",
       "www.cmoa.jp",
