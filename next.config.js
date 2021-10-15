@@ -19,9 +19,6 @@ module.exports = withBundleAnalyzer({
     config.plugins.push(locales, timezone);
     return config;
   },
-  experimental: {
-    optimizeFonts: true,
-  },
   images: {
     domains: [
       "m.media-amazon.com",
