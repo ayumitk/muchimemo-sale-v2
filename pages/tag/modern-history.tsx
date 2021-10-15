@@ -92,14 +92,14 @@ export default function ModernHistoryPage({
       <BreadcrumbNav pageTitle={tag.name} />
       <article className="max-w-3xl mx-auto">
         <header className="px-4 md:px-6 lg:px-0 mb-8">
-          <h1 className="font-black text-2xl sm:text-4xl mb-4 tracking-tight">
+          <h1 className="font-black text-2xl sm:text-4xl mb-4 tracking-tight font-noto-sans">
             {title}
           </h1>
           <p className="text-gray-700 text-sm sm:text-base">{description}</p>
           <TagNav tags={allTags} />
         </header>
 
-        <h2 className="sm:text-3xl text-xl font-black sm:py-4 py-3 border-t-4 border-gray-900 px-4 md:px-6 lg:px-0">
+        <h2 className="sm:text-3xl text-xl font-black sm:py-4 py-3 border-t-4 border-gray-900 px-4 md:px-6 lg:px-0 font-noto-sans">
           ボーイズラブ
           <span className="text-gray-700 text-sm font-normal ml-2">
             {blEbooks.length}作品
@@ -111,7 +111,7 @@ export default function ModernHistoryPage({
           ))}
         </ul>
 
-        <h2 className="sm:text-3xl text-xl font-black sm:py-4 py-3 border-t-4 border-gray-900 px-4 md:px-6 lg:px-0 mt-20">
+        <h2 className="sm:text-3xl text-xl font-black sm:py-4 py-3 border-t-4 border-gray-900 px-4 md:px-6 lg:px-0 mt-20 font-noto-sans">
           ブロマンス･BLっぽい
           <span className="text-gray-700 text-sm font-normal ml-2">
             {broEbooks.length}作品

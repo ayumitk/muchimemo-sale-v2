@@ -98,7 +98,7 @@ export default function labelDetailPage({
       <BreadcrumbNav pageTitle={label.name} label />
       <article className="max-w-3xl mx-auto">
         <div className="px-4 md:px-6 lg:px-0">
-          <h1 className="font-black text-2xl sm:text-4xl mb-4 tracking-tight">
+          <h1 className="font-black text-2xl sm:text-4xl mb-4 tracking-tight font-noto-sans">
             {title}
           </h1>
           <p className="text-gray-700 text-sm sm:text-base">{description}</p>

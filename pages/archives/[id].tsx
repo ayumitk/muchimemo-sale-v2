@@ -104,7 +104,7 @@ export default function archiveDetailPage({
       <BreadcrumbNav pageTitle={`${year}${month}`} archive />
       <article className="max-w-3xl mx-auto">
         <div className="px-4 md:px-6 lg:px-0">
-          <h1 className="font-black text-2xl sm:text-4xl mb-4 tracking-tight">
+          <h1 className="font-black text-2xl sm:text-4xl mb-4 tracking-tight font-noto-sans">
             {title}
           </h1>
           <p className="text-gray-700 text-sm sm:text-base">{description}</p>
@@ -141,7 +141,7 @@ export default function archiveDetailPage({
         <nav className="flex mt-6 px-3 sm:px-0">
           {prevId !== "" && (
             <Link href={`/archives/${prevId}`}>
-              <a className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-gray-900 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+              <a className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-base rounded-md text-white bg-gray-900 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                 <ArrowCircleLeftIcon
                   className="-ml-1 mr-1 h-5 w-5"
                   aria-hidden="true"
@@ -154,7 +154,7 @@ export default function archiveDetailPage({
           )}
           {nextId !== "" && (
             <Link href={`/archives/${nextId}`}>
-              <a className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-gray-900 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 ml-auto">
+              <a className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-base rounded-md text-white bg-gray-900 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 ml-auto">
                 {`${moment(nextId).format("Y") + "年"}${moment(nextId).format(
                   "MMMM"
                 )}`}

@@ -188,7 +188,7 @@ const AffiliateBanners = (props: { saleId: number }) => {
                       />
                     </div>
                     <div className="flex-1 mx-4">
-                      <h2 className="leading-snug line-clamp-3 font-medium mb-1 sm:text-xl text-sm text-white">
+                      <h2 className="leading-snug line-clamp-3 mb-1 sm:text-xl text-sm text-white">
                         {item.title}
                       </h2>
                       <p className="text-gray-300 text-sm sm:block hidden">

@@ -153,7 +153,7 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
       <article className="max-w-3xl mx-auto">
         <div className="px-4 md:px-6 lg:px-0">
           <ShowSaleEnds remainingDays={remainingDays + 1} className="mb-1" />
-          <h1 className="font-black text-2xl sm:text-4xl mb-4 tracking-tight">
+          <h1 className="font-black text-2xl sm:text-4xl mb-4 tracking-tight font-noto-sans">
             {saleDetail.title}
           </h1>
           <p className="text-gray-700 text-sm sm:text-base">{description}</p>
@@ -164,7 +164,7 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
             <span className="text-sm">絞り込み：</span>
             <button
               type="button"
-              className={`inline-flex items-center px-3 py-2 text-sm leading-4 font-medium rounded-md shadow-sm focus:outline-none ring-0 ${
+              className={`inline-flex items-center px-3 py-2 text-sm leading-4 rounded-md shadow-sm focus:outline-none ring-0 ${
                 filterManga
                   ? "text-white bg-gray-900 hover:bg-gray-700"
                   : "text-gray-400 bg-gray-200 hover:bg-gray-300 hover:text-gray-500"
@@ -176,7 +176,7 @@ export default function SaleDetailPage({ saleDetail }: { saleDetail: Sale }) {
             </button>
             <button
               type="button"
-              className={`inline-flex items-center px-3 py-2 text-sm leading-4 font-medium rounded-md shadow-sm focus:outline-none ring-0 ${
+              className={`inline-flex items-center px-3 py-2 text-sm leading-4 rounded-md shadow-sm focus:outline-none ring-0 ${
                 filterNovel
                   ? "text-white bg-gray-900 hover:bg-gray-700"
                   : "text-gray-400 bg-gray-200 hover:bg-gray-300 hover:text-gray-500"

@@ -30,7 +30,7 @@ const BlogItem = (props: {
         <h2 className="sm:mt-3">
           <a
             href={`https://muchimemo.com/bl-manga/${post.slug}/`}
-            className="font-black sm:text-2xl text-lg hover:text-gray-700 hover:underline leading-snug tracking-tight"
+            className="font-black sm:text-2xl text-lg hover:text-gray-700 hover:underline leading-snug tracking-tight font-noto-sans"
             target="_blank"
             rel="noopener noreferrer"
           >

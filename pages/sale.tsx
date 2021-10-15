@@ -96,7 +96,7 @@ export default function SalePage({ allSales }: { allSales: Array<Sale> }) {
       <BreadcrumbNav pageTitle={title} />
       <article className="max-w-3xl mx-auto px-4 md:px-6 lg:px-0">
         <section>
-          <h1 className="font-black text-3xl sm:text-4xl sm:mb-6 mb-4 tracking-tight">
+          <h1 className="font-black text-3xl sm:text-4xl sm:mb-6 mb-4 tracking-tight font-noto-sans">
             {title}
           </h1>
           <p className="text-sm sm:text-base mb-10">

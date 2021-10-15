@@ -63,7 +63,7 @@ export default function AboutPage({
       <BreadcrumbNav pageTitle={title} />
       <article className="max-w-3xl mx-auto">
         <div className="px-4 md:px-6 lg:px-0">
-          <h1 className="font-black text-3xl sm:text-4xl sm:mb-10 mb-6 tracking-tight">
+          <h1 className="font-black text-3xl sm:text-4xl sm:mb-10 mb-6 tracking-tight font-noto-sans">
             {title}
           </h1>
           <div className="mx-auto sm:w-20 w-16 mb-4">

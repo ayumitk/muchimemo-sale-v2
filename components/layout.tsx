@@ -13,7 +13,7 @@ import {
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="font-noto-sans text-gray-900">
+    <div className="text-gray-900">
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta property="og:locale" content="ja_JP" />
@@ -52,8 +52,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 className="block flex-1 text-center border-r border-gray-500 sm:py-3 py-1 hover:bg-yellow-50"
                 style={{ lineHeight: 1 }}
               >
-                <HomeIcon className="w-5 h-5 sm:mr-1 inline-block align-text-bottom font-medium" />
-                <span className="text-xs sm:text-base block sm:inline-block">
+                <HomeIcon className="w-5 h-5 sm:mr-1 inline-block align-text-bottom" />
+                <span className="text-xs sm:text-base block sm:inline-block font-bold">
                   ホーム
                 </span>
               </a>
@@ -63,8 +63,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 className="block flex-1 text-center border-r border-gray-500 sm:py-3 py-1 hover:bg-yellow-50"
                 style={{ lineHeight: 1 }}
               >
-                <SaleIcon className="w-5 h-5 sm:mr-1 inline-block align-text-bottom font-medium" />
-                <span className="text-xs sm:text-base block sm:inline-block">
+                <SaleIcon className="w-5 h-5 sm:mr-1 inline-block align-text-bottom" />
+                <span className="text-xs sm:text-base block sm:inline-block font-bold">
                   セール
                 </span>
               </a>
@@ -74,8 +74,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 className="block flex-1 text-center border-r border-gray-500 sm:py-3 py-1 hover:bg-yellow-50"
                 style={{ lineHeight: 1 }}
               >
-                <BookOpenIcon className="w-5 h-5 sm:mr-1 inline-block align-text-bottom font-medium" />
-                <span className="text-xs sm:text-base block sm:inline-block">
+                <BookOpenIcon className="w-5 h-5 sm:mr-1 inline-block align-text-bottom" />
+                <span className="text-xs sm:text-base block sm:inline-block font-bold">
                   今月の本
                 </span>
               </a>
@@ -86,7 +86,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 style={{ lineHeight: 1 }}
               >
                 <NewspaperIcon className="w-5 h-5 sm:mr-1 inline-block align-text-bottom" />
-                <span className="text-xs sm:text-base block sm:inline-block font-medium">
+                <span className="text-xs sm:text-base block sm:inline-block font-bold">
                   特集
                 </span>
               </a>

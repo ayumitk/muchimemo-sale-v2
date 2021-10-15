@@ -7,7 +7,7 @@ import Image from "next/image";
 import ShowSaleEnds from "./ShowSaleEnds";
 
 // types
-import { Sale, Ebook, Archive } from "../../interfaces";
+import { Archive } from "../../interfaces";
 
 const ArchiveItem = (props: { archive: Archive; index: number }) => {
   const { archive, index } = props;
@@ -18,7 +18,7 @@ const ArchiveItem = (props: { archive: Archive; index: number }) => {
     <li>
       <Link href={`/archives/${archive.id}`}>
         <a className="border-t-4 border-gray-900 block hover:bg-yellow-50">
-          <h2 className="text-2xl sm:text-3xl font-black py-1 sm:py-2 text-center border-b border-gray-900 mb-2">
+          <h2 className="text-2xl sm:text-3xl font-black py-1 sm:py-2 text-center border-b border-gray-900 mb-2 font-noto-sans">
             {year}
             {month}
           </h2>

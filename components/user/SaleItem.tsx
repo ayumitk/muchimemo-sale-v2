@@ -50,7 +50,7 @@ const SaleItem = (props: { sale: Sale }) => {
               className="-left-3 top-2 sm:top-2.5 absolute"
             />
             <h3
-              className={`leading-tight text-xl sm:text-2xl font-black pt-6 border-dotted border-b-4 pb-3 sm:mb-3 mb-2 ${
+              className={`font-noto-sans font-black leading-tight text-xl sm:text-2xl pt-6 border-dotted border-b-4 pb-3 sm:mb-3 mb-2 ${
                 remainingDays < 0
                   ? "border-gray-500 text-gray-600"
                   : "border-gray-700"

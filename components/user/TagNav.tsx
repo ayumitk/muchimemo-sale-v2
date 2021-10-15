@@ -8,10 +8,7 @@ export default function TagNav(props: { tags: Tag[] }) {
   const { tags } = props;
   return (
     <nav className="flex mt-6 flex-wrap bg-gray-100 py-3 sm:px-4 px-2 border border-gray-200">
-      <div
-        className="w-full text-gray-600 font-medium"
-        style={{ fontSize: "0.687rem" }}
-      >
+      <div className="w-full text-gray-600" style={{ fontSize: "0.687rem" }}>
         その他のタグもチェック！
       </div>
       {tags.map((tag) => (
