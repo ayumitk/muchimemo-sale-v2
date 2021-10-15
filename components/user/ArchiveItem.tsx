@@ -34,8 +34,8 @@ const ArchiveItem = (props: { archive: Archive; index: number }) => {
                           : "/images/placeholder.svg"
                       }
                       alt={`${ebook.title}の表紙`}
-                      width={ebook.imageWidth ? ebook.imageWidth : 343}
-                      height={ebook.imageHeight ? ebook.imageHeight : 500}
+                      width={ebook.imageWidth ? ebook.imageWidth / 3 : 343}
+                      height={ebook.imageHeight ? ebook.imageHeight / 3 : 500}
                       placeholder="blur"
                       blurDataURL="/images/placeholder.svg"
                     />
