@@ -1,8 +1,11 @@
 import { useEffect, useState, Fragment } from "react";
 import Head from "next/head";
 import config from "../config";
-import blog from "../config/blog.json";
 import adData from "../config/ad.json";
+import { GetStaticProps } from "next";
+
+// db
+import prisma from "../lib/prisma";
 
 // components
 import Layout from "../components/layout";
@@ -11,9 +14,9 @@ import BlogItem from "../components/user/BlogItem";
 import Ad from "../components/user/Ad";
 
 // types
-import { AdData } from "../interfaces";
+import { AdData, Blog } from "../interfaces";
 
-export default function BlogPage() {
+export default function BlogPage({ allBlogs }: { allBlogs: Array<Blog> }) {
   const title = "オススメBLマンガ･小説特集";
   const description =
     "私の中で殿堂入りしているオススメのBLマンガ･小説、一般雑誌に掲載されてるけどBL好きが読んだら大興奮する作品、ブロマンス作品、歴史･SF･海外が舞台などテーマごとのオススメ作品を紹介します。";
@@ -80,30 +83,40 @@ export default function BlogPage() {
             {description}
           </p>
           <ul className="border-t-4 border-dotted border-gray-900">
-            {blog.map((item, index) => {
-              let adIndex = 0;
-              if (index === 8) {
-                adIndex = 1;
-              } else if (index === 14) {
-                adIndex = 2;
-              }
-              return (
-                <Fragment key={item.slug}>
-                  {(index === 2 || index === 8 || index === 14) && (
-                    <li>
-                      <Ad
-                        adData={ad[adIndex]}
-                        className="sm:py-8 py-4 border-b-4 border-dotted border-gray-900 text-center"
-                      />
-                    </li>
-                  )}
-                  <BlogItem post={item} />
-                </Fragment>
-              );
-            })}
+            {allBlogs &&
+              allBlogs.map((item, index) => {
+                let adIndex = 0;
+                if (index === 8) {
+                  adIndex = 1;
+                } else if (index === 14) {
+                  adIndex = 2;
+                }
+                return (
+                  <Fragment key={item.id}>
+                    {(index === 2 || index === 8 || index === 14) && (
+                      <li>
+                        <Ad
+                          adData={ad[adIndex]}
+                          className="sm:py-8 py-4 border-b-4 border-dotted border-gray-900 text-center"
+                        />
+                      </li>
+                    )}
+                    <BlogItem post={item} />
+                  </Fragment>
+                );
+              })}
           </ul>
         </div>
       </article>
     </Layout>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const data = await prisma.blog.findMany({
+    orderBy: { id: "desc" },
+  });
+  const allBlogs = JSON.parse(JSON.stringify(data));
+
+  return { props: { allBlogs } };
+};

@@ -38,7 +38,7 @@ export interface Author {
 }
 
 export interface EbookOnSale {
-  id:number;
+  id: number;
   ebookId: number;
   ebook: Ebook;
   saleId: number;
@@ -47,7 +47,7 @@ export interface EbookOnSale {
 }
 
 export interface EbookTag {
-  id:number;
+  id: number;
   ebookId: number;
   ebook: Ebook;
   tagId: number;
@@ -60,8 +60,8 @@ export interface Sale {
   title: string;
   description: string;
   saleEnds: string;
-  isDeleted:boolean;
-  isPublished:boolean;
+  isDeleted: boolean;
+  isPublished: boolean;
   ebooks: Array<EbookOnSale>;
 }
 
@@ -88,7 +88,7 @@ export interface Label {
   id: number;
   name: string;
   slug: string;
-  ebooks: Ebook[]
+  ebooks: Ebook[];
 }
 
 export interface Publisher {
@@ -101,7 +101,7 @@ export interface Post {
   id: number;
   title: string;
   date: string;
-  contentHtml:string;
+  contentHtml: string;
 }
 
 export interface AdData {
@@ -113,4 +113,12 @@ export interface AdData {
 export interface Archive {
   id: string;
   ebooks: Ebook[];
+}
+
+export interface Blog {
+  id: string;
+  title: string;
+  description?: string;
+  slug: string;
+  image: string;
 }

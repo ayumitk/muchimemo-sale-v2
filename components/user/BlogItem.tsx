@@ -1,13 +1,14 @@
 import Image from "next/image";
 
-const BlogItem = (props: {
-  post: { title: string; slug: string; image: string; description: string };
-}) => {
+// types
+import { Blog } from "../../interfaces";
+
+const BlogItem = (props: { post: Blog }) => {
   const { post } = props;
 
   return (
     <li
-      key={post.slug}
+      key={post.id}
       className="flex sm:py-8 py-5 border-b-4 border-dotted border-gray-900"
     >
       <a

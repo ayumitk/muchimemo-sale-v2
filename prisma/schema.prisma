@@ -123,3 +123,13 @@ model Publisher {
   updatedAt  DateTime  @updatedAt @map(name: "updated_at")
   labels     Label[]
 }
+
+model Blog {
+  id          Int       @default(autoincrement()) @id
+  title       String
+  description String?
+  slug        String    @unique
+  image       String
+  createdAt   DateTime  @default(now()) @map(name: "created_at")
+  updatedAt   DateTime  @updatedAt @map(name: "updated_at")
+}
