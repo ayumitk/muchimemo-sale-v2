@@ -74,8 +74,8 @@ export default function HomePage({
             <Image
               src="/images/cover-images/76.jpg"
               alt="【30%ポイント還元】河出書房 長野まゆみフェア (10/20まで)"
-              width={1200}
-              height={630}
+              width={1200 / 1.5}
+              height={630 / 1.5}
               placeholder="blur"
               blurDataURL="/images/placeholder.svg"
               className="hover:opacity-80"
