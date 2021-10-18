@@ -108,6 +108,16 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 このサイトについて
               </a>
             </Link>
+            <Link href="/label">
+              <a className="text-blue-700 hover:underline inline-block mr-3">
+                レーベル
+              </a>
+            </Link>
+            <Link href="/tag">
+              <a className="text-blue-700 hover:underline inline-block mr-3">
+                タグ
+              </a>
+            </Link>
             <a
               href="https://muchimemo.com/support/"
               target="_blank"
