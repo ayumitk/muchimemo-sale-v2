@@ -69,11 +69,11 @@ export default function HomePage({
       </Head>
 
       <section className="max-w-3xl mx-auto">
-        <Link href={`/sale/76`}>
+        <Link href={`/sale/86`}>
           <a className="block" style={{ lineHeight: 0 }}>
             <Image
-              src="/images/cover-images/76.jpg"
-              alt="【30%ポイント還元】河出書房 長野まゆみフェア (10/20まで)"
+              src="/images/cover-images/86.jpg"
+              alt="【最大50%OFF】講談社文庫50周年記念 ベストヒット90's＆00's (10/28まで)"
               width={1200 / 1.5}
               height={630 / 1.5}
               placeholder="blur"
