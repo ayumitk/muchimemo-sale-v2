@@ -34,35 +34,60 @@ const SaleItem = (props: { sale: Sale }) => {
     setEbookOnSale(result);
   }, [sale]);
 
+  if (remainingDays < 0) {
+    return (
+      <li className="mb-3 pb-3 border-b">
+        <Link href={`/sale/${sale.id}`}>
+          <a>
+            <div className="relative">
+              <span className="bg-gray-300 inline-block p-1 text-xs font-bold">
+                このセールは終了しました
+              </span>
+              <h3 className="font-bold leading-tight text-sm my-1 text-gray-900">
+                {sale.title}
+              </h3>
+              <p className="text-xs text-gray-500">
+                {sale.description ? (
+                  sale.description
+                ) : (
+                  <>
+                    {sale.ebooks &&
+                      sale.ebooks.map(
+                        (item) =>
+                          item.ebook.isRecommended && (
+                            <span key={item.ebook.id}>
+                              『{item.ebook.title}』
+                            </span>
+                          )
+                      )}
+                    など
+                    <span className="font-bold text-red-600">
+                      {sale.ebooks && sale.ebooks.length}作品
+                    </span>
+                    が対象です
+                  </>
+                )}
+              </p>
+            </div>
+          </a>
+        </Link>
+      </li>
+    );
+  }
+
   return (
     <li className="shadow mb-8">
       <Link href={`/sale/${sale.id}`}>
         <a>
-          <div
-            className={`px-4 py-5 sm:p-6 border-4 relative ${
-              remainingDays < 0
-                ? "border-gray-300 bg-gray-100"
-                : "border-gray-900 hover:bg-yellow-50"
-            }`}
-          >
+          <div className="px-4 py-5 sm:p-6 border-4 relative border-gray-900 hover:bg-yellow-50">
             <ShowSaleEnds
               remainingDays={remainingDays + 1}
               className="-left-3 top-2 sm:top-2.5 absolute"
             />
-            <h3
-              className={`font-noto-sans font-black leading-tight text-xl sm:text-2xl pt-6 border-dotted border-b-4 pb-3 sm:mb-3 mb-2 ${
-                remainingDays < 0
-                  ? "border-gray-500 text-gray-600"
-                  : "border-gray-700"
-              }`}
-            >
+            <h3 className="font-noto-sans font-black leading-tight text-xl sm:text-2xl pt-6 border-dotted border-b-4 pb-3 sm:mb-3 mb-2 border-gray-700">
               {sale.title}
             </h3>
-            <p
-              className={`sm:mb-4 mb-3 text-sm sm:text-base ${
-                remainingDays < 0 ? "text-gray-500" : "text-gray-700"
-              }`}
-            >
+            <p className="sm:mb-4 mb-3 text-sm sm:text-base text-gray-700">
               {sale.description ? (
                 sale.description
               ) : (
@@ -84,11 +109,7 @@ const SaleItem = (props: { sale: Sale }) => {
                 </>
               )}
             </p>
-            <div
-              className={`overflow-hidden ${
-                remainingDays < 0 ? "opacity-70" : ""
-              }`}
-            >
+            <div className="overflow-hidden">
               <div className="flex">
                 {ebookOnSale &&
                   ebookOnSale.map(
