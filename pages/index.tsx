@@ -112,7 +112,7 @@ export default function HomePage({
                 return (
                   <PickupItem
                     ebook={ebook}
-                    sale={ebook.sales[0].sale}
+                    sale={ebook.sales.slice(-1)[0].sale}
                     key={ebook.id}
                   />
                 );
@@ -252,7 +252,9 @@ export const getStaticProps: GetStaticProps = async () => {
       sales: {
         some: {
           sale: {
-            saleEnds: { gte: moment().tz("Asia/Tokyo").format() },
+            saleEnds: {
+              gte: moment().tz("Asia/Tokyo").format(),
+            },
           },
         },
       },
