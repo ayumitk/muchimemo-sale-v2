@@ -69,11 +69,11 @@ export default function HomePage({
       </Head>
 
       <section className="max-w-3xl mx-auto">
-        <Link href={`/sale/96`}>
+        <Link href={`/sale/135`}>
           <a className="block" style={{ lineHeight: 0 }}>
             <Image
-              src="/images/cover-images/96.jpg"
-              alt="【最大50%OFF】Kindleマンガフェア (11/18まで)"
+              src="/images/cover-images/135.jpg"
+              alt="【30%OFF】onBLUEコミックス いいお尻の日ω美尻特集 (12/6まで)"
               width={1200 / 1.5}
               height={630 / 1.5}
               placeholder="blur"
